@@ -23,7 +23,7 @@ $(document).ready(function(){
         imageArray.push('<img src="images/card_faces/blue/air_elemental_sm.jpeg"/>');
         imageArray.push('<img src="images/card_faces/blue/brainstorm_sm.jpeg"/>');
         imageArray.push('<img src="images/card_faces/blue/force_of_will_sm.jpeg"/>');
-        imageArray.push('<img src="images/natsuki_crop.png"/>');
+        imageArray.push('<img src="images/card_faces/blue/keiga_sm.jpeg"/>');
         imageArray.push('<img src="images/love_machine_crop.png"/>');
         imageArray.push('<img src="images/uncle_mansuke.png"/>');
         imageArray.push('<img src="images/lovemachine_final_crop.jpg"/>');
