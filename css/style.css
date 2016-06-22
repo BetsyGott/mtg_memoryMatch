@@ -81,7 +81,7 @@ body {
 .main {
     background-color: lightgreen;
     position: relative;
-    height: 92vh;
+    height: 100vh;
 }
 
 /******************************************
@@ -92,12 +92,12 @@ body {
     background-color: lightblue;
     position: relative;
     float: left;
-    color: #c43e81;
-    margin-right: 20px;
     font-family: 'Helvetica', sans-serif;
     text-transform: none;
     text-align: center;
     font-size: 75%;
+    height: 100%;
+    width: 20%;
 }
 
 .stats > h2 {
@@ -129,9 +129,10 @@ body {
 /*******************************************/
 
 .game_area_style {
+    padding-top: 1%;
     background-color: salmon;
     height: 100%;
-    width: 65%;
+    width: 66%;
     position: relative;
     display: flex;
     flex-wrap: wrap;
@@ -141,24 +142,30 @@ body {
     webkit-perspective: 1500px;
 }
 
+/******************************************
+/* CARD STYLES
+/*******************************************/
+
 .card{
-    #height: 16%;
-   width: 120px;
+    height: 170px;
+    width: 130px;
     position: relative;
     transform: rotate3D(0,1,0,0deg);
     transition-duration: .6s;
     transform-style: preserve-3d;
+    border-radius: 7px;
 }
 
 .card img{
     width: 100%;
     height: 100%;
+    border-radius: 7px;
 }
 
 .front{
     position: absolute;
     transform: rotate3D(0,1,0,180deg);
-    border: 8px solid red;
+    border: 7px solid black;
     border-radius: 5px;
     backface-visibility: hidden;
     height: 100%;
