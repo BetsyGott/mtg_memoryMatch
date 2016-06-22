@@ -20,8 +20,8 @@ $(document).ready(function(){
 
     // function pushes 9 unique images into array
     function pushImages(){
-        imageArray.push('<img src="images/love-machine_kenji_crop.png"/>');
-        imageArray.push('<img src="images/kenji_koiso_squirrel.png"/>');
+        imageArray.push('<img src="images/card_faces/blue/air_elemental_sm.jpeg"/>');
+        imageArray.push('<img src="images/card_faces/blue/brainstorm_sm.jpeg"/>');
         imageArray.push('<img src="images/kazuma_front.png"/>');
         imageArray.push('<img src="images/natsuki_crop.png"/>');
         imageArray.push('<img src="images/love_machine_crop.png"/>');
