@@ -24,10 +24,10 @@ $(document).ready(function(){
         imageArray.push('<img src="images/card_faces/blue/brainstorm_sm.jpeg"/>');
         imageArray.push('<img src="images/card_faces/blue/force_of_will_sm.jpeg"/>');
         imageArray.push('<img src="images/card_faces/blue/keiga_sm.jpeg"/>');
-        imageArray.push('<img src="images/love_machine_crop.png"/>');
-        imageArray.push('<img src="images/uncle_mansuke.png"/>');
-        imageArray.push('<img src="images/lovemachine_final_crop.jpg"/>');
-        imageArray.push('<img src="images/riichi_avatar.png">');
+        imageArray.push('<img src="images/card_faces/blue/lord_of_atlantis_sm.jpg"/>');
+        imageArray.push('<img src="images/card_faces/blue/mana_drain_sm.jpg"/>');
+        imageArray.push('<img src="images/card_faces/blue/polar_kraken_sm.jpg"/>');
+        imageArray.push('<img src="images/card_faces/blue/soulblade_djinn_sm.jpg">');
         imageArray.push('<img src="images/yorihiko_jinnouchi.png"/>');
     }
 
