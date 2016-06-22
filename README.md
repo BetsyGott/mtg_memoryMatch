@@ -1,2 +1,2 @@
-# mtg_memoryMatch
-Magic the Gathering version of memory match
+# Magic the Gathering: Memory Match
+A version of the classic card matching game influenced by Magic the Gathering.

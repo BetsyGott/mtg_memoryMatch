@@ -1,0 +1,218 @@
+<!doctype html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Match</title>
+    <meta charset="UTF-8">
+
+    <!--links to css-->
+
+    <!--normalize-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css"/>
+
+    <!--my CSS -->
+    <link rel="stylesheet" href="css/style.css"/>
+
+    <!--//links to css-->
+
+    <!--links to js-->
+
+    <!--Jquery-->
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+    <!--my JS-->
+    <script src="js/script.js"></script>
+
+    <!--// links to js-->
+</head>
+<body>
+<div class="overlay"></div>
+<header class="game-header">
+    <nav class="game-nav">
+        <ul>
+            <li><a href="about.html" target="_blank">About This Game</a></li>
+            <li><a href="#">Settings</a></li>
+        </ul>
+    </nav>
+    <h1>MTG Memory Match</h1>
+</header>
+<section class="main">
+    <div class="stats">
+        <ul>
+            <li class="matches">
+                Matches:
+                <span class="value">0</span>
+            </li>
+            <li class="misses">
+                Misses:
+                <span class="value">0</span>
+            </li>
+            <li class="attempts">
+                Attempts:
+                <span class="value">0</span>
+            </li>
+            <li class="accuracy">
+                Accuracy:
+                <span class="value">0%</span>
+            </li>
+        </ul>
+        <h3 class="games-played">
+            <span class="label">Games played: </span>
+            <span class ="value">0</span>
+        </h3>
+        <h3 class="reset" id="reset-button">reset game</h3>
+    </div>
+    <div class="game_area_style" id="game-area">
+
+        <div class="card">
+            <div class="front">
+
+                <!--<img src="images/love-machine_kenji_crop.png"/>-->
+            </div>
+            <div class="face back">
+                <img src="images/hanafuda_back.png"/>
+
+            </div>
+        </div>
+        <div class="card">
+            <div class="front">
+                <!--<img src="images/love-machine_kenji_crop.png"/>-->
+            </div>
+            <div class="back">
+                <img src="images/hanafuda_back.png"/>
+            </div>
+        </div>
+        <div class="card">
+            <div class="front">
+                <!--<img src="images/kenji_koiso_squirrel.png"/>-->
+            </div>
+            <div class="back">
+                <img src="images/hanafuda_back.png"/>
+            </div>
+        </div>
+        <div class="card">
+            <div class="front">
+                <!--<img src="images/kenji_koiso_squirrel.png"/>-->
+            </div>
+            <div class="back">
+                <img src="images/hanafuda_back.png"/>
+            </div>
+        </div>
+        <div class="card">
+            <div class="front">
+                <!--<img src="images/kazuma_front.png"/>-->
+            </div>
+            <div class="back">
+                <img src="images/hanafuda_back.png"/>
+            </div>
+        </div>
+        <div class="card">
+            <div class="front">
+                <!--<img src="images/kazuma_front.png"/>-->
+            </div>
+            <div class="back">
+                <img src="images/hanafuda_back.png"/>
+            </div>
+        </div>
+        <div class="card">
+            <div class="front">
+                <!--<img src="images/natsuki_crop.png"/>-->
+            </div>
+            <div class="back">
+                <img src="images/hanafuda_back.png"/>
+            </div>
+        </div>
+        <div class="card">
+            <div class="front">
+                <!--<img src="images/natsuki_crop.png"/>-->
+            </div>
+            <div class="back">
+                <img src="images/hanafuda_back.png"/>
+            </div>
+        </div>
+        <div class="card">
+            <div class="front">
+                <!--<img src="images/love_machine_crop.png"/>-->
+            </div>
+            <div class="back">
+                <img src="images/hanafuda_back.png"/>
+            </div>
+        </div>
+        <div class="card">
+            <div class="front">
+                <!--<img src="images/love_machine_crop.png"/>-->
+            </div>
+            <div class="back">
+                <img src="images/hanafuda_back.png"/>
+            </div>
+        </div>
+        <div class="card">
+            <div class="front">
+                <!--<img src="images/uncle_mansuke.png"/>-->
+            </div>
+            <div class="back">
+                <img src="images/hanafuda_back.png"/>
+            </div>
+        </div>
+        <div class="card">
+            <div class="front">
+                <!--<img src="images/uncle_mansuke.png"/>-->
+            </div>
+            <div class="back">
+                <img src="images/hanafuda_back.png"/>
+            </div>
+        </div>
+        <div class="card">
+            <div class="front">
+                <!--<img src="images/lovemachine_final_crop.jpg"/>-->
+            </div>
+            <div class="back">
+                <img src="images/hanafuda_back.png"/>
+            </div>
+        </div>
+        <div class="card">
+            <div class="front">
+                <!--<img src="images/lovemachine_final_crop.jpg"/>-->
+            </div>
+            <div class="back">
+                <img src="images/hanafuda_back.png"/>
+            </div>
+        </div>
+        <div class="card">
+            <div class="front">
+                <!--<img src="images/riichi_avatar.png">-->
+            </div>
+            <div class="back">
+                <img src="images/hanafuda_back.png"/>
+            </div>
+        </div>
+        <div class="card">
+            <div class="front">
+                <!--<img src="images/riichi_avatar.png">-->
+            </div>
+            <div class="back">
+                <img src="images/hanafuda_back.png"/>
+            </div>
+        </div>
+        <div class="card">
+            <div class="front">
+                <!--<img src="images/yorihiko_jinnouchi.png"/>-->
+            </div>
+            <div class="back">
+                <img src="images/hanafuda_back.png"/>
+            </div>
+        </div>
+        <div class="card">
+            <div class="front">
+                <!--<img src="images/yorihiko_jinnouchi.png"/>-->
+            </div>
+            <div class="back">
+                <img src="images/hanafuda_back.png"/>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
