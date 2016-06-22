@@ -28,7 +28,7 @@ $(document).ready(function(){
         imageArray.push('<img src="images/card_faces/blue/mana_drain_sm.jpg"/>');
         imageArray.push('<img src="images/card_faces/blue/polar_kraken_sm.jpg"/>');
         imageArray.push('<img src="images/card_faces/blue/soulblade_djinn_sm.jpg">');
-        imageArray.push('<img src="images/yorihiko_jinnouchi.png"/>');
+        imageArray.push('<img src="images/card_faces/blue/time_walk_sm.jpg"/>');
     }
 
     //randomizes the images in the array, populates each card front with an image, and deletes that image from imageArray as it goes
