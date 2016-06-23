@@ -47,6 +47,7 @@ Game.prototype.resetStats = function(){
     this.matches = 0;
     this.attempts = 0;
     this.misses = 0;
+    this.matchCounter = 0;
 
     this.displayStats();
 };
@@ -97,6 +98,7 @@ Game.prototype.cardClicked = function(card){
 
                     // if true, increase match counter and matches stat
                     this.matchCounter++;
+                    console.log("match counter ", this.matchCounter);
                     this.matches++;
 //              increment attempts counter
                     this.attempts++;
@@ -187,7 +189,7 @@ $(document).ready(function(){
     });
     
     //resets game on click, randomizes cards, increments game counter
-    $("#reset-button").click(function(){
+    $("#reset-button").on("click", function(){
 
         game.resetAll();
 
