@@ -1,56 +1,56 @@
+//main game object, handles game logic
+function Game() {
+    var gameScope = this;
+    this.firstCard = null;
+    this.secondCard = null;
+    this.totalMatches = 9;
+    this.matchCounter = 0;
+    this.canClick = true;
+    this.matches = 0;
+    this.attempts = 0;
+    this.accuracy = 0;
+    this.gamesPlayed = 0;
+    this.imageArray = [];
+    
+}
 
+//game object function to push images into imageArray, currently just a copy of what was there before. Will have to change to accomodate different colors instead of the same static images each time
+Game.prototype.pushImages = function(){
+    imageArray.push('<img src="images/card_faces/blue/air_elemental_sm.jpeg"/>');
+    imageArray.push('<img src="images/card_faces/blue/brainstorm_sm.jpeg"/>');
+    imageArray.push('<img src="images/card_faces/blue/force_of_will_sm.jpeg"/>');
+    imageArray.push('<img src="images/card_faces/blue/keiga_sm.jpeg"/>');
+    imageArray.push('<img src="images/card_faces/blue/lord_of_atlantis_sm.jpg"/>');
+    imageArray.push('<img src="images/card_faces/blue/mana_drain_sm.jpg"/>');
+    imageArray.push('<img src="images/card_faces/blue/polar_kraken_sm.jpg"/>');
+    imageArray.push('<img src="images/card_faces/blue/soulblade_djinn_sm.jpg">');
+    imageArray.push('<img src="images/card_faces/blue/time_walk_sm.jpg"/>');
+};
+
+//push images into array 2x, then randomize them and insert them into DOM elements, then delete them from the array as you go
+Game.prototype.randomizeImages = function(){
+    this.pushImages();
+    this.pushImages();
+
+    $(".card").each(function(){
+        var i = Math.floor(Math.random()*gameScope.imageArray.length-1)+1;
+
+        $(this).find(".front").html(gameScope.imageArray[i]);
+
+        gameScope.imageArray.splice(i, 1);
+
+    });
+};
 
 
 $(document).ready(function(){
-    var firstCard,
-        secondCard,
-        totalMatches = 9,
-        matchCounter = 0,
-        $card = $(".card"),
+        var $card = $(".card"),
         $front = $(".front"),
-        $back = $(".back"),
-        canClick = true,
-        matches = 0,
-        attempts = 0,
-        misses = 0,
-        accuracy = 0,
-//      when reset button is clicked gamesPlayed increments by 1        
-        gamesPlayed = 0,
-        imageArray = [];
+        $back = $(".back"), 
+        game = new Game;
 
-    // function pushes 9 unique images into array
-    function pushImages(){
-        imageArray.push('<img src="images/card_faces/blue/air_elemental_sm.jpeg"/>');
-        imageArray.push('<img src="images/card_faces/blue/brainstorm_sm.jpeg"/>');
-        imageArray.push('<img src="images/card_faces/blue/force_of_will_sm.jpeg"/>');
-        imageArray.push('<img src="images/card_faces/blue/keiga_sm.jpeg"/>');
-        imageArray.push('<img src="images/card_faces/blue/lord_of_atlantis_sm.jpg"/>');
-        imageArray.push('<img src="images/card_faces/blue/mana_drain_sm.jpg"/>');
-        imageArray.push('<img src="images/card_faces/blue/polar_kraken_sm.jpg"/>');
-        imageArray.push('<img src="images/card_faces/blue/soulblade_djinn_sm.jpg">');
-        imageArray.push('<img src="images/card_faces/blue/time_walk_sm.jpg"/>');
-    }
-
-    //randomizes the images in the array, populates each card front with an image, and deletes that image from imageArray as it goes
-    function randomizeImages(){
-        pushImages();
-        pushImages();
-
-        $(".card").each(function(){
-            var i = Math.floor(Math.random()*imageArray.length-1)+1;
-
-            $(this).find(".front").html(imageArray[i]);
-
-            imageArray.splice(i, 1);
-
-        });
-    }
-
-    // run function 2x (to get 18 images in array)
-    // randomize array positions (math.floor(math.random()*array.length-1)+1
-
-    //on page load, randomize images
-    randomizeImages();
+    
+    game.randomizeImages();
 
     //perform game logic when cards are clicked
     $card.on("click", cardClicked);
@@ -60,29 +60,29 @@ $(document).ready(function(){
 
         $(".games-played .value").html(gamesPlayed);
 
-        $(".matches .value").html(matches);
+        $(".matches .value").html(game.matches);
 
-        $(".attempts .value").html(attempts);
+        $(".attempts .value").html(game.attempts);
 
-        $(".misses .value").html(misses);
+        $(".misses .value").html(game.misses);
 
         // if attempts = 0 then accuracy = 0% to avoid divide by zero
-        if(attempts === 0){
-            accuracy = "0%";
-            $(".accuracy .value").html(accuracy);
+        if(game.attempts === 0){
+            game.accuracy = "0%";
+            $(".accuracy .value").html(game.accuracy);
         } else{
             //format accuracy
-            accuracy = Math.floor((matches / attempts)*100);
-            $(".accuracy .value").html(accuracy + "%");
+            game.accuracy = Math.floor((game.matches / game.attempts)*100);
+            $(".accuracy .value").html(game.accuracy + "%");
         }
 
     }
     //resets stats
     function resetStats(){
-        accuracy = 0;
-        matches = 0;
-        attempts = 0;
-        misses = 0;
+        game.accuracy = 0;
+        game.matches = 0;
+        game.attempts = 0;
+        game.misses = 0;
 
         displayStats();
     }
