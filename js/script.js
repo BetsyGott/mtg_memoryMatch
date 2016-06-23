@@ -1,6 +1,7 @@
 //main game object, handles game logic
 function Game() {
     var gameScope = this;
+
     this.firstCard = null;
     this.secondCard = null;
     this.totalMatches = 9;
@@ -16,28 +17,28 @@ function Game() {
 
 //game object function to push images into imageArray, currently just a copy of what was there before. Will have to change to accomodate different colors instead of the same static images each time
 Game.prototype.pushImages = function(){
-    imageArray.push('<img src="images/card_faces/blue/air_elemental_sm.jpeg"/>');
-    imageArray.push('<img src="images/card_faces/blue/brainstorm_sm.jpeg"/>');
-    imageArray.push('<img src="images/card_faces/blue/force_of_will_sm.jpeg"/>');
-    imageArray.push('<img src="images/card_faces/blue/keiga_sm.jpeg"/>');
-    imageArray.push('<img src="images/card_faces/blue/lord_of_atlantis_sm.jpg"/>');
-    imageArray.push('<img src="images/card_faces/blue/mana_drain_sm.jpg"/>');
-    imageArray.push('<img src="images/card_faces/blue/polar_kraken_sm.jpg"/>');
-    imageArray.push('<img src="images/card_faces/blue/soulblade_djinn_sm.jpg">');
-    imageArray.push('<img src="images/card_faces/blue/time_walk_sm.jpg"/>');
+    this.imageArray.push('<img src="images/card_faces/blue/air_elemental_sm.jpeg"/>');
+    this.imageArray.push('<img src="images/card_faces/blue/brainstorm_sm.jpeg"/>');
+    this.imageArray.push('<img src="images/card_faces/blue/force_of_will_sm.jpeg"/>');
+    this.imageArray.push('<img src="images/card_faces/blue/keiga_sm.jpeg"/>');
+    this.imageArray.push('<img src="images/card_faces/blue/lord_of_atlantis_sm.jpg"/>');
+    this.imageArray.push('<img src="images/card_faces/blue/mana_drain_sm.jpg"/>');
+    this.imageArray.push('<img src="images/card_faces/blue/polar_kraken_sm.jpg"/>');
+    this.imageArray.push('<img src="images/card_faces/blue/soulblade_djinn_sm.jpg">');
+    this.imageArray.push('<img src="images/card_faces/blue/time_walk_sm.jpg"/>');
 };
 
 //push images into array 2x, then randomize them and insert them into DOM elements, then delete them from the array as you go
-Game.prototype.randomizeImages = function(){
+Game.prototype.randomizeImages = function(array){
     this.pushImages();
     this.pushImages();
 
     $(".card").each(function(){
-        var i = Math.floor(Math.random()*gameScope.imageArray.length-1)+1;
+        var i = Math.floor(Math.random() * array.length-1)+1;
 
-        $(this).find(".front").html(gameScope.imageArray[i]);
+        $(this).find(".front").html( array[i] );
 
-        gameScope.imageArray.splice(i, 1);
+        array.splice(i, 1);
 
     });
 };
@@ -73,39 +74,39 @@ Game.prototype.displayStats = function(){
 };
 
 //performs logic of game
-Game.prototype.cardClicked = function(){
+Game.prototype.cardClicked = function(card){
 
         //check canClick is true, rest of code only executes if true
-        if(gameScope.canClick){
+        if(this.canClick){
 
             // on click, flip card
-            $(this).addClass("flipped");
+            card.addClass("flipped");
 
 //          check if firstCard is null
-            if(!gameScope.firstCard){
+            if(!this.firstCard){
 
 //              if null, make firstCard = this, then done
-                gameScope.firstCard = $(this);
+                this.firstCard = card;
 
             } else {
 
                 // if !null, set secondCard = this
-                gameScope.secondCard = $(this);
+                this.secondCard = card;
 
                 // check if firstCard === secondCard (by checking whether the .front <img> matches
-                if(gameScope.firstCard.find(".front > img").attr("src") === gameScope.secondCard.find(".front > img").attr("src")){
+                if(this.firstCard.find(".front > img").attr("src") === this.secondCard.find(".front > img").attr("src")){
 
                     // if true, increase match counter and matches stat
-                    gameScope.matchCounter++;
-                    gameScope.matches++;
+                    this.matchCounter++;
+                    this.matches++;
 //              increment attempts counter
-                    gameScope.attempts++;
+                    this.attempts++;
 
 //            reset firstCard and secondCard & wait for next card click
-                    gameScope.firstCard = gameScope.secondCard = null;
+                    this.firstCard = this.secondCard = null;
 
                     // check if matchCounter === totalMatches
-                    if(gameScope.matchCounter === gameScope.totalMatches){
+                    if(this.matchCounter === this.totalMatches){
 
                         // if true, Display Win Message
                         alert('you won!');
@@ -115,28 +116,28 @@ Game.prototype.cardClicked = function(){
                     // if false (firstCard !== secondCard)
                     // set canClick to false to prevent user interaction during timeout
 
-                    gameScope.canClick = false;
+                    this.canClick = false;
 
                     // wait 1.7s then flip back both elements
 
                     setTimeout( function() {
-                        $(gameScope.firstCard).add(gameScope.secondCard).removeClass("flipped");
+                        $(this.firstCard).add(this.secondCard).removeClass("flipped");
 //                 reset firstCard & secondCard
-                        gameScope.firstCard = gameScope.secondCard = null;
+                        this.firstCard = this.secondCard = null;
 //                  reset canClick to true again
-                        gameScope.canClick = true;
+                        this.canClick = true;
 
                     }, 1700);
 
 //                  after flip back, increment misses stat by 1
-                    gameScope.misses++;
+                    this.misses++;
 //              increment attempts counter
-                    gameScope.attempts++;
+                    this.attempts++;
                 }
             }
         }
 
-        gameScope.displayStats();
+        this.displayStats();
 
 };
 
@@ -153,7 +154,7 @@ Game.prototype.resetAll = function(){
     // timeout on randomize images so you can't see images for split second before flipped back
     setTimeout(function(){
 
-        this.randomizeImages();
+        this.randomizeImages(this.imageArray);
         this.canClick = true;
 
     } , 1000)
@@ -161,7 +162,7 @@ Game.prototype.resetAll = function(){
 
 Game.prototype.init = function(){
     this.resetStats();
-    this.randomizeImages();
+    this.randomizeImages(this.imageArray);
 };
 
 
@@ -175,7 +176,7 @@ $(document).ready(function(){
     game.init();
 
     //perform game logic when cards are clicked
-    $card.on("click", game.cardClicked);
+    $card.on("click", game.cardClicked($(this)));
     
     //resets game on click, randomizes cards, increments game counter
     $("#reset-button").click(function(){
