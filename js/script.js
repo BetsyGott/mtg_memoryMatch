@@ -75,71 +75,55 @@ Game.prototype.displayStats = function(){
 
 //performs logic of game
 Game.prototype.cardClicked = function(card){
-
-        //check canClick is true, rest of code only executes if true
+    
         if(this.canClick){
 
-            // on click, flip card
             card.addClass("flipped");
 
 //          check if firstCard is null
             if(!this.firstCard){
 
-//              if null, make firstCard = this, then done
                 this.firstCard = card;
 
             } else {
-
-                // if !null, set secondCard = this
+                
                 this.secondCard = card;
 
-                // check if firstCard === secondCard (by checking whether the .front <img> matches
+                // check for match
                 if(this.firstCard.find(".front > img").attr("src") === this.secondCard.find(".front > img").attr("src")){
-
-                    // if true, increase match counter and matches stat
+                    //if a match
+                    
                     this.matchCounter++;
-                    console.log("match counter ", this.matchCounter);
                     this.matches++;
-//              increment attempts counter
                     this.attempts++;
 
 //            reset firstCard and secondCard & wait for next card click
                     this.firstCard = this.secondCard = null;
-
-                    // check if matchCounter === totalMatches
+                    
                     if(this.matchCounter === this.totalMatches){
 
-                        // if true, Display Win Message
+                        // if all matches found, you won the game
                         alert('you won!');
 
                     }
                 } else{
-                    // if false (firstCard !== secondCard)
-                    // set canClick to false to prevent user interaction during timeout
+                    
+                    // not a match
 
                     this.canClick = false;
 
-                    console.log("canclick is ", this.canClick);
-                    // console.log("first card ", this.firstCard);
-                    // console.log("second card ", this.secondCard);
-
-                    // wait 1.7s then flip back both elements
-
                     setTimeout( (function() {
-                        console.log("first card at beginning of set timeout", this.firstCard);
+                        
                         $(this.firstCard).add(this.secondCard).removeClass("flipped");
-                        console.log("first card ", this.firstCard);
-                        console.log("second card ", this.secondCard);
-//                 reset firstCard & secondCard
+
                         this.firstCard = this.secondCard = null;
-//                  reset canClick to true again
+
                         this.canClick = true;
+                        
 //                  note: bind needed here to tell func inside set timeout what 'this' is
                     }.bind(this)), 1700);
-
-//                  after flip back, increment misses stat by 1
+                    
                     this.misses++;
-//              increment attempts counter
                     this.attempts++;
                 }
             }
