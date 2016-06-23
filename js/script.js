@@ -42,86 +42,70 @@ Game.prototype.randomizeImages = function(){
     });
 };
 
+Game.prototype.resetStats = function(){
+    this.accuracy = 0;
+    this.matches = 0;
+    this.attempts = 0;
+    this.misses = 0;
 
-$(document).ready(function(){
-        var $card = $(".card"),
-        $front = $(".front"),
-        $back = $(".back"), 
-        game = new Game;
+    this.displayStats();
+};
 
-    
-    game.randomizeImages();
+Game.prototype.displayStats = function(){
 
-    //perform game logic when cards are clicked
-    $card.on("click", cardClicked);
+    $(".games-played .value").html(this.gamesPlayed);
 
-    // displays the stats on the left hand side
-    function displayStats(){
+    $(".matches .value").html(this.matches);
 
-        $(".games-played .value").html(gamesPlayed);
+    $(".attempts .value").html(this.attempts);
 
-        $(".matches .value").html(game.matches);
+    $(".misses .value").html(this.misses);
 
-        $(".attempts .value").html(game.attempts);
-
-        $(".misses .value").html(game.misses);
-
-        // if attempts = 0 then accuracy = 0% to avoid divide by zero
-        if(game.attempts === 0){
-            game.accuracy = "0%";
-            $(".accuracy .value").html(game.accuracy);
-        } else{
-            //format accuracy
-            game.accuracy = Math.floor((game.matches / game.attempts)*100);
-            $(".accuracy .value").html(game.accuracy + "%");
-        }
-
+    // if attempts = 0 then accuracy = 0% to avoid divide by zero
+    if(this.attempts === 0){
+        this.accuracy = "0%";
+        $(".accuracy .value").html(this.accuracy);
+    } else{
+        //format accuracy
+        this.accuracy = Math.floor((this.matches / this.attempts)*100);
+        $(".accuracy .value").html(this.accuracy + "%");
     }
-    //resets stats
-    function resetStats(){
-        game.accuracy = 0;
-        game.matches = 0;
-        game.attempts = 0;
-        game.misses = 0;
+};
 
-        displayStats();
-    }
-
-    //performs logic of game
-    function cardClicked(){
+//performs logic of game
+Game.prototype.cardClicked = function(){
 
         //check canClick is true, rest of code only executes if true
-
-        if(canClick){
+        if(gameScope.canClick){
 
             // on click, flip card
             $(this).addClass("flipped");
 
 //          check if firstCard is null
-            if(!firstCard){
+            if(!gameScope.firstCard){
 
 //              if null, make firstCard = this, then done
-                firstCard = $(this);
+                gameScope.firstCard = $(this);
 
             } else {
 
                 // if !null, set secondCard = this
-                secondCard = $(this);
+                gameScope.secondCard = $(this);
 
                 // check if firstCard === secondCard (by checking whether the .front <img> matches
-                if(firstCard.find(".front > img").attr("src") === secondCard.find(".front > img").attr("src")){
+                if(gameScope.firstCard.find(".front > img").attr("src") === gameScope.secondCard.find(".front > img").attr("src")){
 
                     // if true, increase match counter and matches stat
-                    matchCounter++;
-                    matches++;
+                    gameScope.matchCounter++;
+                    gameScope.matches++;
 //              increment attempts counter
-                    attempts++;
-                    
+                    gameScope.attempts++;
+
 //            reset firstCard and secondCard & wait for next card click
-                    firstCard = secondCard = null;
+                    gameScope.firstCard = gameScope.secondCard = null;
 
                     // check if matchCounter === totalMatches
-                    if(matchCounter === totalMatches){
+                    if(gameScope.matchCounter === gameScope.totalMatches){
 
                         // if true, Display Win Message
                         alert('you won!');
@@ -131,49 +115,72 @@ $(document).ready(function(){
                     // if false (firstCard !== secondCard)
                     // set canClick to false to prevent user interaction during timeout
 
-                    canClick = false;
+                    gameScope.canClick = false;
 
                     // wait 1.7s then flip back both elements
 
                     setTimeout( function() {
-                        $(firstCard).add(secondCard).removeClass("flipped");
+                        $(gameScope.firstCard).add(gameScope.secondCard).removeClass("flipped");
 //                 reset firstCard & secondCard
-                        firstCard = secondCard = null;
+                        gameScope.firstCard = gameScope.secondCard = null;
 //                  reset canClick to true again
-                        canClick = true;
+                        gameScope.canClick = true;
 
                     }, 1700);
 
 //                  after flip back, increment misses stat by 1
-                    misses++;
+                    gameScope.misses++;
 //              increment attempts counter
-                    attempts++;
+                    gameScope.attempts++;
                 }
             }
         }
 
-        displayStats();
+        gameScope.displayStats();
+
+};
+
+Game.prototype.resetAll = function(){
+    this.canClick = false;
+    this.gamesPlayed++;
+    this.resetStats();
+    this.displayStats();
+
+    if($(".card").hasClass("flipped")){
+        $(".card").removeClass("flipped");
     }
+
+    // timeout on randomize images so you can't see images for split second before flipped back
+    setTimeout(function(){
+
+        this.randomizeImages();
+        this.canClick = true;
+
+    } , 1000)
+};
+
+Game.prototype.init = function(){
+    this.resetStats();
+    this.randomizeImages();
+};
+
+
+$(document).ready(function(){
+        var $card = $(".card"),
+        $front = $(".front"),
+        $back = $(".back"), 
+        game = new Game;
+
+    
+    game.init();
+
+    //perform game logic when cards are clicked
+    $card.on("click", game.cardClicked);
     
     //resets game on click, randomizes cards, increments game counter
     $("#reset-button").click(function(){
 
-        canClick = false;
-        gamesPlayed++;
-        resetStats();
-        displayStats();
-
-        if($(".card").hasClass("flipped")){
-            $(".card").removeClass("flipped");
-        }
-
-        // timeout on randomize images so you can't see images for split second before flipped back
-        setTimeout(function(){
-
-            randomizeImages();
-            canClick = true;
-
-        } , 1000)
+        game.resetAll();
 
     });
 
