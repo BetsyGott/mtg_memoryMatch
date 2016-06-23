@@ -1,5 +1,6 @@
 //main game object, handles game logic
 function Game() {
+    var gameScope = this;
     this.firstCard = null;
     this.secondCard = null;
     this.totalMatches = 9;
@@ -116,10 +117,17 @@ Game.prototype.cardClicked = function(card){
 
                     this.canClick = false;
 
+                    console.log("canclick is ", this.canClick);
+                    // console.log("first card ", this.firstCard);
+                    // console.log("second card ", this.secondCard);
+
                     // wait 1.7s then flip back both elements
 
                     setTimeout( function() {
-                        $(this.firstCard).add(this.secondCard).removeClass("flipped");
+                        console.log("first card at beginning of set timeout", this.firstCard);
+                        $(this.firstCard).add(this.secondCard).this("flipped");
+                        console.log("first card ", this.firstCard);
+                        console.log("second card ", this.secondCard);
 //                 reset firstCard & secondCard
                         this.firstCard = this.secondCard = null;
 //                  reset canClick to true again
