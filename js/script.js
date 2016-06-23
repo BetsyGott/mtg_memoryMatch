@@ -174,7 +174,9 @@ $(document).ready(function(){
     game.init();
 
     //perform game logic when cards are clicked
-    $card.on("click", game.cardClicked($(this)));
+    $card.on("click", function(){
+        game.cardClicked($(this));
+    });
     
     //resets game on click, randomizes cards, increments game counter
     $("#reset-button").click(function(){
