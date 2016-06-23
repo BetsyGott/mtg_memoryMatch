@@ -1,6 +1,6 @@
 //main game object, handles game logic
 function Game() {
-    var gameScope = this;
+    // var self = this;
     this.firstCard = null;
     this.secondCard = null;
     this.totalMatches = 9;
@@ -14,7 +14,7 @@ function Game() {
     
 }
 
-//game object function to push images into imageArray, currently just a copy of what was there before. Will have to change to accomodate different colors instead of the same static images each time
+//game object function to push images into imageArray, currently just a copy of what was there before. Will have to change to accommodate different colors instead of the same static images each time
 Game.prototype.pushImages = function(){
     this.imageArray.push('<img src="images/card_faces/blue/air_elemental_sm.jpeg"/>');
     this.imageArray.push('<img src="images/card_faces/blue/brainstorm_sm.jpeg"/>');
@@ -123,17 +123,17 @@ Game.prototype.cardClicked = function(card){
 
                     // wait 1.7s then flip back both elements
 
-                    setTimeout( function() {
+                    setTimeout( (function() {
                         console.log("first card at beginning of set timeout", this.firstCard);
-                        $(this.firstCard).add(this.secondCard).this("flipped");
+                        $(this.firstCard).add(this.secondCard).removeClass("flipped");
                         console.log("first card ", this.firstCard);
                         console.log("second card ", this.secondCard);
 //                 reset firstCard & secondCard
                         this.firstCard = this.secondCard = null;
 //                  reset canClick to true again
                         this.canClick = true;
-
-                    }, 1700);
+//                  note: bind needed here to tell func inside set timeout what 'this' is
+                    }.bind(this)), 1700);
 
 //                  after flip back, increment misses stat by 1
                     this.misses++;
@@ -158,12 +158,12 @@ Game.prototype.resetAll = function(){
     }
 
     // timeout on randomize images so you can't see images for split second before flipped back
-    setTimeout(function(){
+    setTimeout((function(){
 
         this.randomizeImages(this.imageArray);
         this.canClick = true;
 
-    } , 1000)
+    }.bind(this)) , 1000);
 };
 
 Game.prototype.init = function(){
