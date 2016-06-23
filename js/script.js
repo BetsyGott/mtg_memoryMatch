@@ -1,7 +1,5 @@
 //main game object, handles game logic
 function Game() {
-    var gameScope = this;
-
     this.firstCard = null;
     this.secondCard = null;
     this.totalMatches = 9;
