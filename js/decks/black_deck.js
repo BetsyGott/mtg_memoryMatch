@@ -16,7 +16,7 @@ function BlackDeck(parent){
             name: "Dark Ritual",
             smallImage: "images/card_faces/black/dark_ritual_sm.jpg",
             fullImage: "images/card_faces/black/dark_ritual_lg.jpg",
-            ability: "dark ritual tbd"
+            ability: "double the damage to opponent and to you from next card you play"
         },
         {
             name: "Drain Life",
@@ -28,19 +28,19 @@ function BlackDeck(parent){
             name: "Hypnotic Specter",
             smallImage: "images/card_faces/black/hypnotic_specter_sm.jpg",
             fullImage: "images/card_faces/black/hypnotic_specter_lg.jpg",
-            ability: "low-med damage"
+            ability: "2 damage + # of matches"
         },
         {
             name: "Juzam Djinn",
             smallImage: "images/card_faces/black/juzam_djinn_sm.jpg",
             fullImage: "images/card_faces/black/juzam_djinn_lg.jpg",
-            ability: "med damage, deals 1 damage to owner when played"
+            ability: "4 damage + # of matches, deals 1 damage to owner when played"
         },
         {
             name: "Lord of the Pit",
             smallImage: "images/card_faces/black/lord_of_the_pit_sm.jpg",
             fullImage: "images/card_faces/black/lord_of_the_pit_lg.jpg",
-            ability: "high damage, deals 3 damage to owner when played"
+            ability: "8 damage + # of matches, deals 3 damage to owner when played"
         },
         {
             name: "Nantuko Husk",
@@ -52,13 +52,13 @@ function BlackDeck(parent){
             name: "Nightmare",
             smallImage: "images/card_faces/black/nightmare_sm.jpg",
             fullImage: "images/card_faces/black/nightmare_lg.jpg",
-            ability: "medium damage"
+            ability: "3 damage + # of matches"
         },
         {
             name: "Sengir Vampire",
             smallImage: "images/card_faces/black/sengir_vampire_sm.jpeg",
             fullImage: "images/card_faces/black/sengir_vampire_lg.jpg",
-            ability: "high damage"
+            ability: "4 damage + # of matches"
         }
     ];
 }
