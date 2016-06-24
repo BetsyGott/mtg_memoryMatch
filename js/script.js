@@ -11,21 +11,21 @@ function Game(gameArea) {
     this.attempts = 0;
     this.accuracy = 0;
     this.gamesPlayed = 0;
-    this.imageArray = [];
+    this.cardArray = [];
+    // vvv this will end up 1. being a parameter passed in 2. going into a player object instead
+    this.selectedDeck = new BlueDeck(this);
+    
     
 }
 
 //game object function to push images into imageArray, currently just a copy of what was there before. Will have to change to accommodate different colors instead of the same static images each time
-Game.prototype.pushImages = function(){
-    this.imageArray.push('<img src="images/card_faces/blue/air_elemental_sm.jpeg"/>');
-    this.imageArray.push('<img src="images/card_faces/blue/brainstorm_sm.jpeg"/>');
-    this.imageArray.push('<img src="images/card_faces/blue/force_of_will_sm.jpeg"/>');
-    this.imageArray.push('<img src="images/card_faces/blue/keiga_sm.jpeg"/>');
-    this.imageArray.push('<img src="images/card_faces/blue/lord_of_atlantis_sm.jpg"/>');
-    this.imageArray.push('<img src="images/card_faces/blue/mana_drain_sm.jpg"/>');
-    this.imageArray.push('<img src="images/card_faces/blue/polar_kraken_sm.jpg"/>');
-    this.imageArray.push('<img src="images/card_faces/blue/soulblade_djinn_sm.jpg">');
-    this.imageArray.push('<img src="images/card_faces/blue/time_walk_sm.jpg"/>');
+Game.prototype.pushCards = function(){
+    //push objects from deck into cardArray
+    for(var i =0; i < this.selectedDeck.deck.length; i++){
+        this.cardArray.push(this.selectedDeck.deck[i]);
+    }
+    
+    console.log("card array: ", this.cardArray);
 };
 
 //performs logic of game
@@ -115,8 +115,8 @@ Game.prototype.init = function(){
 };
 
 Game.prototype.randomizeImages = function(array){
-    this.pushImages();
-    this.pushImages();
+    this.pushCards();
+    this.pushCards();
 
     $(".card").each(function(){
         var i = Math.floor(Math.random() * array.length-1)+1;
