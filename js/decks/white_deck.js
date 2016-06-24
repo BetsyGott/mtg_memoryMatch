@@ -3,62 +3,62 @@
  * White deck object
  * @constructor
  */
-function RedDeck(parent){
+function WhiteDeck(parent){
     this.parent = parent;
     this.deck = [
         {
-            name: "Akroma, Angel of Fury",
-            smallImage: "images/card_faces/red/akroma_angel_of_fury_sm.jpg",
-            fullImage: "images/card_faces/red/akroma_angel_of_fury_lg.jpg",
-            ability: "akroma ability tbd"
+            name: "Balance",
+            smallImage: "images/card_faces/white/balance_sm.jpg",
+            fullImage: "images/card_faces/white/balance_lg.jpg",
+            ability: "if your opponent has more life than you do, he has the same life as you do. Otherwise, you get his life total"
         },
         {
-            name: "Blood Moon",
-            smallImage: "images/card_faces/red/blood_moon_sm.jpg",
-            fullImage: "images/card_faces/red/blood_moon_lg.jpg",
-            ability: "Brainstorm ability tbd"
+            name: "Congregate",
+            smallImage: "images/card_faces/white/congregate_sm.jpg",
+            fullImage: "images/card_faces/white/congregate_lg.jpg",
+            ability: "life gain"
         },
         {
-            name: "Goblin King",
-            smallImage: "images/card_faces/red/goblin_king_sm.jpg",
-            fullImage: "images/card_faces/red/goblin_king_lg.jpg",
-            ability: "goblin King ability tbd"
+            name: "Knight of the White Orchid",
+            smallImage: "images/card_faces/white/knight_of_the_white_orchid_sm.jpg",
+            fullImage: "images/card_faces/white/knight_of_the_white_orchid_lg.jpg",
+            ability: "low-med damage"
         },
         {
-            name: "Incinerate",
-            smallImage: "images/card_faces/red/incinerate_sm.jpg",
-            fullImage: "images/card_faces/red/incinerate_lg.jpg",
-            ability: "incinerate ability tbd"
+            name: "Mesa Pegasus",
+            smallImage: "images/card_faces/white/mesa_pegasus_sm.jpg",
+            fullImage: "images/card_faces/white/mesa_pegasus_lg.jpg",
+            ability: "med damage"
         },
         {
-            name: "Lightning Bolt",
-            smallImage: "images/card_faces/red/lightning_bolt_sm.jpg",
-            fullImage: "images/card_faces/red/lightning_bolt_lg.jpg",
-            ability: "lightning bolt ability tbd"
+            name: "Samite Healer",
+            smallImage: "images/card_faces/white/samite_healer_sm.jpg",
+            fullImage: "images/card_faces/white/samite_healer_lg.jpg",
+            ability: "low life gain"
         },
         {
-            name: "Shivan Dragon",
-            smallImage: "images/card_faces/red/shivan_dragon_sm.jpg",
-            fullImage: "images/card_faces/red/shivan_dragon_lg.jpg",
-            ability: "shivan dragon ability tbd"
+            name: "Serra Angel",
+            smallImage: "images/card_faces/white/serra_angel_sm.png",
+            fullImage: "images/card_faces/white/serra_angel_lg.png",
+            ability: "med-high damage"
         },
         {
-            name: "Simian Spirit Guide",
-            smallImage: "images/card_faces/red/simian_spirit_guide_sm.jpg",
-            fullImage: "images/card_faces/red/simian_spirit_guide_lg.jpg",
-            ability: "simian spirit guide ability tbd"
+            name: "Swords to Plowshares",
+            smallImage: "images/card_faces/white/swords_to_plowshares_sm.jpg",
+            fullImage: "images/card_faces/white/swords_to_plowshares_lg.jpg",
+            ability: "prevent damage"
         },
         {
-            name: "Starstorm",
-            smallImage: "images/card_faces/red/starstorm_sm.jpg",
-            fullImage: "images/card_faces/red/starstorm_lg.jpg",
-            ability: "starstorm ability tbd"
+            name: "Wrath of God",
+            smallImage: "images/card_faces/white/wrath_of_god_sm.jpg",
+            fullImage: "images/card_faces/white/wrath_of_god_lg.jpg",
+            ability: "wrath ability tbd"
         },
         {
-            name: "Wheel of Fortune",
-            smallImage: "images/card_faces/red/wheel_of_fortune_sm.jpg",
-            fullImage: "images/card_faces/red/wheel_of_fortune_lg.jpg",
-            ability: "wheel of fortune ability tbd"
+            name: "Yosei, the Morning Star",
+            smallImage: "images/card_faces/white/yosei_the_morning_star_lg.jpeg",
+            fullImage: "images/card_faces/white/yosei_the_morning_star_sm.jpg",
+            ability: "high damage"
         }
     ];
 }
