@@ -56,8 +56,8 @@ function WhiteDeck(parent){
         },
         {
             name: "Yosei, the Morning Star",
-            smallImage: "images/card_faces/white/yosei_the_morning_star_lg.jpeg",
-            fullImage: "images/card_faces/white/yosei_the_morning_star_sm.jpg",
+            smallImage: "images/card_faces/white/yosei_the_morning_star_sm.jpeg",
+            fullImage: "images/card_faces/white/yosei_the_morning_star_lg.jpg",
             ability: "high damage"
         }
     ];
