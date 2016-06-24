@@ -34,11 +34,8 @@ Game.prototype.randomizeImages = function(array){
 
     $(".card").each(function(){
         var i = Math.floor(Math.random() * array.length-1)+1;
-
         $(this).find(".front").html( array[i] );
-
         array.splice(i, 1);
-
     });
 };
 
@@ -55,11 +52,8 @@ Game.prototype.resetStats = function(){
 Game.prototype.displayStats = function(){
 
     $(".games-played .value").html(this.gamesPlayed);
-
     $(".matches .value").html(this.matches);
-
     $(".attempts .value").html(this.attempts);
-
     $(".misses .value").html(this.misses);
 
     // if attempts = 0 then accuracy = 0% to avoid divide by zero
@@ -74,7 +68,7 @@ Game.prototype.displayStats = function(){
 };
 
 //performs logic of game
-Game.prototype.cardClicked = function(card){
+Game.prototype.checkMatch = function(card){
     
         if(this.canClick){
 
@@ -104,6 +98,7 @@ Game.prototype.cardClicked = function(card){
 
                         // if all matches found, you won the game
                         alert('you won!');
+                        //this.canClick = false;
 
                     }
                 } else{
@@ -115,9 +110,7 @@ Game.prototype.cardClicked = function(card){
                     setTimeout( (function() {
                         
                         $(this.firstCard).add(this.secondCard).removeClass("flipped");
-
                         this.firstCard = this.secondCard = null;
-
                         this.canClick = true;
                         
 //                  note: bind needed here to tell func inside set timeout what 'this' is
@@ -157,19 +150,42 @@ Game.prototype.init = function(){
     this.randomizeImages(this.imageArray);
 };
 
+function Card(parent) {
+    this.parent = parent;
+    this.$element = null;
+    this.$front = null;
+    this.$back = null;
+    // this.back = "../images/mtg-card-back.jpg";
+}
+
+Card.prototype.createSelf = function(){
+    //create the element that will represent the object on the dom
+    this.$element = $("<div>",{
+        class: 'card'
+    });
+    this.$front = $("<div>",{
+        class: 'front'
+    });
+    this.$back = $("<div>",{
+        class: 'back'
+    });
+
+    this.$element.append(this.front, this.back);
+   
+    this.$element.on('click',this.handle_click.bind(this));
+    return this.$element;
+};
 
 $(document).ready(function(){
-        var $card = $(".card"),
-        $front = $(".front"),
-        $back = $(".back"), 
-        game = new Game;
 
+        var $card = $(".card"),
+        game = new Game;
     
     game.init();
 
     //perform game logic when cards are clicked
     $card.on("click", function(){
-        game.cardClicked($(this));
+        game.checkMatch($(this));
     });
     
     //resets game on click, randomizes cards, increments game counter
