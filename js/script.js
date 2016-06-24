@@ -28,46 +28,6 @@ Game.prototype.pushImages = function(){
     this.imageArray.push('<img src="images/card_faces/blue/time_walk_sm.jpg"/>');
 };
 
-//push images into array 2x, then randomize them and insert them into DOM elements, then delete them from the array as you go
-Game.prototype.randomizeImages = function(array){
-    this.pushImages();
-    this.pushImages();
-
-    $(".card").each(function(){
-        var i = Math.floor(Math.random() * array.length-1)+1;
-        $(this).find(".front").html( array[i] );
-        array.splice(i, 1);
-    });
-};
-
-Game.prototype.resetStats = function(){
-    this.accuracy = 0;
-    this.matches = 0;
-    this.attempts = 0;
-    this.misses = 0;
-    this.matchCounter = 0;
-
-    this.displayStats();
-};
-
-Game.prototype.displayStats = function(){
-
-    $(".games-played .value").html(this.gamesPlayed);
-    $(".matches .value").html(this.matches);
-    $(".attempts .value").html(this.attempts);
-    $(".misses .value").html(this.misses);
-
-    // if attempts = 0 then accuracy = 0% to avoid divide by zero
-    if(this.attempts === 0){
-        this.accuracy = "0%";
-        $(".accuracy .value").html(this.accuracy);
-    } else{
-        //format accuracy
-        this.accuracy = Math.floor((this.matches / this.attempts)*100);
-        $(".accuracy .value").html(this.accuracy + "%");
-    }
-};
-
 //performs logic of game
 Game.prototype.checkMatch = function(card){
     
@@ -127,9 +87,42 @@ Game.prototype.checkMatch = function(card){
 
 };
 
+Game.prototype.createBoard = function(){
+    //push deck objects into imageArray (change name!) from
+};
+
+Game.prototype.displayStats = function(){
+
+    $(".games-played .value").html(this.gamesPlayed);
+    $(".matches .value").html(this.matches);
+    $(".attempts .value").html(this.attempts);
+    $(".misses .value").html(this.misses);
+
+    // if attempts = 0 then accuracy = 0% to avoid divide by zero
+    if(this.attempts === 0){
+        this.accuracy = "0%";
+        $(".accuracy .value").html(this.accuracy);
+    } else{
+        //format accuracy
+        this.accuracy = Math.floor((this.matches / this.attempts)*100);
+        $(".accuracy .value").html(this.accuracy + "%");
+    }
+};
+
 Game.prototype.init = function(){
     this.resetStats();
     this.randomizeImages(this.imageArray);
+};
+
+Game.prototype.randomizeImages = function(array){
+    this.pushImages();
+    this.pushImages();
+
+    $(".card").each(function(){
+        var i = Math.floor(Math.random() * array.length-1)+1;
+        $(this).find(".front").html( array[i] );
+        array.splice(i, 1);
+    });
 };
 
 Game.prototype.resetAll = function(){
@@ -151,8 +144,24 @@ Game.prototype.resetAll = function(){
     }.bind(this)) , 1000);
 };
 
+Game.prototype.resetStats = function(){
+    this.accuracy = 0;
+    this.matches = 0;
+    this.attempts = 0;
+    this.misses = 0;
+    this.matchCounter = 0;
+
+    this.displayStats();
+};
+
+/**
+ * Card prototype constructor
+ * @param parent
+ * @constructor
+ */
 function Card(parent) {
     this.parent = parent;
+    this.ability = null;
     this.$element = null;
     this.$front = null;
     this.$back = null;
@@ -190,7 +199,6 @@ Card.prototype.createSelf = function(frontImage, backImage){
     this.$front.append(this.$frontImage);
     this.$back.append(this.$backImage);
 
-    //click handler goes here
     this.$element.on('click', this.handleClick.bind(this));
 
     return this.$element;
@@ -199,6 +207,70 @@ Card.prototype.createSelf = function(frontImage, backImage){
 Card.prototype.handleClick = function(){
     parent.checkMatch($(this));
 };
+
+/**
+ * testing a constructor for the blue deck
+ * @constructor
+ */
+function BlueDeck(parent){
+    this.parent = parent;
+    this.deck = [
+        {
+            name: "Air Elemental",
+            smallImage: "images/card_faces/blue/air_elemental_sm.jpeg",
+            fullImage: "images/card_faces/blue/air_elemental_lg.jpg",
+            ability: "Air elemental ability tbd"
+        },
+        {
+            name: "Brainstorm",
+            smallImage: "images/card_faces/blue/brainstorm_sm.jpeg",
+            fullImage: "images/card_faces/blue/brainstorm_lg.jpg",
+            ability: "Brainstorm ability tbd"
+        },
+        {
+            name: "Force of Will",
+            smallImage: "images/card_faces/blue/force_of_will_sm.jpeg",
+            fullImage: "images/card_faces/blue/force_of_will_lg.jpg",
+            ability: "Force of Will ability tbd"
+        },
+        {
+            name: "Keiga, the Tide Star",
+            smallImage: "images/card_faces/blue/keiga_sm.jpeg",
+            fullImage: "images/card_faces/blue/keiga_lg.jpg",
+            ability: "keiga ability tbd"
+        },
+        {
+            name: "Lord of Atlantis",
+            smallImage: "images/card_faces/blue/lord_of_atlantis_sm.jpg",
+            fullImage: "images/card_faces/blue/lord_of_atlantis_lg.jpg",
+            ability: "lord of atlantis ability tbd"
+        },
+        {
+            name: "Mana Drain",
+            smallImage: "images/card_faces/blue/mana_drain_sm.jpg",
+            fullImage: "images/card_faces/blue/mana_drain_lg.jpg",
+            ability: "mana drain ability tbd"
+        },
+        {
+            name: "Polar Kraken",
+            smallImage: "images/card_faces/blue/polar_kraken_sm.jpg",
+            fullImage: "images/card_faces/blue/polar_kraken_lg.jpg",
+            ability: "polar kraken ability tbd"
+        },
+        {
+            name: "Soulblade Djinn",
+            smallImage: "images/card_faces/blue/soulblade_djinn_sm.jpg",
+            fullImage: "images/card_faces/blue/soulblade_djinn_lg.jpg",
+            ability: "soulblade djinn ability tbd"
+        },
+        {
+            name: "Time Walk",
+            smallImage: "images/card_faces/blue/time_walk_sm.jpg",
+            fullImage: "images/card_faces/blue/time_walk_lg.jpg",
+            ability: "time walk ability tbd"
+        }
+    ];
+}
 
 $(document).ready(function(){
 
