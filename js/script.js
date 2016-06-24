@@ -1,7 +1,7 @@
 //main game object, handles game logic
 function Game(gameArea) {
     // var self = this;
-    this.gameArea = gameArea;
+    this.gameArea = $(gameArea);
     this.firstCard = null;
     this.secondCard = null;
     this.totalMatches = 9;
@@ -31,10 +31,12 @@ Game.prototype.pushCards = function(){
 
 //performs logic of game
 Game.prototype.checkMatch = function(card){
+
+    console.log("card is: ", card);
     
         if(this.canClick){
 
-            card.addClass("flipped");
+            card.$element.addClass("flipped");
 
 //          check if firstCard is null
             if(!this.firstCard){
@@ -46,7 +48,7 @@ Game.prototype.checkMatch = function(card){
                 this.secondCard = card;
 
                 // check for match
-                if(this.firstCard.find(".front > img").attr("src") === this.secondCard.find(".front > img").attr("src")){
+                if(this.firstCard.$element.find(".front > img").attr("src") === this.secondCard.$element.find(".front > img").attr("src")){
                     //if a match
                     
                     this.matchCounter++;
@@ -71,7 +73,7 @@ Game.prototype.checkMatch = function(card){
 
                     setTimeout( (function() {
                         
-                        $(this.firstCard).add(this.secondCard).removeClass("flipped");
+                        $(this.firstCard.$element).add(this.secondCard.$element).removeClass("flipped");
                         this.firstCard = this.secondCard = null;
                         this.canClick = true;
                         
@@ -86,10 +88,6 @@ Game.prototype.checkMatch = function(card){
 
         this.displayStats();
 
-};
-
-Game.prototype.createBoard = function(){
-    //push deck objects into imageArray (change name!) from
 };
 
 Game.prototype.displayStats = function(){
@@ -116,26 +114,19 @@ Game.prototype.init = function(){
 };
 
 Game.prototype.createRandomCards = function(array){
-    var initialLength = array.length;
+
     //push card objects into array 2x for 18 total
     this.pushCards();
     this.pushCards();
 
-    //instantiate a new card constructor
-    for(var i = 0; i < initialLength; i++){
+    //instantiate a new card constructor with a random card object attached to it
+    for(var i = 0; i < 18; i++){
         var j = Math.floor(Math.random() * array.length-1)+1;
         var card = new Card(this, array[j]);
-        card.createSelf(array[j].smallImage, this.cardBack);
+        this.gameArea.append( card.createSelf(array[j].smallImage, this.cardBack) );
         array.splice(j,1);
     }
-    //assign a random card object to it
 
-
-    $(".card").each(function(){
-        var j = Math.floor(Math.random() * array.length-1)+1;
-        $(this).find(".front").html( array[j] );
-        array.splice(j, 1);
-    });
 };
 
 Game.prototype.resetAll = function(){
@@ -144,17 +135,10 @@ Game.prototype.resetAll = function(){
     this.resetStats();
     this.displayStats();
 
-    if($(".card").hasClass("flipped")){
-        $(".card").removeClass("flipped");
-    }
-
-    // timeout on randomize images so you can't see images for split second before flipped back
-    setTimeout((function(){
-
-        this.createRandomCards(this.cardArray);
-        this.canClick = true;
-
-    }.bind(this)) , 1000);
+    this.gameArea.html("");
+    this.createRandomCards(this.cardArray);
+    this.canClick = true;
+    
 };
 
 Game.prototype.resetStats = function(){
@@ -218,7 +202,8 @@ Card.prototype.createSelf = function(frontImage, backImage){
 };
 
 Card.prototype.handleClick = function(){
-    parent.checkMatch($(this));
+    //parent.checkMatch($(this));
+    this.parent.checkMatch(this).bind(this);
 };
 
 /**
