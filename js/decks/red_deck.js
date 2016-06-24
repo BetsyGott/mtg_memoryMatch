@@ -50,8 +50,8 @@ function RedDeck(parent){
         },
         {
             name: "Starstorm",
-            smallImage: "images/card_faces/red/starstorm.jpg",
-            fullImage: "images/card_faces/red/starstorm.jpg",
+            smallImage: "images/card_faces/red/starstorm_sm.jpg",
+            fullImage: "images/card_faces/red/starstorm_lg.jpg",
             ability: "starstorm ability tbd"
         },
         {

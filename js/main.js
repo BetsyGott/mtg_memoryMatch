@@ -1,15 +1,21 @@
 
 $(document).ready(function(){
 
-        // var $card = $(".card"),
-        var game = new Game($("#game-area"));
-    
-    game.init();
+    var deckChoice = prompt("pick red or blue");
 
-    //perform game logic when cards are clicked
-    // $card.on("click", function(){
-    //     game.checkMatch($(this));
-    // });
+    if(deckChoice === "red"){
+        var game = new Game($("#game-area"), RedDeck);
+
+        game.init();
+    } else {
+        var game = new Game($("#game-area"), BlueDeck);
+
+        game.init();
+    }
+
+    //     var game = new Game($("#game-area"), );
+    //
+    // game.init();
     
     //resets game on click, randomizes cards, increments game counter
     $("#reset-button").on("click", function(){
