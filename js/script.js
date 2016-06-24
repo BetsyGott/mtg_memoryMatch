@@ -1,6 +1,7 @@
 //main game object, handles game logic
-function Game() {
+function Game(gameArea) {
     // var self = this;
+    this.gameArea = gameArea;
     this.firstCard = null;
     this.secondCard = null;
     this.totalMatches = 9;
@@ -126,6 +127,11 @@ Game.prototype.checkMatch = function(card){
 
 };
 
+Game.prototype.init = function(){
+    this.resetStats();
+    this.randomizeImages(this.imageArray);
+};
+
 Game.prototype.resetAll = function(){
     this.canClick = false;
     this.gamesPlayed++;
@@ -145,48 +151,66 @@ Game.prototype.resetAll = function(){
     }.bind(this)) , 1000);
 };
 
-Game.prototype.init = function(){
-    this.resetStats();
-    this.randomizeImages(this.imageArray);
-};
-
 function Card(parent) {
     this.parent = parent;
     this.$element = null;
     this.$front = null;
     this.$back = null;
+    this.$frontImage = null;
+    this.$backImage = null;
     // this.back = "../images/mtg-card-back.jpg";
 }
 
-Card.prototype.createSelf = function(){
+//this function will create one card
+//first randomize the array of front image srcs, then do a loop and run through this function for each src in the arr
+
+Card.prototype.createSelf = function(frontImage, backImage){
     //create the element that will represent the object on the dom
     this.$element = $("<div>",{
         class: 'card'
     });
+
     this.$front = $("<div>",{
         class: 'front'
     });
+
     this.$back = $("<div>",{
         class: 'back'
     });
 
-    this.$element.append(this.front, this.back);
-   
-    this.$element.on('click',this.handle_click.bind(this));
+    this.$frontImage = $("<img>", {
+       src: frontImage
+    });
+
+    this.$backImage = $("<img>", {
+        src: backImage
+    });
+
+    this.$element.append(this.$front, this.$back);
+    this.$front.append(this.$frontImage);
+    this.$back.append(this.$backImage);
+
+    //click handler goes here
+    this.$element.on('click', this.handleClick.bind(this));
+
     return this.$element;
+};
+
+Card.prototype.handleClick = function(){
+    parent.checkMatch($(this));
 };
 
 $(document).ready(function(){
 
-        var $card = $(".card"),
-        game = new Game;
+        // var $card = $(".card"),
+        var game = new Game($("#game-area"));
     
     game.init();
 
     //perform game logic when cards are clicked
-    $card.on("click", function(){
-        game.checkMatch($(this));
-    });
+    // $card.on("click", function(){
+    //     game.checkMatch($(this));
+    // });
     
     //resets game on click, randomizes cards, increments game counter
     $("#reset-button").on("click", function(){
