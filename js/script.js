@@ -62,7 +62,7 @@ Game.prototype.checkMatch = function(card){
 
                         // if all matches found, you won the game
                         alert('you won!');
-                        //this.canClick = false;
+                        this.canClick = false;
 
                     }
                 } else{
@@ -203,7 +203,7 @@ Card.prototype.createSelf = function(frontImage, backImage){
 
 Card.prototype.handleClick = function(){
     //parent.checkMatch($(this));
-    this.parent.checkMatch(this).bind(this);
+    this.parent.checkMatch(this);
 };
 
 /**
