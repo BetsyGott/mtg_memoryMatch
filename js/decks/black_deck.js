@@ -56,7 +56,7 @@ function BlackDeck(parent){
         },
         {
             name: "Sengir Vampire",
-            smallImage: "images/card_faces/black/sengir_vampire_sm.jpeg",
+            smallImage: "images/card_faces/black/sengir_vampire_sm.jpg",
             fullImage: "images/card_faces/black/sengir_vampire_lg.jpg",
             ability: "4 damage + # of matches"
         }

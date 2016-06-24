@@ -1,7 +1,7 @@
 
 $(document).ready(function(){
 
-    var deckChoice = prompt("pick red, blue, or white");
+    var deckChoice = prompt("pick red, blue, black, or white");
 
     if(deckChoice === "red"){
         var game = new Game($("#game-area"), RedDeck);
@@ -11,8 +11,12 @@ $(document).ready(function(){
         var game = new Game($("#game-area"), BlueDeck);
 
         game.init();
-    } else {
+    } else if(deckChoice === "white"){
         var game = new Game($("#game-area"), WhiteDeck);
+
+        game.init();
+    } else {
+        var game = new Game($("#game-area"), BlackDeck);
 
         game.init();
     }
