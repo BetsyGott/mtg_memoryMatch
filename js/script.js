@@ -12,6 +12,7 @@ function Game(gameArea) {
     this.accuracy = 0;
     this.gamesPlayed = 0;
     this.cardArray = [];
+    this.cardBack = "images/mtg-card-back.jpg";
     // vvv this will end up 1. being a parameter passed in 2. going into a player object instead
     this.selectedDeck = new BlueDeck(this);
     
@@ -111,17 +112,29 @@ Game.prototype.displayStats = function(){
 
 Game.prototype.init = function(){
     this.resetStats();
-    this.randomizeImages(this.imageArray);
+    this.createRandomCards(this.cardArray);
 };
 
-Game.prototype.randomizeImages = function(array){
+Game.prototype.createRandomCards = function(array){
+    var initialLength = array.length;
+    //push card objects into array 2x for 18 total
     this.pushCards();
     this.pushCards();
 
+    //instantiate a new card constructor
+    for(var i = 0; i < initialLength; i++){
+        var j = Math.floor(Math.random() * array.length-1)+1;
+        var card = new Card(this, array[j]);
+        card.createSelf(array[j].smallImage, this.cardBack);
+        array.splice(j,1);
+    }
+    //assign a random card object to it
+
+
     $(".card").each(function(){
-        var i = Math.floor(Math.random() * array.length-1)+1;
-        $(this).find(".front").html( array[i] );
-        array.splice(i, 1);
+        var j = Math.floor(Math.random() * array.length-1)+1;
+        $(this).find(".front").html( array[j] );
+        array.splice(j, 1);
     });
 };
 
@@ -138,7 +151,7 @@ Game.prototype.resetAll = function(){
     // timeout on randomize images so you can't see images for split second before flipped back
     setTimeout((function(){
 
-        this.randomizeImages(this.imageArray);
+        this.createRandomCards(this.cardArray);
         this.canClick = true;
 
     }.bind(this)) , 1000);
@@ -159,9 +172,9 @@ Game.prototype.resetStats = function(){
  * @param parent
  * @constructor
  */
-function Card(parent) {
+function Card(parent, infoObject) {
     this.parent = parent;
-    this.ability = null;
+    this.infoObject = infoObject;
     this.$element = null;
     this.$front = null;
     this.$back = null;
