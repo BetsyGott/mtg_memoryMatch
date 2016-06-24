@@ -7,58 +7,58 @@ function RedDeck(parent){
     this.parent = parent;
     this.deck = [
         {
-            name: "Air Elemental",
-            smallImage: "images/card_faces/red/air_elemental_sm.jpeg",
-            fullImage: "images/card_faces/red/air_elemental_lg.jpg",
-            ability: "Air elemental ability tbd"
+            name: "Akroma, Angel of Fury",
+            smallImage: "images/card_faces/red/akroma_angel_of_fury_sm.jpg",
+            fullImage: "images/card_faces/red/akroma_angel_of_fury_lg.jpg",
+            ability: "akroma ability tbd"
         },
         {
-            name: "Brainstorm",
-            smallImage: "images/card_faces/red/brainstorm_sm.jpeg",
-            fullImage: "images/card_faces/red/brainstorm_lg.jpg",
+            name: "Blood Moon",
+            smallImage: "images/card_faces/red/blood_moon_sm.jpg",
+            fullImage: "images/card_faces/red/blood_moon_lg.jpg",
             ability: "Brainstorm ability tbd"
         },
         {
-            name: "Force of Will",
-            smallImage: "images/card_faces/red/force_of_will_sm.jpeg",
-            fullImage: "images/card_faces/red/force_of_will_lg.jpg",
-            ability: "Force of Will ability tbd"
+            name: "Goblin King",
+            smallImage: "images/card_faces/red/goblin_king_sm.jpg",
+            fullImage: "images/card_faces/red/goblin_king_lg.jpg",
+            ability: "goblin King ability tbd"
         },
         {
-            name: "Keiga, the Tide Star",
-            smallImage: "images/card_faces/red/keiga_sm.jpeg",
-            fullImage: "images/card_faces/red/keiga_lg.jpg",
-            ability: "keiga ability tbd"
+            name: "Incinerate",
+            smallImage: "images/card_faces/red/incinerate_sm.jpg",
+            fullImage: "images/card_faces/red/incinerate_lg.jpg",
+            ability: "incinerate ability tbd"
         },
         {
-            name: "Lord of Atlantis",
-            smallImage: "images/card_faces/red/lord_of_atlantis_sm.jpg",
-            fullImage: "images/card_faces/red/lord_of_atlantis_lg.jpg",
-            ability: "lord of atlantis ability tbd"
+            name: "Lightning Bolt",
+            smallImage: "images/card_faces/red/lightning_bolt_sm.jpg",
+            fullImage: "images/card_faces/red/lightning_bolt_lg.jpg",
+            ability: "lightning bolt ability tbd"
         },
         {
-            name: "Mana Drain",
-            smallImage: "images/card_faces/red/mana_drain_sm.jpg",
-            fullImage: "images/card_faces/red/mana_drain_lg.jpg",
-            ability: "mana drain ability tbd"
+            name: "Shivan Dragon",
+            smallImage: "images/card_faces/red/shivan_dragon_sm.jpg",
+            fullImage: "images/card_faces/red/shivan_dragon_lg.jpg",
+            ability: "shivan dragon ability tbd"
         },
         {
-            name: "Polar Kraken",
-            smallImage: "images/card_faces/red/polar_kraken_sm.jpg",
-            fullImage: "images/card_faces/red/polar_kraken_lg.jpg",
-            ability: "polar kraken ability tbd"
+            name: "Simian Spirit Guide",
+            smallImage: "images/card_faces/red/simian_spirit_guide_sm.jpg",
+            fullImage: "images/card_faces/red/simian_spirit_guide_lg.jpg",
+            ability: "simian spirit guide ability tbd"
         },
         {
-            name: "Soulblade Djinn",
-            smallImage: "images/card_faces/red/soulblade_djinn_sm.jpg",
-            fullImage: "images/card_faces/red/soulblade_djinn_lg.jpg",
-            ability: "soulblade djinn ability tbd"
+            name: "Starstorm",
+            smallImage: "images/card_faces/red/starstorm.jpg",
+            fullImage: "images/card_faces/red/starstorm.jpg",
+            ability: "starstorm ability tbd"
         },
         {
-            name: "Time Walk",
-            smallImage: "images/card_faces/red/time_walk_sm.jpg",
-            fullImage: "images/card_faces/red/time_walk_lg.jpg",
-            ability: "time walk ability tbd"
+            name: "Wheel of Fortune",
+            smallImage: "images/card_faces/red/wheel_of_fortune_sm.jpg",
+            fullImage: "images/card_faces/red/wheel_of_fortune_lg.jpg",
+            ability: "wheel of fortune ability tbd"
         }
     ];
 }
