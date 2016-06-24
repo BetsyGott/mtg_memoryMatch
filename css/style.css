@@ -1,0 +1,222 @@
+@font-face {
+    font-family: 'Beleren Bold';
+    src: url('../fonts/Beleren-Bold.ttf');
+}
+
+/******************************************
+/* SETUP
+/*******************************************/
+
+/* Box Model Hack */
+* {
+    -moz-box-sizing: border-box; /* Firefox */
+    -webkit-box-sizing: border-box; /* Safari/Chrome/iOS/Android */
+    box-sizing: border-box; /* IE */
+}
+
+/* Clear fix hack */
+/*put clearfix on parent elements with floated children to auto clear float on the children*/
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+
+.clear {
+    clear: both;
+}
+
+.align_right {
+    float: right;
+    padding: 0 0 10px 10px; /* note the padding around a right floated image */
+}
+
+.align_left {
+    float: left;
+    padding: 0 10px 10px 0; /* note the padding around a left floated image */
+}
+
+/******************************************
+/* BASE STYLES
+/*******************************************/
+
+body {
+    margin: 0;
+    font-family: 'Beleren Bold', sans-serif;
+    text-transform: uppercase;
+}
+
+/******************************************
+/* PAGE WRAPPER
+/*******************************************/
+
+.main {
+    background: url('../images/black_lotus_bg.jpg') no-repeat center fixed;
+    background-size: cover;
+    position: relative;
+    height: 100vh;
+}
+
+/******************************************
+/* LEFT HAND PANE
+/*******************************************/
+
+.info-pane {
+    background: rgba(255,255,255,0.4);
+    box-shadow: -4px 0 25px 18px rgba(255, 255, 255, 0.4), 0px 0 5px -4px rgba(255, 255, 255, 0.4);
+    position: relative;
+    float: left;
+    text-transform: none;
+    text-align: center;
+    font-size: 75%;
+    height: 100%;
+    width: 20%;
+    margin-left: 15px;
+}
+
+/******************************************
+/* LOGO DIV
+/*******************************************/
+
+.logo > img {
+    max-width: 100%;
+}
+
+.logo > h1 {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 2.5em;
+}
+
+/******************************************
+/* STATS DIV
+/*******************************************/
+
+.stats {
+    background-color: lightblue;
+    width: 95%;
+    height: 50%;
+    padding: 5px;
+    margin: 0 auto;
+    border: 7px solid black;
+    border-radius: 7px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.stats > h2 {
+    background: rgba(255,255,255, 6.8);
+    position: relative;
+    text-transform: uppercase;
+    top: -13px;
+    width: 112%;
+    left: -13px;
+    text-align: center;
+    margin-top: 0;
+    color: #000;
+    border: 3px solid black;
+    border-radius: 7px;
+}
+
+.stats > ul {
+    list-style: none;
+    font-size: 1em;
+}
+
+.stats > ul > li {
+    text-align: left;
+    font-weight: 600;
+}
+
+.stats > h3 {
+    text-transform: uppercase;
+}
+
+.reset {
+    position: relative;
+    top: 30%;
+    border: 2px solid #000;
+    background-color: #fff;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 60%;
+    margin: 0 auto 5px auto;
+}
+
+/******************************************
+/* MAIN GAME AREA
+/*******************************************/
+
+.game_area_style {
+    padding-top: 1%;
+    background-color: rgba(255, 255, 255, 0.4);
+    box-shadow: -4px 0 25px 18px rgba(255, 255, 255, 0.4), 0px 0 5px -4px rgba(255, 255, 255, 0.4);
+    height: 100%;
+    width: 66%;
+    max-width: 845px;
+    max-height: 607px;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 0 auto;
+    webkit-perspective: 1500px;
+}
+
+/******************************************
+/* CARD STYLES
+/*******************************************/
+
+.card{
+    height: 170px;
+    width: 130px;
+    position: relative;
+    transform: rotate3D(0,1,0,0deg);
+    transition-duration: .6s;
+    transform-style: preserve-3d;
+    border-radius: 7px;
+}
+
+.card img{
+    width: 100%;
+    height: 100%;
+    border-radius: 7px;
+}
+
+.front{
+    position: absolute;
+    transform: rotate3D(0,1,0,180deg);
+    border: 7px solid black;
+    border-radius: 5px;
+    backface-visibility: hidden;
+    height: 100%;
+    width: 100%;
+}
+
+.back{
+    position: absolute;
+    backface-visibility: hidden;
+    height: 100%;
+    width: 100%;
+}
+
+.front img{
+    overflow:hidden;
+    height: 100%;
+    width: 100%;
+}
+
+.back img{
+    height: 100%;
+    width: 100%;
+}
+
+.flipped{
+    transform: rotate3D(0,1,0,180deg);
+}
