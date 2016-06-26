@@ -47,7 +47,18 @@ Game.prototype.checkMatch = function(card){
                 this.matchCounter++;
                 this.matches++;
                 this.attempts++;
-                
+
+                setTimeout( (function() {
+
+                    $(".overlay").show();
+                    $("#abilityContainer").show();
+
+                    setTimeout( function(){
+                        $("#abilityContainer").css("opacity", 1);
+                    }, 500);
+
+
+                }.bind(this)), 1500);
 
 //            reset firstCard and secondCard & wait for next card click
                 this.firstCard = this.secondCard = null;

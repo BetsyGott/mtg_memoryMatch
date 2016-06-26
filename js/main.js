@@ -3,6 +3,9 @@ $(document).ready(function(){
 
     var deckChoice = prompt("pick red, blue, black, green, or white");
 
+    $(".overlay").hide();
+    $("#abilityContainer").hide();
+
     if(deckChoice === "red"){
         var game = new Game($("#game-area"), RedDeck);
 
