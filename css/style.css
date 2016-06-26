@@ -303,6 +303,8 @@ body {
     z-index: 9999;
     opacity: 0;
     transition-duration: 2s;
+    /* currently green but should change color based on card color */
+    box-shadow: 0 0 41px 6px #00c195;
 }
 
 .ability-card-title {

@@ -42,12 +42,14 @@ Game.prototype.checkMatch = function(card){
 
             // check for match
             if(this.firstCard.$element.find(".front > img").attr("src") === this.secondCard.$element.find(".front > img").attr("src")){
+
                 //if a match
 
                 this.matchCounter++;
                 this.matches++;
                 this.attempts++;
 
+                // placeholder for actual effects on match, right now just shows a default ability card and the smoke bg after a timer
                 setTimeout( (function() {
 
                     $(".overlay").show(400);
@@ -55,8 +57,16 @@ Game.prototype.checkMatch = function(card){
 
                     setTimeout( function(){
                         $("#abilityContainer").css("opacity", 1);
-                    }, 500);
+                    }, 900);
 
+                    //placeholder for hiding ability div again
+                    $("#abilityContainer").on("click", function(){
+
+
+                        $("#abilityContainer").css("opacity", 0);
+                        $(".overlay").hide(400);
+                        $("#abilityContainer").hide(400);
+                    });
 
                 }.bind(this)), 1500);
 
