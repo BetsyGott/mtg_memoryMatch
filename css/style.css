@@ -231,7 +231,7 @@ body {
 }
 
 /******************************************
-/* ABILITY DIV STYLES
+/* OVERLAY STYLES
 /*******************************************/
 
 .overlay {
@@ -241,8 +241,55 @@ body {
     width: 100%;
     height: 100%;
     z-index: 10;
-    background-color: rgba(0,0,0,0.5);
+    background: #000;
+    box-shadow: -webkit-box-shadow: inset 10px 10px 80px 39px rgba(0,0,0,0.75);
+    -moz-box-shadow: inset 10px 10px 80px 39px rgba(0,0,0,0.75);
+    box-shadow: inset 10px 10px 80px 39px rgba(0,0,0,0.75);
+    -webkit-box-shadow: inset 5px 10px 55px 71px rgba(0,0,0,0.75);
+    -moz-box-shadow: inset 5px 10px 55px 71px rgba(0,0,0,0.75);
+    box-shadow: inset 5px 10px 55px 71px rgba(0,0,0,0.75);
+    background-size: cover;
+    opacity: 0.8;
 }
+
+
+#fog,
+#fog-2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2000px;
+    height: 2000px;
+    margin-top: -1000px;
+    margin-left: -1000px;
+    opacity: 1;
+    background: url("http://media.24ways.org/2009/15/assets/img/fog.png") repeat-x 0 center;
+    -webkit-animation-name: fogAnimation;
+    -webkit-animation-duration: 30s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+}
+
+#fog2 {
+    opacity: 1;
+    -webkit-animation-duration: 120s;
+}
+
+@-webkit-keyframes fogAnimation {
+    from {
+        -webkit-transform: rotate(0deg);
+        background-position: 0 center;
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+        background-position: 1000px center;
+    }
+}
+
+
+/******************************************
+/* ABILITY DIV STYLES
+/*******************************************/
 
 .ability-container{
     height: 500px;

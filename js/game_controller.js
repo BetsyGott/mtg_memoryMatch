@@ -50,7 +50,7 @@ Game.prototype.checkMatch = function(card){
 
                 setTimeout( (function() {
 
-                    $(".overlay").show();
+                    $(".overlay").show(400);
                     $("#abilityContainer").show();
 
                     setTimeout( function(){
