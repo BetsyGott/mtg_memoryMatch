@@ -15,8 +15,12 @@ $(document).ready(function(){
         var game = new Game($("#game-area"), WhiteDeck);
 
         game.init();
-    } else {
+    } else if(deckChoice === "black"){
         var game = new Game($("#game-area"), BlackDeck);
+
+        game.init();
+    } else {
+        var game = new Game($("#game-area"), GreenDeck);
 
         game.init();
     }
