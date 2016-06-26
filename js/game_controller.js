@@ -50,6 +50,9 @@ Game.prototype.checkMatch = function(card){
                 this.attempts++;
 
                 // placeholder for actual effects on match, right now just shows a default ability card and the smoke bg after a timer
+                
+                //move match counter to somewhere inside this function vvv to avoid win screen happening before last ability is played
+                
                 setTimeout( (function() {
 
                     $(".overlay").show(400);
@@ -80,6 +83,7 @@ Game.prototype.checkMatch = function(card){
                     this.canClick = false;
 
                 }
+                
             } else{
                 // not a match
 
