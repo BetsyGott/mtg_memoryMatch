@@ -1,6 +1,6 @@
 
 /**
- * White deck object
+ * Green deck object
  * @constructor
  */
 function GreenDeck(parent){
@@ -32,8 +32,8 @@ function GreenDeck(parent){
         },
         {
             name: "Giant Growth",
-            smallImage: "images/card_faces/green/samite_healer_sm.jpg",
-            fullImage: "images/card_faces/green/samite_healer_lg.jpg",
+            smallImage: "images/card_faces/green/giant_growth_sm.jpg",
+            fullImage: "images/card_faces/green/giant_growth_lg.jpg",
             ability: "double next damage dealt by a match you make"
         },
         {
@@ -55,9 +55,9 @@ function GreenDeck(parent){
             ability: "pay 2 life to add 4 damage to your next card, stays for remainder of game?"
         },
         {
-            name: "Tarmagoyf",
-            smallImage: "images/card_faces/green/tarmagoyf_sm.jpg",
-            fullImage: "images/card_faces/green/tarmagoyf_lg.jpg",
+            name: "Tarmogoyf",
+            smallImage: "images/card_faces/green/tarmogoyf_sm.jpg",
+            fullImage: "images/card_faces/green/tarmogoyf_lg.jpg",
             ability: "2 damage * # of matches"
         }
     ];

@@ -223,3 +223,62 @@ body {
 .flipped{
     transform: rotate3D(0,1,0,180deg);
 }
+
+/******************************************
+/* ABILITY DIV STYLES
+/*******************************************/
+
+.ability-container{
+    height: 555px;
+    width: 398px;
+    background: url("http://i.imgur.com/4EGNoz5.png")no-repeat center center;
+    position: relative;
+    background-size: contain;
+}
+
+.ability-card-title {
+    padding: 5px 10px;
+    position: absolute;
+    top: 33px;
+    left: 35px;
+    width: 95.5%;
+    font-weight: bold;
+}
+.ability-card-img {
+    position: absolute;
+    top: 66px;
+    left: 38px;
+    width: 81%;
+    z-index: -1;
+    text-align: center;
+}
+
+.ability-card-img img {
+    width: 100%;
+}
+
+.ability-divider {
+    position: absolute;
+    top: 317px;
+    left: 40px;
+    font-weight: bold;
+}
+
+.ability-text p{
+    height: 35%;
+    width: 90%;
+    position: absolute;
+    top: 350px;
+    left: 40px;
+    margin: 0;
+    padding: 10px;
+    font-size: 1.3em;
+}
+
+.ability-text span.ability-flavor{
+    padding: 10px;
+    position: absolute;
+    bottom: 70px;
+    left: 40px;
+    font-style: italic;
+}

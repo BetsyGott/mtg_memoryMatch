@@ -1,6 +1,5 @@
 //main game object, handles game logic
 function Game(gameArea, deck) {
-    // var self = this;
     this.gameArea = $(gameArea);
     this.firstCard = null;
     this.secondCard = null;
@@ -16,16 +15,13 @@ function Game(gameArea, deck) {
     // vvv this will end up 1. being a parameter passed in 2. going into a player object instead
     this.selectedDeck = new deck(this);
 
-
 }
-
 
 Game.prototype.pushCards = function(){
     //push objects from deck into cardArray
     for(var i =0; i < this.selectedDeck.deck.length; i++){
         this.cardArray.push(this.selectedDeck.deck[i]);
     }
-
 };
 
 //performs logic of game
@@ -51,6 +47,7 @@ Game.prototype.checkMatch = function(card){
                 this.matchCounter++;
                 this.matches++;
                 this.attempts++;
+                
 
 //            reset firstCard and secondCard & wait for next card click
                 this.firstCard = this.secondCard = null;
@@ -63,7 +60,6 @@ Game.prototype.checkMatch = function(card){
 
                 }
             } else{
-
                 // not a match
 
                 this.canClick = false;
