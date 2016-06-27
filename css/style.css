@@ -404,13 +404,29 @@ body {
 .deg180 {transform: rotate(-30deg) translate(-9.25em) rotate(32deg);}
 .deg225 {transform: rotate(208deg) translate(11.5em) rotate(-206deg);}
 
-.shadowfilter-red {
-    -webkit-filter: drop-shadow(0px 0px 0px rgba(238,61,47,1));
+.shadowfilter {
+    -webkit-filter: drop-shadow(0px 0px 0px rgba(255,255,255,.8));
     -webkit-transition: all 0.5s linear;
     -o-transition: all 0.5s linear;
     transition: all 0.5s linear;
 }
 
 .shadowfilter-red:hover {
-    -webkit-filter: drop-shadow(0px 0px 15px rgba(238, 61, 47, 1));
+    -webkit-filter: drop-shadow(0px 0px 6px rgba(238, 61, 47, .8));
+}
+
+.shadowfilter-blue:hover {
+    -webkit-filter: drop-shadow(0px 0px 6px rgba(0, 231, 255, .8));
+}
+
+.shadowfilter-white:hover {
+    -webkit-filter: drop-shadow(0px 0px 6px rgba(255, 255, 255, .8));
+}
+
+.shadowfilter-green:hover {
+    -webkit-filter: drop-shadow(0px 0px 6px rgba(255, 255, 255, .8));
+}
+
+.shadowfilter-black:hover {
+    -webkit-filter: drop-shadow(0px 0px 6px rgba(203, 195, 193, .8));
 }
