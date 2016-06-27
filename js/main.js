@@ -1,32 +1,54 @@
 
 $(document).ready(function(){
 
-    var deckChoice = prompt("pick red, blue, black, green, or white");
+    var deckChoice;
 
-    $(".overlay").hide();
+    // $(".overlay").show();
+    // var deckChoice = prompt("pick red, blue, black, green, or white");
+
+    // $(".overlay").hide();
     $("#abilityContainer").hide();
 
-    if(deckChoice === "red"){
-        var game = new Game($("#game-area"), RedDeck);
+    $(".mana-symbol").on("click", function(){
 
-        game.init();
-    } else if(deckChoice === "blue"){
-        var game = new Game($("#game-area"), BlueDeck);
+        $(".overlay").css("opacity",0.8);
+        $(".overlay").hide();
 
-        game.init();
-    } else if(deckChoice === "white"){
-        var game = new Game($("#game-area"), WhiteDeck);
+        deckChoice = $(this).attr("data-deck");
 
-        game.init();
-    } else if(deckChoice === "black"){
-        var game = new Game($("#game-area"), BlackDeck);
+        console.log("deckChoice", deckChoice);
 
-        game.init();
-    } else {
-        var game = new Game($("#game-area"), GreenDeck);
+        $(".deck-choice").hide();
 
-        game.init();
-    }
+
+        if(deckChoice === "red"){
+            var game = new Game($("#game-area"), RedDeck);
+
+            game.init();
+
+        } else if(deckChoice === "blue"){
+            var game = new Game($("#game-area"), BlueDeck);
+
+            game.init();
+
+        } else if(deckChoice === "white"){
+            var game = new Game($("#game-area"), WhiteDeck);
+
+            game.init();
+
+        } else if(deckChoice === "black"){
+            var game = new Game($("#game-area"), BlackDeck);
+
+            game.init();
+
+        } else {
+            var game = new Game($("#game-area"), GreenDeck);
+
+            game.init();
+
+        }
+
+    });
     
     //resets game on click, randomizes cards, increments game counter
     $("#reset-button").on("click", function(){

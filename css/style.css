@@ -249,7 +249,6 @@ body {
     -moz-box-shadow: inset 5px 10px 55px 71px rgba(0,0,0,0.75);
     box-shadow: inset 5px 10px 55px 71px rgba(0,0,0,0.75);
     background-size: cover;
-    opacity: 0.8;
 }
 
 
@@ -294,7 +293,7 @@ body {
 .ability-container{
     height: 500px;
     width: 398px;
-    background: url("../images/red_blank.png")no-repeat center center;
+    background: url("../images/blanks/red_blank.png") no-repeat center center;
     position: absolute;
     top: 7%;
     left: 45%;
@@ -305,6 +304,7 @@ body {
     transition-duration: 2s;
     /* currently green but should change color based on card color */
     box-shadow: 0 0 41px 6px #00c195;
+    text-transform: none;
 }
 
 .ability-card-title {
@@ -325,10 +325,6 @@ body {
     background: url("../images/card_faces/green/rancor_lg.jpg") no-repeat center center;
     background-size: cover;
 }
-
-/*.ability-card-img img {*/
-    /*width: 100%;*/
-/*}*/
 
 .ability-divider {
     position: absolute;
@@ -356,4 +352,65 @@ body {
     margin: 0;
     padding: 0 2%;
     font-size: 1.3em;
+    text-transform: none;
+}
+
+/******************************************
+/* INITIAL DECK CHOICE STYLES
+/*******************************************/
+
+.deck-choice {
+    position: relative;
+    top: -450px;
+    left: 0;
+    width: 24em;
+    height: 24em;
+    padding: 2.8em;
+    /*2.8em = 2em*1.4 (2em = half the width of a link with img, 1.4 = sqrt(2))*/
+    border-radius: 50%;
+    margin: 1.75em auto 0;
+    transform: rotate(-7deg) translate(0em) rotate(5deg);
+    z-index: 999;
+}
+
+.deck-choice h1 {
+    color: #fff;
+    position: absolute;
+    top: -2.25em;
+    left: -1.5em;
+    font-size: 4em;
+    width: 100vw;
+    transform: rotate(2deg);
+}
+
+.mana-symbol {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8em;
+    margin: -2em;
+}
+
+.mana-symbol img {
+    width:100%;
+    height:auto;
+    display: block;
+}
+
+.deg0 {transform: rotate(-10deg) translateY(-11em) rotate(12deg);} /* 12em = half the width of the wrapper */
+.deg45 {transform: rotate(-40deg) translate(8em) rotate(42deg);}
+.deg135 {transform: rotate(-33deg) translateY(6em) rotate(35deg);}
+.deg180 {transform: rotate(-30deg) translate(-9.25em) rotate(32deg);}
+.deg225 {transform: rotate(208deg) translate(11.5em) rotate(-206deg);}
+
+.shadowfilter-red {
+    -webkit-filter: drop-shadow(0px 0px 0px rgba(238,61,47,1));
+    -webkit-transition: all 0.5s linear;
+    -o-transition: all 0.5s linear;
+    transition: all 0.5s linear;
+}
+
+.shadowfilter-red:hover {
+    -webkit-filter: drop-shadow(0px 0px 15px rgba(238, 61, 47, 1));
 }

@@ -46,7 +46,9 @@ function GreenDeck(parent){
             name: "Rancor",
             smallImage: "images/card_faces/green/rancor_sm.jpg",
             fullImage: "images/card_faces/green/rancor_lg.jpg",
-            ability: "add 3 damage to all further cards"
+            ability: "add 3 damage to all further cards",
+            set: "Urza's Legacy",
+            artist: "Kev Walker"
         },
         {
             name: "Sylvan Library",
