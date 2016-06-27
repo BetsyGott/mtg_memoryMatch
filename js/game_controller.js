@@ -1,6 +1,5 @@
 //main game object, handles game logic
-function Game(gameArea) {
-    // var self = this;
+function Game(gameArea, deck) {
     this.gameArea = $(gameArea);
     this.firstCard = null;
     this.secondCard = null;
@@ -14,18 +13,15 @@ function Game(gameArea) {
     this.cardArray = [];
     this.cardBack = "images/mtg-card-back.jpg";
     // vvv this will end up 1. being a parameter passed in 2. going into a player object instead
-    this.selectedDeck = new BlueDeck(this);
-
+    this.selectedDeck = new deck(this);
 
 }
-
 
 Game.prototype.pushCards = function(){
     //push objects from deck into cardArray
     for(var i =0; i < this.selectedDeck.deck.length; i++){
         this.cardArray.push(this.selectedDeck.deck[i]);
     }
-
 };
 
 //performs logic of game
@@ -46,11 +42,36 @@ Game.prototype.checkMatch = function(card){
 
             // check for match
             if(this.firstCard.$element.find(".front > img").attr("src") === this.secondCard.$element.find(".front > img").attr("src")){
+
                 //if a match
 
                 this.matchCounter++;
                 this.matches++;
                 this.attempts++;
+
+                // placeholder for actual effects on match, right now just shows a default ability card and the smoke bg after a timer
+                
+                //move match counter to somewhere inside this function vvv to avoid win screen happening before last ability is played
+                
+                setTimeout( (function() {
+
+                    $(".overlay").show(400);
+                    $("#abilityContainer").show();
+
+                    setTimeout( function(){
+                        $("#abilityContainer").css("opacity", 1);
+                    }, 900);
+
+                    //placeholder for hiding ability div again
+                    $("#abilityContainer").on("click", function(){
+
+
+                        $("#abilityContainer").css("opacity", 0);
+                        $(".overlay").hide(400);
+                        $("#abilityContainer").hide(400);
+                    });
+
+                }.bind(this)), 1500);
 
 //            reset firstCard and secondCard & wait for next card click
                 this.firstCard = this.secondCard = null;
@@ -62,8 +83,8 @@ Game.prototype.checkMatch = function(card){
                     this.canClick = false;
 
                 }
+                
             } else{
-
                 // not a match
 
                 this.canClick = false;
