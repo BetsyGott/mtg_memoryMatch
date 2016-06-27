@@ -294,11 +294,11 @@ body {
 .ability-container{
     height: 500px;
     width: 398px;
-    background: url("../images/green_blank.png")no-repeat center center;
+    background: url("../images/red_blank.png")no-repeat center center;
     position: absolute;
     top: 7%;
     left: 45%;
-    background-size: contain;
+    background-size: cover;
     border-radius: 20px;
     z-index: 9999;
     opacity: 0;
