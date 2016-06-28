@@ -29,7 +29,7 @@ Game.prototype.checkMatch = function(card){
 
     if(this.canClick){
 
-        card.$element.addClass("flipped");
+        card.addFlippedClass();
 
 //          check if firstCard is null
         if(!this.firstCard){
@@ -41,7 +41,7 @@ Game.prototype.checkMatch = function(card){
             this.secondCard = card;
 
             // check for match
-            if(this.firstCard.$element.find(".front > img").attr("src") === this.secondCard.$element.find(".front > img").attr("src")){
+            if(this.firstCard.getCardFace() === this.secondCard.getCardFace()){
 
                 //if a match
 
@@ -103,7 +103,9 @@ Game.prototype.checkMatch = function(card){
 
                 setTimeout( (function() {
 
-                    $(this.firstCard.$element).add(this.secondCard.$element).removeClass("flipped");
+                    this.firstCard.removeFlippedClass();
+                    this.secondCard.removeFlippedClass();
+                    
                     this.firstCard = this.secondCard = null;
                     this.canClick = true;
 

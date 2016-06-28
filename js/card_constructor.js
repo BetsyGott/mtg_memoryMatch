@@ -52,3 +52,18 @@ Card.prototype.handleClick = function(){
     //parent.checkMatch($(this));
     this.parent.checkMatch(this);
 };
+
+//getCardFace  - which card is this
+Card.prototype.getCardFace = function(){
+  return this.$element.find(".front > img").attr("src");  
+};
+
+Card.prototype.addFlippedClass = function(){
+    this.$element.addClass("flipped");
+    return this.$element;
+};
+
+Card.prototype.removeFlippedClass = function(){
+    this.$element.removeClass("flipped");
+    return this.$element;
+};
