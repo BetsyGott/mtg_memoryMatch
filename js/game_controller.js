@@ -89,11 +89,11 @@ Game.prototype.checkMatch = function(card){
                 this.firstCard = this.secondCard = null;
 
                 if(this.matchCounter === this.totalMatches){
-
-                    // if all matches found, you won the game
+                
+                
                     alert('you won!');
                     this.canClick = false;
-
+                
                 }
                 
             } else{
@@ -105,7 +105,7 @@ Game.prototype.checkMatch = function(card){
 
                     this.firstCard.removeFlippedClass();
                     this.secondCard.removeFlippedClass();
-                    
+
                     this.firstCard = this.secondCard = null;
                     this.canClick = true;
 
