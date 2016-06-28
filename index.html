@@ -28,6 +28,7 @@
         <script src="js/main.js"></script>
 
     <!--// links to js-->
+
 </head>
 <body>
 <div class="main clearfix">
@@ -36,32 +37,54 @@
             <img src="images/logos/mtg-logo-transp.png">
             <h1>Memory Match</h1>
         </div>
+
         <div class="stats">
-            <h2>Your Stats</h2>
-            <ul>
-                <li class="matches">
-                    Matches:
-                    <span class="value">0</span>
-                </li>
-                <li class="misses">
-                    Misses:
-                    <span class="value">0</span>
-                </li>
-                <li class="attempts">
-                    Attempts:
-                    <span class="value">0</span>
-                </li>
-                <li class="accuracy">
-                    Accuracy:
-                    <span class="value">0%</span>
-                </li>
-            </ul>
+            <div class="player1-stats player-stats">
+                <h2 class="player-name deck-text">Player 1</h2>
+                <h2 class="life-total deck-text">20</h2>
+                <h2 class="effects-header">Effects in Play: <span class="effects">None</span></h2>
+                <h2 class="matches">Matches: <span class="value">0</span></h2>
+                <ul>
+                    <li class="misses">
+                        Misses:
+                        <span class="value">0</span>
+                    </li>
+                    <li class="attempts">
+                        Attempts:
+                        <span class="value">0</span>
+                    </li>
+                    <li class="accuracy">
+                        Accuracy:
+                        <span class="value">0%</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="player2-stats player-stats">
+                <h2 class="player-name">Player 2</h2>
+                <h2 class="life-total">20</h2>
+                <h2 class="effects-header">Effects in Play: <span class="effects">None</span></h2>
+                <h2 class="matches">Matches: <span class="value">0</span></h2>
+                <ul>
+                    <li class="misses">
+                        Misses:
+                        <span class="value">0</span>
+                    </li>
+                    <li class="attempts">
+                        Attempts:
+                        <span class="value">0</span>
+                    </li>
+                    <li class="accuracy">
+                        Accuracy:
+                        <span class="value">0%</span>
+                    </li>
+                </ul>
+            </div>
             <h3 class="games-played">
                 <span class="label">Games played: </span>
                 <span class ="value">0</span>
             </h3>
-            <h3 class="reset" id="reset-button">reset game</h3>
         </div>
+        <h3 class="reset" id="reset-button">reset game</h3>
     </div>
 
     <div class="game_area_style" id="game-area">
@@ -69,19 +92,17 @@
     </div>
     <div class="ability-container" id="abilityContainer">
         <div class="ability-card-title">
-            Rancor
         </div>
         <div class="ability-card-img">
-            <!--large images of matched card go in here-->
         </div>
         <div class="ability-divider">
             <ul>
-                <li>Set: <span id="set-name">Urza's Legacy</span></li>
-                <li>Artist: <span id="artist-name">Kev Walker</span></li>
+                <li>Set: <span id="set-name"></span></li>
+                <li>Artist: <span id="artist-name"></span></li>
             </ul>
         </div>
         <div class="ability-text">
-            <p>Ability of the card.</p>
+            <p></p>
         </div>
     </div>
 </div>

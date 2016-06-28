@@ -12,6 +12,7 @@ function Card(parent, infoObject) {
     this.$back = null;
     this.$frontImage = null;
     this.$backImage = null;
+    
 }
 
 //this function will create one card
@@ -51,4 +52,19 @@ Card.prototype.createSelf = function(frontImage, backImage){
 Card.prototype.handleClick = function(){
     //parent.checkMatch($(this));
     this.parent.checkMatch(this);
+};
+
+//getCardFace  - which card is this
+Card.prototype.getCardFace = function(){
+  return this.$element.find(".front > img").attr("src");  
+};
+
+Card.prototype.addFlippedClass = function(){
+    this.$element.addClass("flipped");
+    return this.$element;
+};
+
+Card.prototype.removeFlippedClass = function(){
+    this.$element.removeClass("flipped");
+    return this.$element;
 };

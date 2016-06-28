@@ -29,7 +29,7 @@ Game.prototype.checkMatch = function(card){
 
     if(this.canClick){
 
-        card.$element.addClass("flipped");
+        card.addFlippedClass();
 
 //          check if firstCard is null
         if(!this.firstCard){
@@ -41,11 +41,11 @@ Game.prototype.checkMatch = function(card){
             this.secondCard = card;
 
             // check for match
-            if(this.firstCard.$element.find(".front > img").attr("src") === this.secondCard.$element.find(".front > img").attr("src")){
+            if(this.firstCard.getCardFace() === this.secondCard.getCardFace()){
 
                 //if a match
 
-                console.log("card is ", card);
+                console.log("infoObject is ", card.infoObject);
 
                 this.matchCounter++;
                 this.matches++;
@@ -57,9 +57,14 @@ Game.prototype.checkMatch = function(card){
                 
                 setTimeout( (function() {
 
-                    // $("#abilityContainer").css({
-                    //    background: "url("this.selectedDeck") no-repeat center center";
-                    // });
+                    $(".ability-card-title").html(card.infoObject.name);
+                    $(".ability-card-img").css({
+                        background: 'url('+card.infoObject.fullImage+') no-repeat center center',
+                        backgroundSize: 'cover'
+                    });
+                    $("#set-name").html(card.infoObject.set);
+                    $("#artist-name").html(card.infoObject.artist);
+                    $(".ability-text").html("<p>"+card.infoObject.ability+"</p>");
 
                     $("#abilityContainer").show();
                     $(".overlay").fadeIn("fast");
@@ -84,11 +89,11 @@ Game.prototype.checkMatch = function(card){
                 this.firstCard = this.secondCard = null;
 
                 if(this.matchCounter === this.totalMatches){
-
-                    // if all matches found, you won the game
+                
+                
                     alert('you won!');
                     this.canClick = false;
-
+                
                 }
                 
             } else{
@@ -98,7 +103,9 @@ Game.prototype.checkMatch = function(card){
 
                 setTimeout( (function() {
 
-                    $(this.firstCard.$element).add(this.secondCard.$element).removeClass("flipped");
+                    this.firstCard.removeFlippedClass();
+                    this.secondCard.removeFlippedClass();
+
                     this.firstCard = this.secondCard = null;
                     this.canClick = true;
 
@@ -121,20 +128,28 @@ Game.prototype.displayStats = function(){
     $(".matches .value").html(this.matches);
     $(".attempts .value").html(this.attempts);
     $(".misses .value").html(this.misses);
+    $(".accuracy .value").html(this.formatAccuracy() + "%");
 
-    // if attempts = 0 then accuracy = 0% to avoid divide by zero
-    if(this.attempts === 0){
-        this.accuracy = "0%";
-        $(".accuracy .value").html(this.accuracy);
-    } else{
-        //format accuracy
-        this.accuracy = Math.floor((this.matches / this.attempts)*100);
-        $(".accuracy .value").html(this.accuracy + "%");
-    }
 };
 
 Game.prototype.init = function(){
     this.resetStats();
+    this.buildBoard();
+};
+
+Game.prototype.buildBoard = function(){
+
+    //background based on deck choice
+    $(".main").css({
+        background: "url('"+ this.selectedDeck.background +"') no-repeat center fixed",
+        backgroundSize: 'cover'
+    });
+
+    $(".player1-stats").find(".deck-text").css({
+       color: this.selectedDeck.textColor
+    });
+
+    //create cards
     this.createRandomCards(this.cardArray);
 };
 
@@ -174,4 +189,15 @@ Game.prototype.resetStats = function(){
     this.matchCounter = 0;
 
     this.displayStats();
+};
+
+Game.prototype.formatAccuracy = function(){
+    if(this.attempts === 0){
+        this.accuracy = "0";
+    } else{
+        //format accuracy
+        this.accuracy = Math.floor((this.matches / this.attempts)*100);
+    }
+
+    return this.accuracy;
 };
