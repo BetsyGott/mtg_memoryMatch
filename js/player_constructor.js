@@ -36,3 +36,7 @@ Player.prototype.removeLife = function(amount){
     return this.lifeTotal;
 };
 
+Player.prototype.getPlayerName = function(){
+    return this.name;
+};
+

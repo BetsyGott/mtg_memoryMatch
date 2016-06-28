@@ -14,6 +14,8 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
         
     
         if(this.player1 === null){
+            
+            var gameArea = $("#p1-game-area");
             //if no player 1 the first player is player1
 
             //create new Player object
@@ -22,23 +24,25 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
             //assign deckChoice to player 1
             this.player1.assignDeck(deckChoice);
 
-            //currently in multiplayer but maybe this should be in a view controller??
-            $("#abilityContainer").css({
-                background: 'url("images/blanks/'+deckChoice.color+'_blank.png")no-repeat center center',
-                backgroundSize: 'cover',
-                boxShadow: '0 0 41px 6px '+deckChoice.glowColor
-            });
+            //placeholder? customize the ability div to the deck chosen
+            this.createAbilityContainer(gameArea, deckChoice.color, deckChoice.glowColor);
             
             //Assign game to player 1
-            this.player1.createNewGame($("#p1-game-area"));
+            this.player1.createNewGame(gameArea);
 
         } else {
+            gameArea = $("#p2-game-area");
+            
             this.player2 = new Player(name);
 
             //assign deckChoice to player 2 
             this.player2.assignDeck();
+
+            //placeholder? customize the ability div to the deck chosen
+            this.createAbilityContainer(gameArea, deckChoice.color, deckChoice.glowColor);
+            
             //Assign game to player 2
-            this.player2.createNewGame($("#p2-game-area"));
+            this.player2.createNewGame(gameArea);
         }
 
         if(this.player1 && this.player2) {
@@ -51,4 +55,13 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
 
 Multiplayer.prototype.determineFirstPlayer = function(){
     return Math.floor(Math.random() * 2);
+};
+
+//currently in multiplayer but maybe this should be in a view controller??
+Multiplayer.prototype.createAbilityContainer = function(gameArea, bgColor, glowColor){
+    $("#abilityContainer").css({
+        background: 'url("images/blanks/'+bgColor+'_blank.png")no-repeat center center',
+        backgroundSize: 'cover',
+        boxShadow: '0 0 41px 6px '+glowColor
+    });
 };
