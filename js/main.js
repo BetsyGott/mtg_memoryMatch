@@ -28,11 +28,6 @@ $(document).ready(function(){
                backgroundSize: 'cover',
                boxShadow: '0 0 41px 6px #ee3d2f'
             });
-            
-            $(".main").css({
-                background: "url('../images/black_lotus_bg.jpg') no-repeat center fixed",
-                backgroundSize: 'cover'
-            });
 
             game.init();
 
