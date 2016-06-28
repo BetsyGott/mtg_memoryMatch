@@ -294,17 +294,13 @@ body {
 .ability-container{
     height: 500px;
     width: 398px;
-    background: url("../images/blanks/red_blank.png") no-repeat center center;
     position: absolute;
     top: 7%;
     left: 45%;
-    background-size: cover;
     border-radius: 20px;
     z-index: 9999;
     opacity: 0;
     transition-duration: 2s;
-    /* currently green but should change color based on card color */
-    box-shadow: 0 0 41px 6px #00c195;
     text-transform: none;
 }
 
@@ -352,7 +348,7 @@ body {
     left: 9%;
     margin: 0;
     padding: 0 2%;
-    font-size: 1.3em;
+    font-size: 1.1em;
     text-transform: none;
 }
 

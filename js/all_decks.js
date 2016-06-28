@@ -9,7 +9,7 @@ function BlackDeck(parent){
             name: "Animate Dead",
             smallImage: "images/card_faces/black/animate_dead_sm.jpg",
             fullImage: "images/card_faces/black/animate_dead_lg.jpg",
-            ability: "activate the ability of a random creature you have already played",
+            ability: "Activate the ability of a random match you've already made.",
             set: "Alpha",
             artist: "Anson Maddocks"
         },
