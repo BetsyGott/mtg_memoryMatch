@@ -39,6 +39,10 @@ $(document).ready(function(){
                 boxShadow: '0 0 41px 6px #00e7ff'
             });
 
+            $(".ability-divider").css({
+                top: '63%'
+            });
+
             game.init();
 
         } else if(deckChoice === "white"){
