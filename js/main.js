@@ -25,8 +25,8 @@ $(document).ready(function(){
             var game = new Game($("#game-area"), RedDeck);
             $("#abilityContainer").css({
                background: 'url("images/blanks/red_blank.png")no-repeat center center',
-                backgroundSize: 'cover',
-                boxShadow: '0 0 41px 6px #ee3d2f'
+               backgroundSize: 'cover',
+               boxShadow: '0 0 41px 6px #ee3d2f'
             });
 
             game.init();

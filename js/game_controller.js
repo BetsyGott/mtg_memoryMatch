@@ -45,7 +45,7 @@ Game.prototype.checkMatch = function(card){
 
                 //if a match
 
-                console.log("card is ", card);
+                console.log("infoObject is ", card.infoObject);
 
                 this.matchCounter++;
                 this.matches++;
@@ -57,9 +57,14 @@ Game.prototype.checkMatch = function(card){
                 
                 setTimeout( (function() {
 
-                    // $("#abilityContainer").css({
-                    //    background: "url("this.selectedDeck") no-repeat center center";
-                    // });
+                    $(".ability-card-title").html(card.infoObject.name);
+                    $(".ability-card-img").css({
+                        background: 'url('+card.infoObject.fullImage+') no-repeat center center',
+                        backgroundSize: 'cover'
+                    });
+                    $("#set-name").html(card.infoObject.set);
+                    $("#artist-name").html(card.infoObject.artist);
+                    $(".ability-text").html("<p>"+card.infoObject.ability+"</p>");
 
                     $("#abilityContainer").show();
                     $(".overlay").fadeIn("fast");
