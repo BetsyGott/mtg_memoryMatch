@@ -20,7 +20,7 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
             this.player1 = new Player(name);
             
             //assign deckChoice to player 1
-            player1.assignDeck(deckChoice);
+            this.player1.assignDeck(deckChoice);
 
             //currently in multiplayer but maybe this should be in a view controller??
             $("#abilityContainer").css({
@@ -30,15 +30,15 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
             });
             
             //Assign game to player 1
-            player1.createNewGame($("#p1-game-area"));
+            this.player1.createNewGame($("#p1-game-area"));
 
         } else {
             this.player2 = new Player(name);
 
             //assign deckChoice to player 2 
-            player2.assignDeck();
+            this.player2.assignDeck();
             //Assign game to player 2
-            player2.createNewGame($("#p2-game-area"));
+            this.player2.createNewGame($("#p2-game-area"));
         }
 
         if(this.player1 && this.player2) {
