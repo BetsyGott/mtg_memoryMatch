@@ -9,7 +9,9 @@ function MultiPlayer(){
 
 }
 
-Multiplayer.prototype.mpInit = function(){
+Multiplayer.prototype.choosePlayers = function(name, deckChoice){
+    
+        
     
         if(this.player1 === null){
             //if no player 1 the first player is player1
@@ -17,17 +19,18 @@ Multiplayer.prototype.mpInit = function(){
             //create new Player object
             this.player1 = new Player(name);
             
-            //assign deckChoice to Player
-            player1.assignDeck();
-            //Assign game to player
-            player1.createNewGame();
+            //assign deckChoice to player 1
+            player1.assignDeck(deckChoice);
+            //Assign game to player 1
+            player1.createNewGame($("#p1-game-area"));
 
         } else {
             this.player2 = new Player(name);
 
-            //assign deckChoice to Player
-
-            //Assign game to player
+            //assign deckChoice to player 2 
+            player2.assignDeck();
+            //Assign game to player 2
+            player2.createNewGame($("#p2-game-area"));
         }
 
         if(this.player1 && this.player2) {

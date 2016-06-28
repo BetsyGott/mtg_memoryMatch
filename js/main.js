@@ -1,16 +1,18 @@
 
 $(document).ready(function(){
 
-    var deckChoice;
-    
+    var newMultiplayerGame = new MultiPlayer();
+
     $("#abilityContainer").hide();
 
     $(".mana-symbol").on("click", function(){
 
         $(".overlay").css("opacity",0.8);
         $(".overlay").hide();
+        
+        var playerName = $("#playerName").val();
 
-        deckChoice = $(this).attr("data-deck");
+        var deckChoice = $(this).attr("data-deck");
         
         var deckColors = {
             'red': '#ee3d2f',
@@ -21,9 +23,10 @@ $(document).ready(function(){
         };
 
         $(".deck-choice").hide();
-        var capName = deckChoice[0].toUpperCase() + deckChoice.substring(1);
-        var deckName = capName + 'Deck';
-        var game = new Game($("#game-area"), window[deckName]);
+        var capName = deckChoice[0].toUpperCase() + deckChoice.substring(1) + 'Deck';
+        // var deckName = capName + 'Deck';
+        
+        newMultiplayerGame.choosePlayers(playerName, window[deckName]);
         
         $("#abilityContainer").css({
             background: 'url("images/blanks/'+deckChoice+'_blank.png")no-repeat center center',
@@ -31,7 +34,7 @@ $(document).ready(function(){
             boxShadow: '0 0 41px 6px '+deckColors[deckChoice]
         });
 
-        game.init();
+        // game.init();
 
     });
     

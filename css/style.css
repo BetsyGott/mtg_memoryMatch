@@ -427,6 +427,11 @@ body {
     font-size: 2em;
 }
 
+.deck-choice input:focus {
+    outline-offset: -2px;
+    outline: #fff auto 5px;
+}
+
 .deck-choice h2 {
     top: -5.5em;
     left: -4.5em;

@@ -7,13 +7,15 @@ function Player(name){
 }
 
 Player.prototype.assignDeck = function(deckChoice){
-  this.deck = new deckChoice;  
+  this.deck = new deckChoice(this);  
     
     return this.deck;
 };
 
 Player.prototype.createNewGame = function(gameArea){
     this.game = new Game(gameArea, this);
+    
+    this.game.init();
     
     return this.game;
 };
