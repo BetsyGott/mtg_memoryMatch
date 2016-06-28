@@ -2,11 +2,7 @@
 $(document).ready(function(){
 
     var deckChoice;
-
-    // $(".overlay").show();
-    // var deckChoice = prompt("pick red, blue, black, green, or white");
-
-    // $(".overlay").hide();
+    
     $("#abilityContainer").hide();
 
     $(".mana-symbol").on("click", function(){
@@ -15,8 +11,7 @@ $(document).ready(function(){
         $(".overlay").hide();
 
         deckChoice = $(this).attr("data-deck");
-
-        console.log("deckChoice", deckChoice);
+        
         var deckColors = {
             'red': '#ee3d2f',
             'blue': '#00e7ff',
