@@ -1,10 +1,22 @@
-function Player(name, deckChoice){
+function Player(name){
     this.name = name;
-    this.deck = deckChoice;
-    this.game = new Game($("#game-area"), this);
+    this.deck = null;
+    this.game = null;
     this.lifeTotal = 20;
     this.activeEffects = {};
 }
+
+Player.prototype.assignDeck = function(deckChoice){
+  this.deck = new deckChoice;  
+    
+    return this.deck;
+};
+
+Player.prototype.createNewGame = function(gameArea){
+    this.game = new Game(gameArea, this);
+    
+    return this.game;
+};
 
 Player.prototype.addLife = function(amount){
     this.lifeTotal = this.lifeTotal + amount;
