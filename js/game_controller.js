@@ -128,16 +128,8 @@ Game.prototype.displayStats = function(){
     $(".matches .value").html(this.matches);
     $(".attempts .value").html(this.attempts);
     $(".misses .value").html(this.misses);
+    $(".accuracy .value").html(this.formatAccuracy() + "%");
 
-    // if attempts = 0 then accuracy = 0% to avoid divide by zero
-    if(this.attempts === 0){
-        this.accuracy = "0%";
-        $(".accuracy .value").html(this.accuracy);
-    } else{
-        //format accuracy
-        this.accuracy = Math.floor((this.matches / this.attempts)*100);
-        $(".accuracy .value").html(this.accuracy + "%");
-    }
 };
 
 Game.prototype.init = function(){
@@ -197,4 +189,15 @@ Game.prototype.resetStats = function(){
     this.matchCounter = 0;
 
     this.displayStats();
+};
+
+Game.prototype.formatAccuracy = function(){
+    if(this.attempts === 0){
+        this.accuracy = "0";
+    } else{
+        //format accuracy
+        this.accuracy = Math.floor((this.matches / this.attempts)*100);
+    }
+
+    return this.accuracy;
 };

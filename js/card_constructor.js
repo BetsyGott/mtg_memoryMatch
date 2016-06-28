@@ -12,6 +12,7 @@ function Card(parent, infoObject) {
     this.$back = null;
     this.$frontImage = null;
     this.$backImage = null;
+    
 }
 
 //this function will create one card
