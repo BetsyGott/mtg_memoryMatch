@@ -100,7 +100,7 @@ function BlueDeck(parent){
             name: "Braingeyser",
             smallImage: "images/card_faces/blue/braingeyser_sm.jpeg",
             fullImage: "images/card_faces/blue/braingeyser_lg.jpg",
-            ability: "remove 1 opponent ability, if any are still in play.",
+            ability: "Remove 1 opponent ability at random from any still in play.",
             set: "Alpha",
             artist: "Mark Tedin"
         },
