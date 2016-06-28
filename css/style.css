@@ -49,6 +49,7 @@ html, body {
 }
 
 body {
+    overflow: hidden;
     margin: 0;
     font-family: 'Beleren Bold', sans-serif;
     text-transform: uppercase;
@@ -242,9 +243,9 @@ body {
     height: 100%;
     z-index: 10;
     background: #000;
-    box-shadow: -webkit-box-shadow: inset 10px 10px 80px 39px rgba(0,0,0,0.75);
-    -moz-box-shadow: inset 10px 10px 80px 39px rgba(0,0,0,0.75);
-    box-shadow: inset 10px 10px 80px 39px rgba(0,0,0,0.75);
+    /*-webkit-box-shadow: inset 10px 10px 80px 39px rgba(0,0,0,0.75);*/
+    /*-moz-box-shadow: inset 10px 10px 80px 39px rgba(0,0,0,0.75);*/
+    /*box-shadow: inset 10px 10px 80px 39px rgba(0,0,0,0.75);*/
     -webkit-box-shadow: inset 5px 10px 55px 71px rgba(0,0,0,0.75);
     -moz-box-shadow: inset 5px 10px 55px 71px rgba(0,0,0,0.75);
     box-shadow: inset 5px 10px 55px 71px rgba(0,0,0,0.75);
@@ -253,7 +254,7 @@ body {
 
 
 #fog,
-#fog-2 {
+#fog2 {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -261,7 +262,7 @@ body {
     height: 2000px;
     margin-top: -1000px;
     margin-left: -1000px;
-    opacity: 1;
+    opacity: .5;
     background: url("../images/fog.png") repeat-x 0 center;
     -webkit-animation-name: fogAnimation;
     -webkit-animation-duration: 30s;
@@ -270,7 +271,7 @@ body {
 }
 
 #fog2 {
-    opacity: 1;
+    opacity: .75;
     -webkit-animation-duration: 120s;
 }
 

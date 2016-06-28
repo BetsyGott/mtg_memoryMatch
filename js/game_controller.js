@@ -55,8 +55,9 @@ Game.prototype.checkMatch = function(card){
                 
                 setTimeout( (function() {
 
-                    $(".overlay").show(400);
                     $("#abilityContainer").show();
+                    $(".overlay").fadeIn("fast");
+
 
                     setTimeout( function(){
                         $("#abilityContainer").css("opacity", 1);

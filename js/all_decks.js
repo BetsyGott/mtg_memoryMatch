@@ -403,8 +403,8 @@ function WhiteDeck(parent){
         },
         {
             name: "Yosei, the Morning Star",
-            smallImage: "images/card_faces/white/yosei_the_morning_star_sm.jpeg",
-            fullImage: "images/card_faces/white/yosei_the_morning_star_lg.jpg",
+            smallImage: "images/card_faces/white/yosei_the_morning_star_sm.jpg",
+            fullImage: "images/card_faces/white/yosei_the_morning_star_lg.jpeg",
             ability: "8 damage + # of matches",
             set: "Champions of Kamigawa",
             artist: "Hiro Izawa"
