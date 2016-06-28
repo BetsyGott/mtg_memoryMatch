@@ -45,6 +45,8 @@ Game.prototype.checkMatch = function(card){
 
                 //if a match
 
+                console.log("card is ", card);
+
                 this.matchCounter++;
                 this.matches++;
                 this.attempts++;
@@ -54,6 +56,10 @@ Game.prototype.checkMatch = function(card){
                 //move match counter to somewhere inside this function vvv to avoid win screen happening before last ability is played
                 
                 setTimeout( (function() {
+
+                    // $("#abilityContainer").css({
+                    //    background: "url("this.selectedDeck") no-repeat center center";
+                    // });
 
                     $("#abilityContainer").show();
                     $(".overlay").fadeIn("fast");
