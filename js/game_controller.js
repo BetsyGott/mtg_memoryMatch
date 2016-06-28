@@ -1,5 +1,6 @@
-//main game object, handles game logic
-function Game(gameArea, deck) {
+//handles logic of each player's games
+function Game(gameArea, parent) {
+    this.parent = parent;
     this.gameArea = $(gameArea);
     this.firstCard = null;
     this.secondCard = null;
@@ -13,7 +14,7 @@ function Game(gameArea, deck) {
     this.cardArray = [];
     this.cardBack = "images/mtg-card-back.jpg";
     // vvv this will end up 1. being a parameter passed in 2. going into a player object instead
-    this.selectedDeck = new deck(this);
+    this.selectedDeck = parent.deck;
 
 }
 

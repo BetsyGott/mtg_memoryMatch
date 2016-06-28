@@ -400,16 +400,46 @@ body {
     margin: 1.75em auto 0;
     transform: rotate(-7deg) translate(0em) rotate(5deg);
     z-index: 999;
+    color: #fff;
+}
+
+.deck-choice h1,
+.deck-choice h2,
+.deck-choice input{
+    position: absolute;
+    transform: rotate(2deg);
 }
 
 .deck-choice h1 {
-    color: #fff;
-    position: absolute;
-    top: -2.25em;
-    left: -1.5em;
     font-size: 4em;
+    top: -61%;
+    left: 17%;
+}
+
+.deck-choice input {
+    top: -29%;
+    height: 50px;
+    width: 100%;
+    border: 2px solid black;
+    left: 0;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 2em;
+}
+
+.deck-choice h2 {
+    top: -5.5em;
+    left: -4.5em;
+    font-size: 3.5em;
     width: 100vw;
-    transform: rotate(2deg);
+    transform: rotate(3deg);
+}
+
+.mana-group{
+    position: absolute;
+    top: 59%;
+    left: 50%;
+    transform: rotate(-1deg);
 }
 
 .initial-logo {
@@ -426,6 +456,7 @@ body {
     left: 0;
     transform: rotate(0deg);
     font-size: 1.5em;
+    width: 300px;
 }
 
 .mana-symbol {
