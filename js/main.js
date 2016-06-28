@@ -1,7 +1,7 @@
 
 $(document).ready(function(){
 
-    var newMultiplayerGame = new MultiPlayer();
+    var newMultiplayerGame = new Multiplayer();
 
     $("#abilityContainer").hide();
 
@@ -24,15 +24,16 @@ $(document).ready(function(){
 
         $(".deck-choice").hide();
         var capName = deckChoice[0].toUpperCase() + deckChoice.substring(1) + 'Deck';
+        console.log("capname", capName);
         // var deckName = capName + 'Deck';
         
-        newMultiplayerGame.choosePlayers(playerName, window[deckName]);
+        newMultiplayerGame.choosePlayers(playerName, window[capName]);
         
-        $("#abilityContainer").css({
-            background: 'url("images/blanks/'+deckChoice+'_blank.png")no-repeat center center',
-            backgroundSize: 'cover',
-            boxShadow: '0 0 41px 6px '+deckColors[deckChoice]
-        });
+        // $("#abilityContainer").css({
+        //     background: 'url("images/blanks/'+deckChoice+'_blank.png")no-repeat center center',
+        //     backgroundSize: 'cover',
+        //     boxShadow: '0 0 41px 6px '+deckColors[deckChoice]
+        // });
 
         // game.init();
 

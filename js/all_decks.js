@@ -3,9 +3,11 @@
  * @constructor
  */
 function BlackDeck(parent){
+    this.color = "black";
     this.parent = parent;
     this.background = "images/backgrounds/swamp.jpg";
     this.textColor = "#9e9e9e";
+    this.glowColor = "#cbc3c1";
     this.deck = [
         {
             name: "Animate Dead",
@@ -88,9 +90,11 @@ function BlackDeck(parent){
  * @constructor
  */
 function BlueDeck(parent){
+    this.color = "blue";
     this.parent = parent;
     this.background = "images/backgrounds/island.jpg";
     this.textColor = "#5bc0ff";
+    this.glowColor = "#00e7ff";
     this.deck = [
         {
             name: "Air Elemental",
@@ -173,9 +177,11 @@ function BlueDeck(parent){
  * @constructor
  */
 function GreenDeck(parent){
+    this.color = "green";
     this.parent = parent;
     this.background = "images/backgrounds/forest.jpg";
     this.textColor = "#83d652";
+    this.glowColor = "#00c195";
     this.deck = [
         {
             name: "Birds of Paradise",
@@ -258,9 +264,11 @@ function GreenDeck(parent){
  * @constructor
  */
 function RedDeck(parent){
+    this.color = "red";
     this.parent = parent;
     this.background = "images/backgrounds/mountain.jpg";
     this.textColor = "#983730";
+    this.glowColor = "#ee3d2f";
     this.deck = [
         {
             name: "Akroma, Angel of Fury",
@@ -343,9 +351,11 @@ function RedDeck(parent){
  * @constructor
  */
 function WhiteDeck(parent){
+    this.color = "white";
     this.parent = parent;
     this.background = "images/backgrounds/plains.jpg";
     this.textColor = "#FFF";
+    this.glowColor = "#FFF";
     this.deck = [
         {
             name: "Balance",

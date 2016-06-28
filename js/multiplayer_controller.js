@@ -2,7 +2,7 @@
  * Handles the global aspects of the game
  * @constructor
  */
-function MultiPlayer(){
+function Multiplayer(){
     this.player1 = null;
     this.player2 = null;
 
@@ -21,6 +21,14 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
             
             //assign deckChoice to player 1
             player1.assignDeck(deckChoice);
+
+            //currently in multiplayer but maybe this should be in a view controller??
+            $("#abilityContainer").css({
+                background: 'url("images/blanks/'+deckChoice.color+'_blank.png")no-repeat center center',
+                backgroundSize: 'cover',
+                boxShadow: '0 0 41px 6px '+deckChoice.glowColor
+            });
+            
             //Assign game to player 1
             player1.createNewGame($("#p1-game-area"));
 
