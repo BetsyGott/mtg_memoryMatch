@@ -140,6 +140,18 @@ Game.prototype.displayStats = function(){
 
 Game.prototype.init = function(){
     this.resetStats();
+    this.buildBoard();
+};
+
+Game.prototype.buildBoard = function(){
+
+    //background based on deck choice
+    $(".main").css({
+        background: "url('"+ this.selectedDeck.background +"') no-repeat center fixed",
+        backgroundSize: 'cover'
+    });
+
+    //create cards
     this.createRandomCards(this.cardArray);
 };
 

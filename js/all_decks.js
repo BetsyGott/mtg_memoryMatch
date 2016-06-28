@@ -4,6 +4,7 @@
  */
 function BlackDeck(parent){
     this.parent = parent;
+    this.background = "images/backgrounds/swamp.jpg";
     this.deck = [
         {
             name: "Animate Dead",
@@ -87,6 +88,7 @@ function BlackDeck(parent){
  */
 function BlueDeck(parent){
     this.parent = parent;
+    this.background = "images/backgrounds/island.jpg";
     this.deck = [
         {
             name: "Air Elemental",
@@ -170,6 +172,7 @@ function BlueDeck(parent){
  */
 function GreenDeck(parent){
     this.parent = parent;
+    this.background = "images/backgrounds/forest.jpg";
     this.deck = [
         {
             name: "Birds of Paradise",
@@ -253,6 +256,7 @@ function GreenDeck(parent){
  */
 function RedDeck(parent){
     this.parent = parent;
+    this.background = "images/backgrounds/mountain.jpg";
     this.deck = [
         {
             name: "Akroma, Angel of Fury",
@@ -336,6 +340,7 @@ function RedDeck(parent){
  */
 function WhiteDeck(parent){
     this.parent = parent;
+    this.background = "images/backgrounds/plains.jpg";
     this.deck = [
         {
             name: "Balance",
