@@ -284,3 +284,5 @@ Multiplayer.prototype.handleDamage = function(target, amount){
 Multiplayer.prototype.handleLifeGain = function(target, amount){
   target.addLife(amount);  
 };
+
+//player passes in this, this being "this.player1" or "this.player2" in MP object, so you can check who yourself is and then direct MP to do the other guy
