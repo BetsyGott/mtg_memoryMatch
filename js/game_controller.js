@@ -113,7 +113,8 @@ Game.prototype.checkMatch = function(card){
 
                 this.misses++;
                 this.attempts++;
-                
+
+                //turn is passed to next player
             }
 
             this.displayStats(this.playerStatsDiv);

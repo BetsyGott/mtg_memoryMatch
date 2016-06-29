@@ -22,9 +22,12 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
             var playerAbilityContainer = $("#p1AbilityContainer");
             
             //create new Player object
-            this.player1 = new Player(name);
-            this.player1.playerNum = "p1";
-            
+            if(name === ""){
+                this.player1 = new Player("Player 1");
+            } else {
+                this.player1 = new Player(name);
+            }
+
             //assign deckChoice to player 1
             this.player1.assignDeck(deckChoice);
 
@@ -45,14 +48,16 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
             $(".intro-player-title").text("Player 2");
 
         } else {
-            console.log("second player");
 
             gameArea = $("#p2-game-area");
             playerStatsDiv = $(".player2-stats");
             playerAbilityContainer = $("#p2AbilityContainer");
-            
-            this.player2 = new Player(name);
-            this.player2.playerNum = "p2";
+
+            if(name === ""){
+                this.player2 = new Player("Player 2");
+            } else {
+                this.player2 = new Player(name);
+            }
 
             //assign deckChoice to player 2 
             this.player2.assignDeck(deckChoice);
