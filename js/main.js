@@ -1,38 +1,20 @@
 
 $(document).ready(function(){
 
-    var deckChoice;
-    
-    $("#abilityContainer").hide();
+    var newMultiplayerGame = new Multiplayer();
+
+    newMultiplayerGame.showIntroScreen();
 
     $(".mana-symbol").on("click", function(){
-
-        $(".overlay").css("opacity",0.8);
-        $(".overlay").hide();
-
-        deckChoice = $(this).attr("data-deck");
         
-        var deckColors = {
-            'red': '#ee3d2f',
-            'blue': '#00e7ff',
-            'black': '#cbc3c1',
-            'green': '#00c195',
-            'white': '#fff'
-        };
+        var playerName = $("#playerName").val();
 
-        $(".deck-choice").hide();
-        var capName = deckChoice[0].toUpperCase() + deckChoice.substring(1);
-        var deckName = capName + 'Deck';
-        var game = new Game($("#game-area"), window[deckName]);
+        var deckChoice = $(this).attr("data-deck");
         
-        $("#abilityContainer").css({
-            background: 'url("images/blanks/'+deckChoice+'_blank.png")no-repeat center center',
-            backgroundSize: 'cover',
-            boxShadow: '0 0 41px 6px '+deckColors[deckChoice]
-        });
-
-        game.init();
-
+        var capName = deckChoice[0].toUpperCase() + deckChoice.substring(1) + 'Deck';
+        
+        newMultiplayerGame.choosePlayers(playerName, window[capName]);
+        
     });
     
     //resets game on click, randomizes cards, increments game counter

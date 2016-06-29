@@ -21,10 +21,18 @@
         <!--Jquery-->
         <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
+        <!--Jquery UI-->
+        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+
+        <!--Jquery Transit-->
+        <script src="http://ricostacruz.com/jquery.transit/jquery.transit.min.js"></script>
+
         <!--my JS-->
         <script src="js/card_constructor.js"></script>
         <script src="js/all_decks.js"></script>
         <script src="js/game_controller.js"></script>
+        <script src="js/player_constructor.js"></script>
+        <script src="js/multiplayer_controller.js"></script>
         <script src="js/main.js"></script>
 
     <!--// links to js-->
@@ -60,8 +68,8 @@
                 </ul>
             </div>
             <div class="player2-stats player-stats">
-                <h2 class="player-name">Player 2</h2>
-                <h2 class="life-total">20</h2>
+                <h2 class="player-name deck-text">Player 2</h2>
+                <h2 class="life-total deck-text">20</h2>
                 <h2 class="effects-header">Effects in Play: <span class="effects">None</span></h2>
                 <h2 class="matches">Matches: <span class="value">0</span></h2>
                 <ul>
@@ -87,9 +95,13 @@
         <h3 class="reset" id="reset-button">reset game</h3>
     </div>
 
-    <div class="game_area_style" id="game-area">
+    <div class="game_area_style" id="p1-game-area">
         <!--card divs go in here-->
     </div>
+    <div class="game_area_style" id="p2-game-area">
+        <!--card divs go in here-->
+    </div>
+
     <div class="ability-container" id="abilityContainer">
         <div class="ability-card-title">
         </div>
@@ -115,25 +127,37 @@
         <img src="images/logos/mtg-logo-transp.png">
         <h1>Memory Match</h1>
     </div>
+    <h1 class="intro-player-title">Player 1</h1>
+    <input type="text" name="name" id="playerName" placeholder="Enter your Name">
+    <div class="mana-group">
+        <h2>Choose Your Deck</h2>
 
-    <h1>Choose Your Deck</h1>
-
-    <div class="mana-symbol deg0" data-deck="white">
-        <img class="shadowfilter shadowfilter-white" src="images/mana_symbols/white_mana_symbol.png" />
-    </div>
-    <div class="mana-symbol deg45" data-deck="blue">
-        <img class="shadowfilter shadowfilter-blue" src="images/mana_symbols/blue_mana_symbol.png" />
-    </div>
-    <div class="mana-symbol deg135" data-deck="black">
-        <img class="shadowfilter shadowfilter-black" src="images/mana_symbols/black_mana_symbol.png" />
-    </div>
-    <div class="mana-symbol deg180" data-deck="red">
-        <img class="shadowfilter shadowfilter-red" src="images/mana_symbols/red_mana_symbol.png" />
-    </div>
-    <div class="mana-symbol deg225" data-deck="green">
-        <img class="shadowfilter shadowfilter-green" src="images/mana_symbols/green_mana_symbol.png" />
+        <div class="mana-symbol deg0" data-deck="white">
+            <img class="shadowfilter shadowfilter-white" src="images/mana_symbols/white_mana_symbol.png" />
+        </div>
+        <div class="mana-symbol deg45" data-deck="blue">
+            <img class="shadowfilter shadowfilter-blue" src="images/mana_symbols/blue_mana_symbol.png" />
+        </div>
+        <div class="mana-symbol deg135" data-deck="black">
+            <img class="shadowfilter shadowfilter-black" src="images/mana_symbols/black_mana_symbol.png" />
+        </div>
+        <div class="mana-symbol deg180" data-deck="red">
+            <img class="shadowfilter shadowfilter-red" src="images/mana_symbols/red_mana_symbol.png" />
+        </div>
+        <div class="mana-symbol deg225" data-deck="green">
+            <img class="shadowfilter shadowfilter-green" src="images/mana_symbols/green_mana_symbol.png" />
+        </div>
     </div>
 </div>
+<div class="coinflip-title">
+    <h1 class="coinflip-title-text">Coin Flip</h1>
+</div>
+<div class="coin-container">
 
+    <div class="coin">
+        <div class="coin-front"></div>
+        <div class="coin-back"></div>
+    </div>
+</div>
 </body>
 </html>

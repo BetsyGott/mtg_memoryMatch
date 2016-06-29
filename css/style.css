@@ -275,15 +275,11 @@ body {
     height: 100%;
     z-index: 10;
     background: #000;
-    /*-webkit-box-shadow: inset 10px 10px 80px 39px rgba(0,0,0,0.75);*/
-    /*-moz-box-shadow: inset 10px 10px 80px 39px rgba(0,0,0,0.75);*/
-    /*box-shadow: inset 10px 10px 80px 39px rgba(0,0,0,0.75);*/
     -webkit-box-shadow: inset 5px 10px 55px 71px rgba(0,0,0,0.75);
     -moz-box-shadow: inset 5px 10px 55px 71px rgba(0,0,0,0.75);
     box-shadow: inset 5px 10px 55px 71px rgba(0,0,0,0.75);
     background-size: cover;
 }
-
 
 #fog,
 #fog2 {
@@ -318,6 +314,69 @@ body {
     }
 }
 
+/******************************************
+/* COIN FLIP STYLES
+/*******************************************/
+
+.coin-container {
+    z-index: 999;
+    position: absolute;
+    width:256px;
+    height:256px;
+    margin-left:-130px;
+    margin-top:-130px;
+    top:50%;
+    left:50%;
+    perspective:1000;
+    -webkit-perspective: 1000;
+    -webkit-box-reflect: below 0 linear-gradient( hsla(0,0%,100%,0), hsla(0,0%,100%,0) 45%, hsla(0,0%,100%,0.2));
+    -webkit-filter: ~"saturate(1.45) hue-rotate(2deg)";
+}
+
+.coin {
+    position:relative;
+    -webkit-transform:rotateY(0deg);
+    transform-style: preserve-3d;
+    transition: 0.6s;
+    -webkit-transform-style: preserve-3d;
+    -webkit-transition: 0.6s;
+}
+
+.coin-front, .coin-back {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    width:256px;
+    height:256px;
+    border-radius:150px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.coin-front {
+    transform: rotateY(0deg);
+    -webkit-transform: rotateY(0deg);
+    background-image:url(http://www.csgostattrack.com/assets/img/teams/default_team_t_logo.png);
+}
+
+.coin-back {
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    background-image:url(http://www.csgostattrack.com/assets/img/teams/default_team_ct_logo.png);
+}
+
+.coinflip-title {
+    z-index: 999;
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.coinflip-title-text {
+    font-size: 4em;
+}
 
 /******************************************
 /* ABILITY DIV STYLES
@@ -400,16 +459,51 @@ body {
     margin: 1.75em auto 0;
     transform: rotate(-7deg) translate(0em) rotate(5deg);
     z-index: 999;
+    color: #fff;
+}
+
+.deck-choice h1,
+.deck-choice h2,
+.deck-choice input{
+    position: absolute;
+    transform: rotate(2deg);
 }
 
 .deck-choice h1 {
-    color: #fff;
-    position: absolute;
-    top: -2.25em;
-    left: -1.5em;
     font-size: 4em;
+    top: -61%;
+    left: 17%;
+}
+
+.deck-choice input {
+    top: -29%;
+    height: 50px;
+    width: 100%;
+    border: 2px solid black;
+    left: 0;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 2em;
+}
+
+.deck-choice input:focus {
+    outline-offset: -2px;
+    outline: #fff auto 5px;
+}
+
+.deck-choice h2 {
+    top: -5.5em;
+    left: -4.5em;
+    font-size: 3.5em;
     width: 100vw;
-    transform: rotate(2deg);
+    transform: rotate(3deg);
+}
+
+.mana-group{
+    position: absolute;
+    top: 59%;
+    left: 50%;
+    transform: rotate(-1deg);
 }
 
 .initial-logo {
@@ -426,6 +520,7 @@ body {
     left: 0;
     transform: rotate(0deg);
     font-size: 1.5em;
+    width: 300px;
 }
 
 .mana-symbol {
