@@ -140,18 +140,8 @@ Game.prototype.init = function(){
 
 Game.prototype.buildBoard = function(){
 
-    //background based on deck choice
-    $(".main").css({
-        background: "url('"+ this.selectedDeck.background +"') no-repeat center fixed",
-        backgroundSize: 'cover'
-    });
-
-    $(".player1-stats").find(".deck-text").css({
-       color: this.selectedDeck.textColor
-    });
-
-    //create cards
     this.createRandomCards(this.cardArray);
+    
 };
 
 Game.prototype.createRandomCards = function(array){

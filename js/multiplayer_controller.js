@@ -5,21 +5,20 @@
 function Multiplayer(){
     this.player1 = null;
     this.player2 = null;
+    this.currentPlayer = null;
 
 
 }
 
 Multiplayer.prototype.choosePlayers = function(name, deckChoice){
     
-        // console.log("name in chooseplayers, ", name, "deckChoice in chooseplayers: ", deckChoice);
-    
         if(this.player1 === null){
 
-            console.log("first player");
-            
-            var gameArea = $("#p1-game-area");
             //if no player 1 the first player is player1
-
+            
+            //set player1 game DOM element
+            var gameArea = $("#p1-game-area");
+            
             //create new Player object
             this.player1 = new Player(name);
             
@@ -32,7 +31,15 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
             //Assign game to player 1
             this.player1.createNewGame(gameArea);
 
+            $(".player1-stats").find(".player-name").text(this.player1.name);
+
+            $(".player1-stats").find(".deck-text").css({
+                color: this.player1.deck.textColor
+            });
+
             this.clearFields();
+
+            $(".intro-player-title").text("Player 2");
 
         } else {
             console.log("second player");
@@ -50,23 +57,33 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
             //Assign game to player 2
             this.player2.createNewGame(gameArea);
 
+            $(".player2-stats").find(".player-name").text(this.player2.name);
+
+            $(".player2-stats").find(".deck-text").css({
+                color: this.player2.deck.textColor
+            });
+
             this.clearFields();
         }
 
         if(this.player1 && this.player2) {
-            console.log("both players selected");
-            //if both players are already created, do a random 50/50 calc to determine who goes first
-            var firstPlayer = this.determineFirstPlayer() === 0 ? this.player1 : this.player2;
-
-            console.log(firstPlayer);
             
-            //hide the intro screen
-            $(".overlay").css("opacity",0.8);
-            $(".overlay").hide();
-            $(".deck-choice").hide();
+            //do a random 50/50 calc to determine who goes first
+            this.currentPlayer = this.determineFirstPlayer() === 0 ? this.player1 : this.player2;
             
-            //show the game area of the firstPlayer
-            firstPlayer.game.gameArea.show();
+            //show a coin flipping over overlay bg
+            
+            //show currentPlayer.name "goes first." over overlay bg
+            
+            //hide text/coin flip, hide overlay
+            
+            //change bg color to the person who goes first
+            this.changeBackgroundColor(this.currentPlayer);
+            
+            // this.hideIntroScreen();
+            
+            //show first player's game area to start
+            this.currentPlayer.game.gameArea.show();
         }
 };
 
@@ -76,7 +93,7 @@ Multiplayer.prototype.determineFirstPlayer = function(){
 
 //currently in multiplayer but maybe this should be in a view controller??
 Multiplayer.prototype.createAbilityContainer = function(gameArea, bgColor, glowColor){
-    // console.log("gamearea: ", gameArea, "bgColor: ", bgColor, "glowColor: ", glowColor);
+    
     $("#abilityContainer").css({
         background: 'url("images/blanks/'+bgColor+'_blank.png")no-repeat center center',
         backgroundSize: 'cover',
@@ -87,4 +104,39 @@ Multiplayer.prototype.createAbilityContainer = function(gameArea, bgColor, glowC
 Multiplayer.prototype.clearFields = function(){
     $("#playerName").val("");
 
+};
+
+//change background based on deck choice
+Multiplayer.prototype.changeBackgroundColor = function(player){
+    $(".main").css({
+        background: "url('"+ player.deck.background +"') no-repeat center fixed",
+        backgroundSize: 'cover'
+    });
+};
+
+Multiplayer.prototype.hideIntroScreen = function(){
+    this.hideOverlay();
+    this.hidePlayerChoices();
+};
+
+// hide name input and mana choices
+Multiplayer.prototype.hidePlayerChoices = function(){
+    $(".deck-choice").hide();
+};
+
+
+//hide overlay and fog
+Multiplayer.prototype.hideOverlay = function(){
+    $(".overlay").css("opacity",0.8);
+    $(".overlay").hide();
+};
+
+Multiplayer.prototype.showIntroScreen = function(){
+    $("#p1-game-area").hide();
+    $("#p2-game-area").hide();
+    $("#abilityContainer").hide();
+
+    $(".overlay").css("opacity",1);
+    $(".overlay").show();
+    $(".deck-choice").show();
 };
