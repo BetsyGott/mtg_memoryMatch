@@ -18,18 +18,24 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
             
             //set player1 game DOM element
             var gameArea = $("#p1-game-area");
+            var playerStatsDiv = $(".player1-stats");
+            var playerAbilityContainer = $("#p1AbilityContainer");
             
             //create new Player object
-            this.player1 = new Player(name);
-            
+            if(name === ""){
+                this.player1 = new Player("Player 1");
+            } else {
+                this.player1 = new Player(name, this);
+            }
+
             //assign deckChoice to player 1
             this.player1.assignDeck(deckChoice);
 
             //placeholder? customize the ability div to the deck chosen
-            this.createAbilityContainer(gameArea, this.player1.deck.color, this.player1.deck.glowColor);
+            this.createAbilityContainer("p1", gameArea, this.player1.deck.color, this.player1.deck.glowColor);
             
             //Assign game to player 1
-            this.player1.createNewGame(gameArea);
+            this.player1.createNewGame(gameArea, playerStatsDiv, playerAbilityContainer);
 
             $(".player1-stats").find(".player-name").text(this.player1.name);
 
@@ -42,20 +48,25 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
             $(".intro-player-title").text("Player 2");
 
         } else {
-            console.log("second player");
 
             gameArea = $("#p2-game-area");
-            
-            this.player2 = new Player(name);
+            playerStatsDiv = $(".player2-stats");
+            playerAbilityContainer = $("#p2AbilityContainer");
+
+            if(name === ""){
+                this.player2 = new Player("Player 2");
+            } else {
+                this.player2 = new Player(name, this);
+            }
 
             //assign deckChoice to player 2 
             this.player2.assignDeck(deckChoice);
 
             //placeholder? customize the ability div to the deck chosen
-            this.createAbilityContainer(gameArea, this.player2.deck.color, this.player2.deck.glowColor);
+            this.createAbilityContainer("p2", gameArea, this.player2.deck.color, this.player2.deck.glowColor);
             
             //Assign game to player 2
-            this.player2.createNewGame(gameArea);
+            this.player2.createNewGame(gameArea, playerStatsDiv, playerAbilityContainer);
 
             $(".player2-stats").find(".player-name").text(this.player2.name);
 
@@ -92,13 +103,16 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
 };
 
 Multiplayer.prototype.determineFirstPlayer = function(){
-    return Math.floor(Math.random() * 2);
+    var num = Math.floor(Math.random() * 2);
+
+    console.log("num chosen " + num);
+    return num;
 };
 
 //currently in multiplayer but maybe this should be in a view controller??
-Multiplayer.prototype.createAbilityContainer = function(gameArea, bgColor, glowColor){
+Multiplayer.prototype.createAbilityContainer = function(playerNum, gameArea, bgColor, glowColor){
     
-    $("#abilityContainer").css({
+    $("#"+playerNum+"AbilityContainer").css({
         background: 'url("images/blanks/'+bgColor+'_blank.png")no-repeat center center',
         backgroundSize: 'cover',
         boxShadow: '0 0 41px 6px '+glowColor
@@ -138,7 +152,8 @@ Multiplayer.prototype.hideOverlay = function(){
 Multiplayer.prototype.showIntroScreen = function(){
     $("#p1-game-area").hide();
     $("#p2-game-area").hide();
-    $("#abilityContainer").hide();
+    $("#p1AbilityContainer").hide();
+    $("#p2AbilityContainer").hide();
     $(".coin-container").hide();
     $(".coinflip-title").hide();
 
@@ -184,4 +199,41 @@ Multiplayer.prototype.showCoinFlip = function(currentPlayer){
          }.bind(this)), 5000);
         
     });
+};
+
+Multiplayer.prototype.endTurn = function(){
+    
+    this.currentPlayer = this.currentPlayer === this.player1 ? this.player2 : this.player1;
+
+    this.changeBackgroundColor(this.currentPlayer);
+
+    this.switchDeck();
+    
+    //TODO add animation to switch so it's less jarring and it gives some cue of whose turn it is
+    //this.animateTurnSwitch();
+
+    return this.currentPlayer;
+    
+};
+
+Multiplayer.prototype.informWin = function(){
+    alert(this.currentPlayer.name+ " wins!");
+    this.currentPlayer.game.canClick = false;
+};
+
+Multiplayer.prototype.switchDeck = function(){
+    //hide both decks
+    this.player1.game.gameArea.hide();
+    this.player2.game.gameArea.hide();
+
+    //show current player's deck
+  this.currentPlayer.game.gameArea.show();
+};
+
+Multiplayer.prototype.animateTurnSwitch = function(){
+    //add some sort of fog or swishing air animation 
+    
+    //add some kind of text that says this.currentPlayer.name + "'s Turn!"
+    
+    //then hide animation, hide text
 };
