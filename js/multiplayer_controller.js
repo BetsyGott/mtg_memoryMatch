@@ -70,10 +70,17 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
             
             //do a random 50/50 calc to determine who goes first
             this.currentPlayer = this.determineFirstPlayer() === 0 ? this.player1 : this.player2;
-            
+
             //show a coin flipping over overlay bg
-            
-            //show currentPlayer.name "goes first." over overlay bg
+            if(this.currentPlayer === this.player1){
+                //show heads animation
+
+                //show "Player 1 goes first"
+            } else {
+                //show tails animation
+                console.log("tails");
+                //show "Player 2 goes first"
+            }
             
             //hide text/coin flip, hide overlay
             
@@ -139,4 +146,10 @@ Multiplayer.prototype.showIntroScreen = function(){
     $(".overlay").css("opacity",1);
     $(".overlay").show();
     $(".deck-choice").show();
+};
+
+Multiplayer.prototype.showCoinFlip = function(){
+    
+    
+    
 };
