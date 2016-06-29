@@ -103,7 +103,10 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
 };
 
 Multiplayer.prototype.determineFirstPlayer = function(){
-    return Math.floor(Math.random() * 2);
+    var num = Math.floor(Math.random() * 2);
+
+    console.log("num chosen " + num);
+    return num;
 };
 
 //currently in multiplayer but maybe this should be in a view controller??
@@ -204,7 +207,7 @@ Multiplayer.prototype.endTurn = function(){
 
     this.changeBackgroundColor(this.currentPlayer);
 
-    this.switchDeck(this.currentPlayer);
+    this.switchDeck();
     
     //TODO add animation to switch so it's less jarring and it gives some cue of whose turn it is
     //this.animateTurnSwitch();
@@ -213,7 +216,12 @@ Multiplayer.prototype.endTurn = function(){
     
 };
 
-Multiplayer.prototype.switchDeck = function(currentPlayer){
+Multiplayer.prototype.informWin = function(){
+    alert(this.currentPlayer.name+ " wins!");
+    this.currentPlayer.game.canClick = false;
+};
+
+Multiplayer.prototype.switchDeck = function(){
     //hide both decks
     this.player1.game.gameArea.hide();
     this.player2.game.gameArea.hide();

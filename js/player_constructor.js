@@ -25,6 +25,10 @@ Player.prototype.handleTurnEnd = function(){
     this.parent.endTurn();
 };
 
+Player.prototype.handleWin = function(){
+    this.parent.informWin();
+};
+
 Player.prototype.addLife = function(amount){
     this.lifeTotal = this.lifeTotal + amount;
     

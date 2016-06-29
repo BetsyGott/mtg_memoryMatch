@@ -52,7 +52,7 @@ Game.prototype.checkMatch = function(card){
                 this.matches++;
                 this.attempts++;
 
-                //move match counter to somewhere inside this function vvv to avoid win screen happening before last ability is played
+        //move match counter to somewhere inside this function vvv to avoid win screen happening before last ability is played
                 
                 setTimeout( (function() {
 
@@ -74,13 +74,14 @@ Game.prototype.checkMatch = function(card){
                     }).bind(this), 900);
 
                     //placeholder for hiding ability div again
-                    $(this.playerAbilityContainer).on("click", function(){
+                    $(this.playerAbilityContainer).on("click", (function(){
 
-
+                        console.log("ability container clicked: ", this.playerAbilityContainer);
                         $(this.playerAbilityContainer).css("opacity", 0);
                         $(".overlay").hide(400);
                         $(this.playerAbilityContainer).hide(400);
-                    });
+                        
+                    }).bind(this));
 
                 }.bind(this)), 1500);
 
@@ -89,9 +90,7 @@ Game.prototype.checkMatch = function(card){
 
                 if(this.matchCounter === this.totalMatches){
                 
-                
-                    alert('you won!');
-                    this.canClick = false;
+                    this.handleWin();
                 
                 }
                 
@@ -135,6 +134,10 @@ Game.prototype.checkMatch = function(card){
 
 Game.prototype.handleTurnEnd = function(){
     this.parent.handleTurnEnd();
+};
+
+Game.prototype.handleWin = function(){
+  this.parent.handleWin();  
 };
 
 Game.prototype.displayStats = function(playerStatsDiv){
