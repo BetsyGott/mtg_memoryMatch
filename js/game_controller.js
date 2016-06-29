@@ -1,7 +1,9 @@
 //handles logic of each player's games
-function Game(gameArea, parent) {
+function Game(gameArea, playerStatsDiv, playerAbilityContainer, parent) {
     this.parent = parent;
     this.gameArea = $(gameArea);
+    this.playerStatsDiv = $(playerStatsDiv);
+    this.playerAbilityContainer = $(playerAbilityContainer);
     this.firstCard = null;
     this.secondCard = null;
     this.totalMatches = 9;
@@ -46,42 +48,38 @@ Game.prototype.checkMatch = function(card){
 
                 //if a match
 
-                console.log("infoObject is ", card.infoObject);
-
                 this.matchCounter++;
                 this.matches++;
                 this.attempts++;
 
-                // placeholder for actual effects on match, right now just shows a default ability card and the smoke bg after a timer
-                
                 //move match counter to somewhere inside this function vvv to avoid win screen happening before last ability is played
                 
                 setTimeout( (function() {
 
-                    $(".ability-card-title").html(card.infoObject.name);
-                    $(".ability-card-img").css({
+                    $(this.playerAbilityContainer).find(".ability-card-title").html(card.infoObject.name);
+                    $(this.playerAbilityContainer).find(".ability-card-img").css({
                         background: 'url('+card.infoObject.fullImage+') no-repeat center center',
                         backgroundSize: 'cover'
                     });
-                    $("#set-name").html(card.infoObject.set);
-                    $("#artist-name").html(card.infoObject.artist);
-                    $(".ability-text").html("<p>"+card.infoObject.ability+"</p>");
+                    $(this.playerAbilityContainer).find("#set-name").html(card.infoObject.set);
+                    $(this.playerAbilityContainer).find("#artist-name").html(card.infoObject.artist);
+                    $(this.playerAbilityContainer).find(".ability-text").html("<p>"+card.infoObject.ability+"</p>");
 
-                    $("#abilityContainer").show();
+                    $(this.playerAbilityContainer).show();
                     $(".overlay").fadeIn("fast");
 
 
-                    setTimeout( function(){
-                        $("#abilityContainer").css("opacity", 1);
-                    }, 900);
+                    setTimeout( (function(){
+                        $(this.playerAbilityContainer).css("opacity", 1);
+                    }).bind(this), 900);
 
                     //placeholder for hiding ability div again
-                    $("#abilityContainer").on("click", function(){
+                    $(this.playerAbilityContainer).on("click", function(){
 
 
-                        $("#abilityContainer").css("opacity", 0);
+                        $(this.playerAbilityContainer).css("opacity", 0);
                         $(".overlay").hide(400);
-                        $("#abilityContainer").hide(400);
+                        $(this.playerAbilityContainer).hide(400);
                     });
 
                 }.bind(this)), 1500);
@@ -115,21 +113,25 @@ Game.prototype.checkMatch = function(card){
 
                 this.misses++;
                 this.attempts++;
+                
             }
+
+            this.displayStats(this.playerStatsDiv);
+            
         }
     }
 
-    this.displayStats();
+    // this.displayStats();
 
 };
 
-Game.prototype.displayStats = function(){
+Game.prototype.displayStats = function(playerStatsDiv){
 
     $(".games-played .value").html(this.gamesPlayed);
-    $(".matches .value").html(this.matches);
-    $(".attempts .value").html(this.attempts);
-    $(".misses .value").html(this.misses);
-    $(".accuracy .value").html(this.formatAccuracy() + "%");
+    $(playerStatsDiv).find(".matches .value").html(this.matches);
+    $(playerStatsDiv).find(".attempts .value").html(this.attempts);
+    $(playerStatsDiv).find(".misses .value").html(this.misses);
+    $(playerStatsDiv).find(".accuracy .value").html(this.formatAccuracy() + "%");
 
 };
 

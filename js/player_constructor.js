@@ -12,8 +12,8 @@ Player.prototype.assignDeck = function(deckChoice){
     return this.deck;
 };
 
-Player.prototype.createNewGame = function(gameArea){
-    this.game = new Game(gameArea, this);
+Player.prototype.createNewGame = function(gameArea, playerStatsDiv, playerAbilityContainer){
+    this.game = new Game(gameArea, playerStatsDiv, playerAbilityContainer, this);
     
     this.game.init();
     
