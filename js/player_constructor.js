@@ -45,7 +45,16 @@ Player.prototype.removeLife = function(amount){
     return this.lifeTotal;
 };
 
+Player.prototype.handleDamage = function(amount){
+    this.parent.handleDamage(amount);
+};
+
+Player.prototype.handleLifeGain = function(amount){
+    this.parent.handleLifeGain(amount);
+};
+
 Player.prototype.getPlayerName = function(){
     return this.name;
 };
+
 

@@ -10,9 +10,38 @@ function Multiplayer(){
 
 }
 
+Multiplayer.prototype.quickStart = function(player1Name, player1Deck, player2Name, player2Deck){
+  // this.player1 = new Player("Player 1", this);
+  //   this.player2 = new Player("Player 2", this);
+  //
+  //   this.player1.assignDeck(BlackDeck);
+  //   this.player2.assignDeck(BlackDeck);
+  //
+  //   this.player1.createNewGame(gameArea, playerStatsDiv, playerAbilityContainer);
+  //   this.player2.createNewGame(gameArea, playerStatsDiv, playerAbilityContainer);
+  //
+  //   this.createAbilityContainer("p1", gameArea, this.player1.deck.color, this.player1.deck.glowColor);
+  //   this.createAbilityContainer("p2", gameArea, this.player2.deck.color, this.player2.deck.glowColor);
+  //
+  //   $(".player1-stats").find(".player-name").text(this.player1.name);
+  //
+  //   $(".player1-stats").find(".deck-text").css({
+  //       color: this.player1.deck.textColor
+  //   });
+  //
+  //   $(".player2-stats").find(".player-name").text(this.player2.name);
+  //
+  //   $(".player2-stats").find(".deck-text").css({
+  //       color: this.player2.deck.textColor
+  //   });
+    this.choosePlayers(player1Name, player1Deck);
+    this.choosePlayers(player2Name, player2Deck);
+};
+
 Multiplayer.prototype.choosePlayers = function(name, deckChoice){
     
         if(this.player1 === null){
+            //TODO clean up the player 1 and player 2 identical code is it happens once with diff targets
 
             //if no player 1 the first player is player1
             
@@ -23,7 +52,7 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
             
             //create new Player object
             if(name === ""){
-                this.player1 = new Player("Player 1");
+                this.player1 = new Player("Player 1", this);
             } else {
                 this.player1 = new Player(name, this);
             }
@@ -54,7 +83,7 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
             playerAbilityContainer = $("#p2AbilityContainer");
 
             if(name === ""){
-                this.player2 = new Player("Player 2");
+                this.player2 = new Player("Player 2", this);
             } else {
                 this.player2 = new Player(name, this);
             }
@@ -87,12 +116,13 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
             //do a random 50/50 calc to determine who goes first
             this.currentPlayer = this.determineFirstPlayer() === 0 ? this.player1 : this.player2;
 
+            //TODO re enable after testing
             //show a coin flipping over overlay bg
             setTimeout( (function() {
 
                 this.showCoinFlip(this.currentPlayer);
 
-            }.bind(this)), 400);
+            }.bind(this)), 300);
             
             //change bg color to the person who goes first
             this.changeBackgroundColor(this.currentPlayer);
@@ -149,13 +179,16 @@ Multiplayer.prototype.hideOverlay = function(){
     $(".overlay").hide();
 };
 
-Multiplayer.prototype.showIntroScreen = function(){
+Multiplayer.prototype.hideFields = function(){
     $("#p1-game-area").hide();
     $("#p2-game-area").hide();
     $("#p1AbilityContainer").hide();
     $("#p2AbilityContainer").hide();
     $(".coin-container").hide();
     $(".coinflip-title").hide();
+};
+
+Multiplayer.prototype.showIntroScreen = function(){
 
     $(".overlay").css("opacity",1);
     $(".overlay").show();
@@ -170,7 +203,10 @@ Multiplayer.prototype.showCoinFlip = function(currentPlayer){
         $(".coin").transition({
 
             rotateY: '+=3960deg'
-        },10000);
+
+        },1000);
+            //TODO return to the below spin after testing
+        // },10000);
         
     } else {
         
@@ -179,7 +215,9 @@ Multiplayer.prototype.showCoinFlip = function(currentPlayer){
 
             rotateY: '+=4140deg'
 
-        },10000);
+        },1000);
+        //TODO return to the below spin after testing
+        // },10000);
 
     }
 
@@ -196,7 +234,8 @@ Multiplayer.prototype.showCoinFlip = function(currentPlayer){
             $(".overlay").css("opacity",0.8);
             $(".overlay").hide();
 
-         }.bind(this)), 5000);
+            //TODO change below to 5000 after testing
+         }.bind(this)), 500);
         
     });
 };
@@ -236,4 +275,12 @@ Multiplayer.prototype.animateTurnSwitch = function(){
     //add some kind of text that says this.currentPlayer.name + "'s Turn!"
     
     //then hide animation, hide text
+};
+
+Multiplayer.prototype.handleDamage = function(target, amount){
+    target.removeLife(amount);
+};
+
+Multiplayer.prototype.handleLifeGain = function(target, amount){
+  target.addLife(amount);  
 };

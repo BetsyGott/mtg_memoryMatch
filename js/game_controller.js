@@ -7,7 +7,6 @@ function Game(gameArea, playerStatsDiv, playerAbilityContainer, parent) {
     this.firstCard = null;
     this.secondCard = null;
     this.totalMatches = 9;
-    this.matchCounter = 0;
     this.canClick = true;
     this.matches = 0;
     this.attempts = 0;
@@ -48,12 +47,12 @@ Game.prototype.checkMatch = function(card){
 
                 //if a match
 
-                this.matchCounter++;
                 this.matches++;
                 this.attempts++;
 
         //move match counter to somewhere inside this function vvv to avoid win screen happening before last ability is played
-                
+
+                //this function shows the ability card of the activated match
                 setTimeout( (function() {
 
                     $(this.playerAbilityContainer).find(".ability-card-title").html(card.infoObject.name);
@@ -84,11 +83,16 @@ Game.prototype.checkMatch = function(card){
                     }).bind(this));
 
                 }.bind(this)), 1500);
+                
+//              handle card effects here, after the ability div has been shown and hidden again
+                this.handleCardEffects(card.infoObject);
+                
 
 //            reset firstCard and secondCard & wait for next card click
                 this.firstCard = this.secondCard = null;
 
-                if(this.matchCounter === this.totalMatches){
+                //win condition for hitting all matches
+                if(this.matches === this.totalMatches){
                 
                     this.handleWin();
                 
@@ -130,6 +134,43 @@ Game.prototype.checkMatch = function(card){
 
     // this.displayStats();
 
+};
+
+Game.prototype.handleCardEffects = function(obj){
+
+    //loop through effects in abilityType array on the card
+    for(var effect in obj.abilityType){
+        console.log(obj.abilityType[effect]);
+        //if type is damage
+        switch (obj.abilityType[effect].type) {
+            
+            case "damage":
+                //check target
+                if(obj.abilityType[effect].target === "opponent"){
+                    //deal damage to opponent = obj.abilityType[effect].amount
+                } else {
+                    //deal damage to self = obj.abilityType[effect].amount
+                }
+                break;
+            case "lifeGain":
+                //check target
+                if(obj.abilityType[effect].target === "self"){
+                    //self gains life = obj.abilityType[effect].amount
+                } else {
+                    //opponent gains life = obj.abilityType[effect].amount
+                }
+                break;
+            case "lasting":
+                //lasting status effects TBD
+                break;
+            default:
+                //not sure what the default case is here, do nothing?
+        }
+    }
+};
+
+Game.prototype.getMatchCount = function(){
+  return this.matches;
 };
 
 Game.prototype.handleTurnEnd = function(){
@@ -194,7 +235,6 @@ Game.prototype.resetStats = function(){
     this.matches = 0;
     this.attempts = 0;
     this.misses = 0;
-    this.matchCounter = 0;
 
     this.displayStats();
 };
