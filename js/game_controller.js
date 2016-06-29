@@ -108,13 +108,20 @@ Game.prototype.checkMatch = function(card){
                     this.firstCard = this.secondCard = null;
                     this.canClick = true;
 
+                    setTimeout( (function() {
+                        
+                        //turn is passed to next player after a pause
+                        this.handleTurnEnd();
+//                  
+                    }.bind(this)), 1500);
+
+
 //                  note: bind needed here to tell func inside set timeout what 'this' is
                 }.bind(this)), 1700);
 
                 this.misses++;
                 this.attempts++;
 
-                //turn is passed to next player
             }
 
             this.displayStats(this.playerStatsDiv);
@@ -124,6 +131,10 @@ Game.prototype.checkMatch = function(card){
 
     // this.displayStats();
 
+};
+
+Game.prototype.handleTurnEnd = function(){
+    this.parent.handleTurnEnd();
 };
 
 Game.prototype.displayStats = function(playerStatsDiv){

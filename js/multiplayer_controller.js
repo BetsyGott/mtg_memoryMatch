@@ -25,7 +25,7 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
             if(name === ""){
                 this.player1 = new Player("Player 1");
             } else {
-                this.player1 = new Player(name);
+                this.player1 = new Player(name, this);
             }
 
             //assign deckChoice to player 1
@@ -56,7 +56,7 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
             if(name === ""){
                 this.player2 = new Player("Player 2");
             } else {
-                this.player2 = new Player(name);
+                this.player2 = new Player(name, this);
             }
 
             //assign deckChoice to player 2 
@@ -196,4 +196,36 @@ Multiplayer.prototype.showCoinFlip = function(currentPlayer){
          }.bind(this)), 5000);
         
     });
+};
+
+Multiplayer.prototype.endTurn = function(){
+    
+    this.currentPlayer = this.currentPlayer === this.player1 ? this.player2 : this.player1;
+
+    this.changeBackgroundColor(this.currentPlayer);
+
+    this.switchDeck(this.currentPlayer);
+    
+    //TODO add animation to switch so it's less jarring and it gives some cue of whose turn it is
+    //this.animateTurnSwitch();
+
+    return this.currentPlayer;
+    
+};
+
+Multiplayer.prototype.switchDeck = function(currentPlayer){
+    //hide both decks
+    this.player1.game.gameArea.hide();
+    this.player2.game.gameArea.hide();
+
+    //show current player's deck
+  this.currentPlayer.game.gameArea.show();
+};
+
+Multiplayer.prototype.animateTurnSwitch = function(){
+    //add some sort of fog or swishing air animation 
+    
+    //add some kind of text that says this.currentPlayer.name + "'s Turn!"
+    
+    //then hide animation, hide text
 };

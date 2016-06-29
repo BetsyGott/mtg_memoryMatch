@@ -1,4 +1,5 @@
-function Player(name){
+function Player(name, parent){
+    this.parent = parent;
     this.name = name;
     this.deck = null;
     this.game = null;
@@ -18,6 +19,10 @@ Player.prototype.createNewGame = function(gameArea, playerStatsDiv, playerAbilit
     this.game.init();
     
     return this.game;
+};
+
+Player.prototype.handleTurnEnd = function(){
+    this.parent.endTurn();
 };
 
 Player.prototype.addLife = function(amount){
