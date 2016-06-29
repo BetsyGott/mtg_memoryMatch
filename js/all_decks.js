@@ -38,10 +38,18 @@ function BlackDeck(parent){
             ability: "Deal 3 damage + your match count to your opponent. Gain that much life.",
             set: "Alpha",
             artist: "Douglas Schuler",
-            abilityType: {
-                damage: true,
-                lifeGain: true
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.game.getMatchCount()+3;}).bind(this)
+                },
+                {
+                    type: "lifeGain",
+                    target: "self",
+                    amount: (function(){return this.parent.game.getMatchCount()+3;}).bind(this)
+                }
+            ]
         },
         {
             name: "Hypnotic Specter",
@@ -50,9 +58,13 @@ function BlackDeck(parent){
             ability: "Deal 2 damage + your match count to your opponent.",
             set: "Alpha",
             artist: "Douglas Schuler",
-            abilityType: {
-                damage: true
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.game.getMatchCount()+2;}).bind(this)
+                }
+            ]
         },
         {
             name: "Juzam Djinn",
