@@ -67,27 +67,24 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
         }
 
         if(this.player1 && this.player2) {
+
+            this.hidePlayerChoices();
+
+            $(".coin-container").show();
+            $(".coinflip-title").show();
             
             //do a random 50/50 calc to determine who goes first
             this.currentPlayer = this.determineFirstPlayer() === 0 ? this.player1 : this.player2;
 
             //show a coin flipping over overlay bg
-            if(this.currentPlayer === this.player1){
-                //show heads animation
+            setTimeout( (function() {
 
-                //show "Player 1 goes first"
-            } else {
-                //show tails animation
-                console.log("tails");
-                //show "Player 2 goes first"
-            }
-            
-            //hide text/coin flip, hide overlay
+                this.showCoinFlip(this.currentPlayer);
+
+            }.bind(this)), 400);
             
             //change bg color to the person who goes first
             this.changeBackgroundColor(this.currentPlayer);
-            
-            // this.hideIntroScreen();
             
             //show first player's game area to start
             this.currentPlayer.game.gameArea.show();
@@ -121,9 +118,9 @@ Multiplayer.prototype.changeBackgroundColor = function(player){
     });
 };
 
-Multiplayer.prototype.hideIntroScreen = function(){
-    this.hideOverlay();
-    this.hidePlayerChoices();
+Multiplayer.prototype.hideCoinFlip = function(){
+    $(".coin-container").hide();
+    $(".coinflip-title").hide();
 };
 
 // hide name input and mana choices
@@ -142,14 +139,49 @@ Multiplayer.prototype.showIntroScreen = function(){
     $("#p1-game-area").hide();
     $("#p2-game-area").hide();
     $("#abilityContainer").hide();
+    $(".coin-container").hide();
+    $(".coinflip-title").hide();
 
     $(".overlay").css("opacity",1);
     $(".overlay").show();
     $(".deck-choice").show();
 };
 
-Multiplayer.prototype.showCoinFlip = function(){
-    
-    
-    
+Multiplayer.prototype.showCoinFlip = function(currentPlayer){
+
+    if(currentPlayer === this.player1){
+
+        //heads animation
+        $(".coin").transition({
+
+            rotateY: '+=3960deg'
+        },10000);
+        
+    } else {
+        
+        // tails animation
+        $(".coin").transition({
+
+            rotateY: '+=4140deg'
+
+        },10000);
+
+    }
+
+    $(".coin").on('transitionend webkitTransitionEnd oTransitionEnd', function () {
+        $(".coinflip-title-text").text(currentPlayer.name+" Goes First.");
+
+        setTimeout( (function() {
+
+            //hide text/coin flip, hide overlay
+            // this.hideCoinFlip();
+            $(".coin-container").hide();
+            $(".coinflip-title").hide();
+            // this.hideOverlay();
+            $(".overlay").css("opacity",0.8);
+            $(".overlay").hide();
+
+         }.bind(this)), 5000);
+        
+    });
 };

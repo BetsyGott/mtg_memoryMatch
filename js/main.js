@@ -3,10 +3,7 @@ $(document).ready(function(){
 
     var newMultiplayerGame = new Multiplayer();
 
-    $("#p1-game-area").hide();
-    $("#p2-game-area").hide();
-
-    $("#abilityContainer").hide();
+    newMultiplayerGame.showIntroScreen();
 
     $(".mana-symbol").on("click", function(){
         
