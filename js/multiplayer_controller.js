@@ -266,6 +266,7 @@ Multiplayer.prototype.handleDamage = function(target, amount, sourcePlayer){
     } else {
         target = sourcePlayer;
     }
+    console.log("amount in MP method is: ", amount());
     target.removeLife(amount());
 };
 

@@ -51,7 +51,7 @@ Game.prototype.checkMatch = function(card){
                 this.attempts++;
 
         //move match counter to somewhere inside this function vvv to avoid win screen happening before last ability is played
-
+                console.log("secondCard before setTimeout: ", this.secondCard);
                 //this function shows the ability card of the activated match
                 setTimeout( (function() {
 
@@ -74,31 +74,28 @@ Game.prototype.checkMatch = function(card){
 
                     //placeholder for hiding ability div again
                     $(this.playerAbilityContainer).on("click", (function(){
-
-                        console.log("ability container clicked: ", this.playerAbilityContainer);
+                        
                         $(this.playerAbilityContainer).css("opacity", 0);
                         $(".overlay").hide(400);
                         $(this.playerAbilityContainer).hide(400);
 
 //                      handle card effects here, after the ability div has been shown and hidden again
-                        this.handleCardEffects(card.infoObject);
+                        console.log("secondCard inside set timeout: ", this.secondCard);
+                        this.handleCardEffects(this.secondCard.infoObject);
+
+//                      reset firstCard and secondCard & wait for next card click
+                        this.firstCard = this.secondCard = null;
+
+                        //win condition for hitting all matches
+                        if(this.matches === this.totalMatches){
+
+                            this.handleWin();
+
+                        }
                         
                     }).bind(this));
 
                 }.bind(this)), 1500);
-                
-
-                
-
-//            reset firstCard and secondCard & wait for next card click
-                this.firstCard = this.secondCard = null;
-
-                //win condition for hitting all matches
-                if(this.matches === this.totalMatches){
-                
-                    this.handleWin();
-                
-                }
                 
             } else{
                 // not a match

@@ -63,7 +63,7 @@ Player.prototype.handleLifeGain = function(target, amount){
 };
 
 Player.prototype.getMatchCount = function(){
-    console.log(this.game);
+    
     return this.game.getMatchCount();
 };
 
@@ -72,7 +72,6 @@ Player.prototype.getPlayerName = function(){
 };
 
 Player.prototype.getLifeTotal = function(){
-    console.log("life total is: ", this.lifeTotal);
     return this.lifeTotal;
 };
 
