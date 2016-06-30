@@ -92,7 +92,7 @@ function BlackDeck(parent){
                 {
                     type: "damage",
                     target: "self",
-                    amount: 1
+                    amount: function(){return 1;}
                 }
             ]
 
@@ -113,7 +113,7 @@ function BlackDeck(parent){
                 {
                     type: "damage",
                     target: "self",
-                    amount: 3
+                    amount: function(){ return 3;}
                 }
             ]
         },
@@ -188,7 +188,7 @@ function BlueDeck(parent){
                 {
                     type: "damage",
                     target: "opponent",
-                    amount: 4
+                    amount: function(){ return 4;}
                 }
             ]
         },
@@ -223,7 +223,7 @@ function BlueDeck(parent){
                 {
                     type: "damage",
                     target: "self",
-                    amount: 1
+                    amount: function(){return 1;}
                 }
             ]
         },
@@ -253,7 +253,7 @@ function BlueDeck(parent){
                 {
                     type: "damage",
                     target: "opponent",
-                    amount: 2
+                    amount: function(){return 2;}
                 },
                 {
                     type: "statusEffect",
@@ -313,7 +313,7 @@ function BlueDeck(parent){
                 {
                     type: "damage",
                     target: "opponent",
-                    amount: 2
+                    amount: function(){return 2;}
                 },
                 {
                     type: "statusEffect",
@@ -363,7 +363,7 @@ function GreenDeck(parent){
                 {
                     type: "damage",
                     target: "opponent",
-                    amount: 1
+                    amount: function(){return 1;}
                 },
                 {
                     type: "statusEffect",
@@ -383,7 +383,7 @@ function GreenDeck(parent){
                 {
                     type: "damage",
                     target: "opponent",
-                    amount: 6
+                    amount: function(){return 6;}
                 }
             ]
         },
@@ -398,12 +398,12 @@ function GreenDeck(parent){
                 {
                     type: "damage",
                     target: "opponent",
-                    amount: 4
+                    amount:function(){return 4;}
                 },
                 {
                     type: "damage",
                     target: "self",
-                    amount: 2
+                    amount: function(){return 2;}
                 }
             ]
         },
@@ -611,7 +611,7 @@ function RedDeck(parent){
                 {
                     type: "damage",
                     target: "opponent",
-                    amount: 6
+                    amount: function(){return 6;}
                 }
             ]
         },
@@ -751,7 +751,7 @@ function WhiteDeck(parent){
                 {
                     type: "lifeGain",
                     target: "self",
-                    amount: 2
+                    amount: function(){return 2;}
                 },
                 {
                     type: "statusEffect",

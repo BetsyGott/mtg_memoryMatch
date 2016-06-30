@@ -79,13 +79,15 @@ Game.prototype.checkMatch = function(card){
                         $(this.playerAbilityContainer).css("opacity", 0);
                         $(".overlay").hide(400);
                         $(this.playerAbilityContainer).hide(400);
+
+//                      handle card effects here, after the ability div has been shown and hidden again
+                        this.handleCardEffects(card.infoObject);
                         
                     }).bind(this));
 
                 }.bind(this)), 1500);
                 
-//              handle card effects here, after the ability div has been shown and hidden again
-                this.handleCardEffects(card.infoObject);
+
                 
 
 //            reset firstCard and secondCard & wait for next card click
@@ -140,7 +142,7 @@ Game.prototype.handleCardEffects = function(obj){
 
     //loop through effects in abilityType array on the card
     for(var effect in obj.abilityType){
-        console.log(obj.abilityType[effect]);
+        console.log("effect in abilityType: ", obj.abilityType[effect]);
         //if type is damage
         switch (obj.abilityType[effect].type) {
             

@@ -11,29 +11,7 @@ function Multiplayer(){
 }
 
 Multiplayer.prototype.quickStart = function(player1Name, player1Deck, player2Name, player2Deck){
-  // this.player1 = new Player("Player 1", this);
-  //   this.player2 = new Player("Player 2", this);
-  //
-  //   this.player1.assignDeck(BlackDeck);
-  //   this.player2.assignDeck(BlackDeck);
-  //
-  //   this.player1.createNewGame(gameArea, playerStatsDiv, playerAbilityContainer);
-  //   this.player2.createNewGame(gameArea, playerStatsDiv, playerAbilityContainer);
-  //
-  //   this.createAbilityContainer("p1", gameArea, this.player1.deck.color, this.player1.deck.glowColor);
-  //   this.createAbilityContainer("p2", gameArea, this.player2.deck.color, this.player2.deck.glowColor);
-  //
-  //   $(".player1-stats").find(".player-name").text(this.player1.name);
-  //
-  //   $(".player1-stats").find(".deck-text").css({
-  //       color: this.player1.deck.textColor
-  //   });
-  //
-  //   $(".player2-stats").find(".player-name").text(this.player2.name);
-  //
-  //   $(".player2-stats").find(".deck-text").css({
-  //       color: this.player2.deck.textColor
-  //   });
+    
     this.choosePlayers(player1Name, player1Deck);
     this.choosePlayers(player2Name, player2Deck);
 };
@@ -116,7 +94,7 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
             //do a random 50/50 calc to determine who goes first
             this.currentPlayer = this.determineFirstPlayer() === 0 ? this.player1 : this.player2;
 
-            //TODO re enable after testing
+            //TODO re-enable after testing
             //show a coin flipping over overlay bg
             setTimeout( (function() {
 
@@ -133,10 +111,8 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
 };
 
 Multiplayer.prototype.determineFirstPlayer = function(){
-    var num = Math.floor(Math.random() * 2);
-
-    console.log("num chosen " + num);
-    return num;
+    return Math.floor(Math.random() * 2);
+    
 };
 
 //currently in multiplayer but maybe this should be in a view controller??
@@ -277,6 +253,7 @@ Multiplayer.prototype.animateTurnSwitch = function(){
     //then hide animation, hide text
 };
 
+//TODO why is damage amount incorrect after first play?
 //sourcePlayer is the player that sends the handleDamage request
 Multiplayer.prototype.handleDamage = function(target, amount, sourcePlayer){
     
