@@ -145,20 +145,15 @@ Game.prototype.handleCardEffects = function(obj){
         switch (obj.abilityType[effect].type) {
             
             case "damage":
-                //check target
-                if(obj.abilityType[effect].target === "opponent"){
-                    //deal damage to opponent = obj.abilityType[effect].amount
-                } else {
-                    //deal damage to self = obj.abilityType[effect].amount
-                }
+                
+                //deal damage to target = obj.abilityType[effect].amount
+                this.parent.handleDamage(obj.abilityType[effect].target, obj.abilityType[effect].amount);
                 break;
+            
             case "lifeGain":
-                //check target
-                if(obj.abilityType[effect].target === "self"){
-                    //self gains life = obj.abilityType[effect].amount
-                } else {
-                    //opponent gains life = obj.abilityType[effect].amount
-                }
+
+                //add life to target = obj.abilityType[effect].amount
+                this.parent.handleLifeGain(obj.abilityType[effect].target, obj.abilityType[effect].amount);
                 break;
             case "lasting":
                 //lasting status effects TBD

@@ -277,12 +277,37 @@ Multiplayer.prototype.animateTurnSwitch = function(){
     //then hide animation, hide text
 };
 
-Multiplayer.prototype.handleDamage = function(target, amount){
+//sourcePlayer is the player that sends the handleDamage request
+Multiplayer.prototype.handleDamage = function(target, amount, sourcePlayer){
+    
+    if(target === "opponent"){
+        if(sourcePlayer === this.player1){
+            target = this.player2;
+        } else {
+            target = this.player1;
+        }
+    } else {
+        target = sourcePlayer;
+    }
     target.removeLife(amount);
 };
 
-Multiplayer.prototype.handleLifeGain = function(target, amount){
+
+Multiplayer.prototype.handleLifeGain = function(target, amount, sourcePlayer){
+    
+    if(target === "opponent"){
+    
+        if(sourcePlayer === this.player1){
+            target = this.player2
+        }else {
+            target = this.player1;
+        }
+    } else {
+        target = sourcePlayer;
+    }
+    
   target.addLife(amount);  
+
 };
 
 //player passes in this, this being "this.player1" or "this.player2" in MP object, so you can check who yourself is and then direct MP to do the other guy

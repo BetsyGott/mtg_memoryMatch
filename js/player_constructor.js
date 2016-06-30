@@ -50,12 +50,12 @@ Player.prototype.removeLife = function(amount){
     return this.lifeTotal;
 };
 
-Player.prototype.handleDamage = function(amount){
-    this.parent.handleDamage(amount);
+Player.prototype.handleDamage = function(target, amount){
+    this.parent.handleDamage(target, amount, this);
 };
 
-Player.prototype.handleLifeGain = function(amount){
-    this.parent.handleLifeGain(amount);
+Player.prototype.handleLifeGain = function(target, amount){
+    this.parent.handleLifeGain(target, amount, this);
 };
 
 Player.prototype.getPlayerName = function(){
