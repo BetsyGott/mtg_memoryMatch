@@ -309,10 +309,18 @@ function BlueDeck(parent){
             ability: "Deal 2 damage to opponent. Add +1 to all further damage you deal.",
             set: "Magic Origins",
             artist: "Viktor Titov",
-            abilityType: {
-                damage: true,
-                lasting: true
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: 2
+                },
+                {
+                    type: "statusEffect",
+                    target: "self",
+                    amount: null //add damage
+                }
+            ]
         },
         {
             name: "Time Walk",
@@ -321,9 +329,13 @@ function BlueDeck(parent){
             ability: "You take 1 extra turn after missing your next match.",
             set: "Alpha",
             artist: "Amy Weber",
-            abilityType: {
-                lasting: true
-            }
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    target: "self",
+                    amount: null //take extra turn
+                }
+            ]
         }
     ];
 }
@@ -347,10 +359,18 @@ function GreenDeck(parent){
             ability: "Deal 1 damage. Add +1 to all further damage you deal.",
             set: "Alpha",
             artist: "Mark Poole",
-            abilityType: {
-                damage: true,
-                lasting: true
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: 1
+                },
+                {
+                    type: "statusEffect",
+                    target: "self",
+                    amount: null //add damage
+                }
+            ]
         },
         {
             name: "Craw Wurm",
@@ -359,9 +379,13 @@ function GreenDeck(parent){
             ability: "Deal 6 damage.",
             set: "8th Edition",
             artist:"Heather Hudson",
-            abilityType: {
-                damage: true
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: 6
+                }
+            ]
         },
         {
             name: "Erhnam Djinn",
@@ -370,10 +394,18 @@ function GreenDeck(parent){
             ability: "Deal 4 damage. You take 2 damage.",
             set: "Arabian Nights",
             artist: "Ken Meyer Jr.",
-            abilityType: {
-                damage: true,
-                lasting: true
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: 4
+                },
+                {
+                    type: "damage",
+                    target: "self",
+                    amount: 2
+                }
+            ]
         },
         {
             name: "Fog",
@@ -382,9 +414,13 @@ function GreenDeck(parent){
             ability: "Prevent all damage dealt by the next match your opponent makes.",
             set: "Core Set 2012",
             artist: "Jaime Jones",
-            abilityType: {
-                lasting: true
-            }
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    target: "opponent",
+                    amount: null //prevent next damage
+                }
+            ]
         },
         {
             name: "Giant Growth",
@@ -393,9 +429,13 @@ function GreenDeck(parent){
             ability: "Double the damage dealt by your next match.",
             set: "Core Set 10th Edition",
             artist: "Matt Cavotta",
-            abilityType: {
-                lasting: true
-            }
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    target: "self",
+                    amount: null //double next damage
+                }
+            ]
         },
         {
             name: "Llanowar Elves",
@@ -404,9 +444,13 @@ function GreenDeck(parent){
             ability: "Deal 2 damage + your match count.",
             set: "Alpha",
             artist: "Anson Maddocks",
-            abilityType: {
-                damage: true
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+2;}).bind(this)
+                }
+            ]
         },
         {
             name: "Rancor",
@@ -415,9 +459,13 @@ function GreenDeck(parent){
             ability: "Add +3 to all further damage you deal.",
             set: "Urza's Legacy",
             artist: "Kev Walker",
-            abilityType: {
-                lasting: true
-            }
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    target: "self",
+                    amount: null //add damage
+                }
+            ]
         },
         {
             name: "Sylvan Library",
@@ -426,9 +474,13 @@ function GreenDeck(parent){
             ability: "Pay 2 life: add +4 to the next damage you deal. This ability stays in effect for the remainder of the game.",
             set: "Legends",
             artist: "Harold McNeill",
-            abilityType: {
-                lasting: true
-            }
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    target: "self",
+                    amount: null //idk
+                }
+            ]
         },
         {
             name: "Tarmogoyf",
@@ -437,9 +489,13 @@ function GreenDeck(parent){
             ability: "Deal 2 damage * your match count.",
             set: "Modern Masters",
             artist: "Ryan Barger",
-            abilityType: {
-                damage: true
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()*2;}).bind(this)
+                }
+            ]
         }
     ];
 }
@@ -463,9 +519,18 @@ function RedDeck(parent){
             ability: "Deal 6 damage + your match count. This damage cannot be prevented.",
             set: "From the Vault",
             artist:"Terese Nielsen",
-            abilityType: {
-                damage: true
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+6;}).bind(this)
+                },
+                {
+                    type: "statusEffect",
+                    target: "self",
+                    amount: null //cannot prevent damage
+                }
+            ]
         },
         {
             name: "Blood Moon",
@@ -474,9 +539,13 @@ function RedDeck(parent){
             ability: "Double the next damage you deal.",
             set: "8th Edition",
             artist: "Franz Vohwinkel",
-            abilityType: {
-                lasting: true
-            }
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    target: "self",
+                    amount: null //double damage
+                }
+            ]
         },
         {
             name: "Goblin King",
@@ -485,9 +554,13 @@ function RedDeck(parent){
             ability: "Deal 2 damage + your match count.",
             set: "7th Edition",
             artist: "Ron Spears",
-            abilityType: {
-                damage: true
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+2;}).bind(this)
+                }
+            ]
         },
         {
             name: "Incinerate",
@@ -496,9 +569,13 @@ function RedDeck(parent){
             ability: "Deal 2 damage * your match count.",
             set: "Mirage",
             artist: "Brian Snoddy",
-            abilityType: {
-                damage: 2
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+2;}).bind(this)
+                }
+            ]
         },
         {
             name: "Lightning Bolt",
@@ -507,9 +584,21 @@ function RedDeck(parent){
             ability: "If this is your first match, deal 6 damage. Otherwise, deal 3 damage.",
             set: "Alpha",
             artist: "Christopher Rush",
-            abilityType: {
-                damage: true
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){
+
+                        if ( this.parent.getMatchCount() === 1 ){
+                            return 6;
+                        } else {
+                            return 3;
+                        }
+
+                    }).bind(this)
+                }
+            ]
         },
         {
             name: "Shivan Dragon",
@@ -518,9 +607,13 @@ function RedDeck(parent){
             ability: "Deal 6 damage.",
             set: "Alpha",
             artist: "Melissa Benson",
-            abilityType: {
-                damage: true
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: 6
+                }
+            ]
         },
         {
             name: "Simian Spirit Guide",
@@ -529,9 +622,13 @@ function RedDeck(parent){
             ability: "Deal 2 damage + your match count.",
             set: "Planar Chaos",
             artist: "Dave DeVries",
-            abilityType: {
-                damage: true
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+2;}).bind(this)
+                }
+            ]
         },
         {
             name: "Starstorm",
@@ -540,10 +637,18 @@ function RedDeck(parent){
             ability: "Deal 1 damage + your match count to opponent and to you.",
             set: "Onslaught",
             artist: "David Martin",
-            abilityType: {
-                damage: true,
-                lifeGain: true
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+1;}).bind(this)
+                },
+                {
+                    type: "damage",
+                    target: "self",
+                    amount: (function(){return this.parent.getMatchCount()+1;}).bind(this)
+                }
+            ]
         },
         {
             name: "Wheel of Fortune",
@@ -552,9 +657,13 @@ function RedDeck(parent){
             ability: "Play a random ability from a match you have already made.",
             set: "Alpha",
             artist: "Daniel Gelon",
-            abilityType: {
-                lasting: true
-            }
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    target: "opponent",
+                    amount: null //play a random ability
+                }
+            ]
         }
     ];
 }
@@ -578,9 +687,13 @@ function WhiteDeck(parent){
             ability: "If your opponent has more life than you, his life total is now equal to your life total. Otherwise, your life total is equal to his life total.",
             set: "Alpha",
             artist: "Mark Poole",
-            abilityType: {
-                unique: true
-            }
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    target: "self",
+                    amount: null //special ability
+                }
+            ]
         },
         {
             name: "Congregate",
@@ -589,9 +702,13 @@ function WhiteDeck(parent){
             ability: "Gain 2 life + your match count.",
             set: "Urza's Saga",
             artist: "Mark Zug",
-            abilityType: {
-                lifeGain: true
-            }
+            abilityType: [
+                {
+                    type: "lifeGain",
+                    target: "self",
+                    amount: (function(){return this.parent.getMatchCount()+2;}).bind(this)
+                }
+            ]
         },
         {
             name: "Knight of the White Orchid",
@@ -600,9 +717,13 @@ function WhiteDeck(parent){
             ability: "Deal 2 damage + your match count.",
             set: "Shards of Alara",
             artist: "Mark Zug",
-            abilityType: {
-                damage: true
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+2;}).bind(this)
+                }
+            ]
         },
         {
             name: "Mesa Pegasus",
@@ -611,9 +732,13 @@ function WhiteDeck(parent){
             ability: "Deal 1 damage + your match count.",
             set: "Alpha",
             artist: "Melissa Benson",
-            abilityType: {
-                damage: true
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+1;}).bind(this)
+                }
+            ]
         },
         {
             name: "Samite Healer",
@@ -622,10 +747,18 @@ function WhiteDeck(parent){
             ability: "Gain 2 life. Further damage dealt to you is reduced by 1.",
             set: "7th Edition",
             artist: "Anson Maddocks",
-            abilityType: {
-                lifeGain: true,
-                lasting: true
-            }
+            abilityType: [
+                {
+                    type: "lifeGain",
+                    target: "self",
+                    amount: 2
+                },
+                {
+                    type: "statusEffect",
+                    target: "self",
+                    amount: null //prevent damage
+                }
+            ]
         },
         {
             name: "Serra Angel",
@@ -634,9 +767,13 @@ function WhiteDeck(parent){
             ability: "Deal 4 damage + your match count.",
             set: "Alpha",
             artist: "Douglas Schuler",
-            abilityType: {
-                damage: true
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+4;}).bind(this)
+                }
+            ]
         },
         {
             name: "Swords to Plowshares",
@@ -645,9 +782,13 @@ function WhiteDeck(parent){
             ability: "Prevent all damage from your opponent's next match.",
             set: "Alpha",
             artist: "Jeff A. Menges",
-            abilityType: {
-                lasting: true
-            }
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    target: "opponent",
+                    amount: null //prevent all damage
+                }
+            ]
         },
         {
             name: "Wrath of God",
@@ -656,10 +797,18 @@ function WhiteDeck(parent){
             ability: "Prevent all damage from your opponent's next match. All active abilities are removed from the game.",
             set: "Alpha",
             artist: "Quinton Hoover",
-            abilityType: {
-                lasting: true,
-                unique: true
-            }
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    target: "opponent",
+                    amount: null //prevent all damage
+                },
+                {
+                    type: "statusEffect",
+                    target: "self", //and opponent
+                    amount: null //remove all active abilities
+                }
+            ]
         },
         {
             name: "Yosei, the Morning Star",
@@ -668,9 +817,13 @@ function WhiteDeck(parent){
             ability: "Deal 8 damage + your match count.",
             set: "Champions of Kamigawa",
             artist: "Hiro Izawa",
-            abilityType: {
-                damage: true
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+8;}).bind(this)
+                }
+            ]
         }
     ];
 }

@@ -66,4 +66,7 @@ Player.prototype.getPlayerName = function(){
     return this.name;
 };
 
+Player.prototype.getLifeTotal = function(){
+    return this.lifeTotal;
+};
 
