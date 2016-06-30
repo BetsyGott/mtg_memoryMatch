@@ -6,7 +6,30 @@ function Multiplayer(){
     this.player1 = null;
     this.player2 = null;
     this.currentPlayer = null;
-
+    this.statusEffectList = [
+        {
+            type: "preventDamage",
+            handler: this.handlePreventDamage
+        },{
+            type: "balance",
+            handler: this.balanceLifeTotals
+        },{
+            type: "addDamage",
+            handler: this.handleAddDamage
+        },{
+            type: "activateAbility",
+            handler: this.handleActivateExistingAbility
+        },{
+            type: "removeAbility",
+            handler: this.removeActiveAbility
+        },{
+            type: "lifeCostAbility", //Sylvan Library pay damage to deal damage ability
+            handler: this.handleLifeCostAbility
+        },{
+            type: "extraTurn",
+            handler: this.handleExtraTurn
+        }
+    ];
 
 }
 
@@ -266,8 +289,8 @@ Multiplayer.prototype.handleDamage = function(target, amount, sourcePlayer){
     } else {
         target = sourcePlayer;
     }
-    console.log("amount in MP method is: ", amount());
-    target.removeLife(amount());
+    console.log("amount in MP method is: ", Math.round(amount()));
+    target.removeLife(Math.round(amount()));
 };
 
 
@@ -288,4 +311,21 @@ Multiplayer.prototype.handleLifeGain = function(target, amount, sourcePlayer){
 
 };
 
-//player passes in this, this being "this.player1" or "this.player2" in MP object, so you can check who yourself is and then direct MP to do the other guy
+Multiplayer.prototype.handleStatusEffect = function(effectType){
+    //will have an object of pointers to the various handlers, checks for effectType in the object and      sends all the pertinent info to the correct status effect method
+};
+
+Multiplayer.prototype.balanceLifeTotals= function(player){
+    var caster = player;
+    var receiver = null;
+    if(caster === this.player1){
+        receiver = this.player2;
+    } else {
+        receiver = this.player1;
+    }
+
+    if(receiver.getLifeTotal() > caster.getLifeTotal()){
+        //if opponent has more life, you get opponent's life
+        caster.setLifeTotal(receiver.getLifeTotal());
+    }
+};

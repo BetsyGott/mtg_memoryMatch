@@ -22,7 +22,7 @@ function BlackDeck(parent){
                 {
                     type: "statusEffect",
                     target: "self",
-                    amount: null //do something here
+                    amount: null //activate existing ability
                 }
             ]
         },
@@ -37,7 +37,7 @@ function BlackDeck(parent){
                 {
                     type: "statusEffect",
                     target: "self",
-                    amount: null //tbd what this will do
+                    amount: null //double next damage
                 }
             ]
         },
@@ -101,14 +101,14 @@ function BlackDeck(parent){
             name: "Lord of the Pit",
             smallImage: "images/card_faces/black/lord_of_the_pit_sm.jpg",
             fullImage: "images/card_faces/black/lord_of_the_pit_lg.jpg",
-            ability: "Deal 8 damage + your match count to your opponent. Take 3 damage.",
+            ability: "Deal 6 damage + your match count to your opponent. Take 3 damage.",
             set: "Alpha",
             artist: "Mark Tedin",
             abilityType: [
                 {
                     type: "damage",
                     target: "opponent",
-                    amount: (function(){return this.parent.getMatchCount()+8;}).bind(this)
+                    amount: (function(){return this.parent.getMatchCount()+6;}).bind(this)
                 },
                 {
                     type: "damage",
@@ -203,7 +203,7 @@ function BlueDeck(parent){
                 {
                     type: "statusEffect",
                     target: "opponent",
-                    amount: null //tbd
+                    amount: null //remove opponent ability
                 }
             ]
         },
@@ -289,16 +289,21 @@ function BlueDeck(parent){
             ability: "Deal 10 damage + &frac12; your match count to opponent. You take &frac12; that damage.",
             set: "Ice Age",
             artist: "Mark Tedin",
+            //TODO add math.floor to the equations here
             abilityType: [
                 {
                     type: "damage",
                     target: "opponent",
-                    amount: (function(){return (this.parent.getMatchCount()/2)+3;}).bind(this)
+                    amount: (function(){
+                        return (this.parent.getMatchCount()/2)+10;
+                    }).bind(this)
                 },
                 {
                     type: "damage",
                     target: "self",
-                    amount: (function(){return ((this.parent.getMatchCount()/2)+3)/2;}).bind(this)
+                    amount: (function(){
+                        return ((this.parent.getMatchCount()/2)+10)/2;
+                    }).bind(this)
                 }
             ]
         },
@@ -516,7 +521,7 @@ function RedDeck(parent){
             name: "Akroma, Angel of Fury",
             smallImage: "images/card_faces/red/akroma_angel_of_fury_sm.jpg",
             fullImage: "images/card_faces/red/akroma_angel_of_fury_lg.jpg",
-            ability: "Deal 6 damage + your match count. This damage cannot be prevented.",
+            ability: "Deal 6 damage + your match count.",
             set: "From the Vault",
             artist:"Terese Nielsen",
             abilityType: [
@@ -524,11 +529,6 @@ function RedDeck(parent){
                     type: "damage",
                     target: "opponent",
                     amount: (function(){return this.parent.getMatchCount()+6;}).bind(this)
-                },
-                {
-                    type: "statusEffect",
-                    target: "self",
-                    amount: null //cannot prevent damage
                 }
             ]
         },
@@ -684,7 +684,7 @@ function WhiteDeck(parent){
             name: "Balance",
             smallImage: "images/card_faces/white/balance_sm.jpg",
             fullImage: "images/card_faces/white/balance_lg.jpg",
-            ability: "If your opponent has more life than you, his life total is now equal to your life total. Otherwise, your life total is equal to his life total.",
+            ability: "If your opponent has more life than you, his life total is now equal to your life total.",
             set: "Alpha",
             artist: "Mark Poole",
             abilityType: [

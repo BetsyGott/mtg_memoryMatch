@@ -8,7 +8,7 @@ $(document).ready(function(){
     newMultiplayerGame.hideOverlay();
      //newMultiplayerGame.showIntroScreen();
 
-    newMultiplayerGame.quickStart("Player 1", BlackDeck, "Player 2", BlackDeck);
+    newMultiplayerGame.quickStart("Player 1", BlackDeck, "Player 2", BlueDeck);
 
     $(".mana-symbol").on("click", function(){
        
