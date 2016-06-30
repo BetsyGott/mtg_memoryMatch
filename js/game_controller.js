@@ -155,7 +155,7 @@ Game.prototype.handleCardEffects = function(obj){
                 //add life to target = obj.abilityType[effect].amount
                 this.parent.handleLifeGain(obj.abilityType[effect].target, obj.abilityType[effect].amount);
                 break;
-            case "lasting":
+            case "statusEffect":
                 //lasting status effects TBD
                 break;
             default:

@@ -58,6 +58,10 @@ Player.prototype.handleLifeGain = function(target, amount){
     this.parent.handleLifeGain(target, amount, this);
 };
 
+Player.prototype.getMatchCount = function(){
+    return this.game.getMatchCount();
+};
+
 Player.prototype.getPlayerName = function(){
     return this.name;
 };

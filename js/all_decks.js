@@ -1,3 +1,5 @@
+//TODO all the status effects currently don't do anything, fix this
+
 /**
  * Black deck object
  * @constructor
@@ -16,9 +18,13 @@ function BlackDeck(parent){
             ability: "Activate the ability of a random match you've already made.",
             set: "Alpha",
             artist: "Anson Maddocks",
-            abilityType: {
-                lasting: true
-            }
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    target: "self",
+                    amount: null //do something here
+                }
+            ]
         },
         {
             name: "Dark Ritual",
@@ -27,9 +33,13 @@ function BlackDeck(parent){
             ability: "The damage from your next match is doubled.",
             set: "Alpha",
             artist: "Sandra Everingham",
-            abilityType: {
-                lasting: true
-            }
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    target: "self",
+                    amount: null //tbd what this will do
+                }
+            ]
         },
         {
             name: "Drain Life",
@@ -42,12 +52,12 @@ function BlackDeck(parent){
                 {
                     type: "damage",
                     target: "opponent",
-                    amount: (function(){return this.parent.game.getMatchCount()+3;}).bind(this)
+                    amount: (function(){return this.parent.getMatchCount()+3;}).bind(this)
                 },
                 {
                     type: "lifeGain",
                     target: "self",
-                    amount: (function(){return this.parent.game.getMatchCount()+3;}).bind(this)
+                    amount: (function(){return this.parent.getMatchCount()+3;}).bind(this)
                 }
             ]
         },
@@ -62,7 +72,7 @@ function BlackDeck(parent){
                 {
                     type: "damage",
                     target: "opponent",
-                    amount: (function(){return this.parent.game.getMatchCount()+2;}).bind(this)
+                    amount: (function(){return this.parent.getMatchCount()+2;}).bind(this)
                 }
             ]
         },
@@ -77,7 +87,7 @@ function BlackDeck(parent){
                 {
                     type: "damage",
                     target: "opponent",
-                    amount: (function(){return this.parent.game.getMatchCount()+4;}).bind(this)
+                    amount: (function(){return this.parent.getMatchCount()+4;}).bind(this)
                 },
                 {
                     type: "damage",
@@ -94,10 +104,18 @@ function BlackDeck(parent){
             ability: "Deal 8 damage + your match count to your opponent. Take 3 damage.",
             set: "Alpha",
             artist: "Mark Tedin",
-            abilityType: {
-                damage: true,
-                lifeGain: true
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+8;}).bind(this)
+                },
+                {
+                    type: "damage",
+                    target: "self",
+                    amount: 3
+                }
+            ]
         },
         {
             name: "Nantuko Husk",
@@ -106,9 +124,13 @@ function BlackDeck(parent){
             ability: "Deal 2 damage + your match count.",
             set: "Onslaught",
             artist: "Carl Critchlow",
-            abilityType: {
-                damage: true
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+2;}).bind(this)
+                }
+            ]
         },
         {
             name: "Nightmare",
@@ -117,9 +139,13 @@ function BlackDeck(parent){
             ability: "Deal 3 damage + your match count.",
             set: "Alpha",
             artist: "Melissa Benson",
-            abilityType: {
-                damage: true
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+3;}).bind(this)
+                }
+            ]
         },
         {
             name: "Sengir Vampire",
@@ -128,9 +154,13 @@ function BlackDeck(parent){
             ability: "Deal 4 damage + your match count.",
             set: "Alpha",
             artist: "Anson Maddocks",
-            abilityType: {
-                damage: true
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+4;}).bind(this)
+                }
+            ]
         }
     ];
 }
@@ -154,9 +184,13 @@ function BlueDeck(parent){
             ability: "Deal 4 damage.",
             set: "Alpha",
             artist: "Richard Thomas",
-            abilityType: {
-                damage: true
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: 4
+                }
+            ]
         },
         {
             name: "Braingeyser",
@@ -165,9 +199,13 @@ function BlueDeck(parent){
             ability: "Remove 1 opponent ability at random from any still in play.",
             set: "Alpha",
             artist: "Mark Tedin",
-            abilityType: {
-                lasting: true
-            }
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    target: "opponent",
+                    amount: null //tbd
+                }
+            ]
         },
         {
             name: "Force of Will",
@@ -176,21 +214,33 @@ function BlueDeck(parent){
             ability: "Prevent the next damage from an opponent match. Take 1 damage.",
             set: "Alliances",
             artist: "Terese Nielsen",
-            abilityType: {
-                lasting: true,
-                lifeGain: true
-            }
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    target: "opponent",
+                    amount: null //prevent damage
+                },
+                {
+                    type: "damage",
+                    target: "self",
+                    amount: 1
+                }
+            ]
         },
         {
             name: "Keiga, the Tide Star",
             smallImage: "images/card_faces/blue/keiga_sm.jpeg",
             fullImage: "images/card_faces/blue/keiga_lg.jpg",
-            ability: "Deal 5 damage + your opponent's match count.",
+            ability: "Deal 5 damage + your match count.",
             set: "Champions of Kamigawa",
             artist: "Ittoku",
-            abilityType: {
-                damage: true
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+5;}).bind(this)
+                }
+            ]
         },
         {
             name: "Lord of Atlantis",
@@ -199,10 +249,18 @@ function BlueDeck(parent){
             ability: "Deal 2 damage. Add +2 to all further damage you deal.",
             set: "Alpha",
             artist: "Melissa Benson",
-            abilityType: {
-                damage: true,
-                lasting: true
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: 2
+                },
+                {
+                    type: "statusEffect",
+                    target: "self",
+                    amount: null //add 2 to all further damage
+                }
+            ]
         },
         {
             name: "Mana Drain",
@@ -211,9 +269,18 @@ function BlueDeck(parent){
             ability: "Prevent the next damage to be dealt to you from any source. Deal that damage to your opponent instead.",
             set: "Legends",
             artist: "Mark Tedin",
-            abilityType: {
-                lasting: true
-            }
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    target: "opponent", //AND SELF
+                    amount: null //prevent damage
+                },
+                {
+                    type: "statusEffect",
+                    target: "opponent",
+                    amount: null //deal damage from first effect to opponent
+                }
+            ]
         },
         {
             name: "Polar Kraken",
@@ -222,10 +289,18 @@ function BlueDeck(parent){
             ability: "Deal 10 damage + &frac12; your match count to opponent. You take &frac12; that damage.",
             set: "Ice Age",
             artist: "Mark Tedin",
-            abilityType: {
-                damage: true,
-                lasting: true
-            }
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return (this.parent.getMatchCount()/2)+3;}).bind(this)
+                },
+                {
+                    type: "damage",
+                    target: "self",
+                    amount: (function(){return ((this.parent.getMatchCount()/2)+3)/2;}).bind(this)
+                }
+            ]
         },
         {
             name: "Soulblade Djinn",
