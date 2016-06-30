@@ -36,7 +36,9 @@ Player.prototype.handleLoss = function(){
 
 Player.prototype.addLife = function(amount){
     this.lifeTotal = this.lifeTotal + amount;
-    
+
+    this.game.displayStats(this.game.playerStatsDiv);
+
     return this.lifeTotal;
 };
 
@@ -46,6 +48,8 @@ Player.prototype.removeLife = function(amount){
     } else {
         this.lifeTotal = this.lifeTotal - amount;
     }
+
+    this.game.displayStats(this.game.playerStatsDiv);
     
     return this.lifeTotal;
 };
@@ -59,6 +63,7 @@ Player.prototype.handleLifeGain = function(target, amount){
 };
 
 Player.prototype.getMatchCount = function(){
+    console.log(this.game);
     return this.game.getMatchCount();
 };
 
@@ -67,6 +72,7 @@ Player.prototype.getPlayerName = function(){
 };
 
 Player.prototype.getLifeTotal = function(){
+    console.log("life total is: ", this.lifeTotal);
     return this.lifeTotal;
 };
 

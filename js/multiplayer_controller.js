@@ -289,7 +289,7 @@ Multiplayer.prototype.handleDamage = function(target, amount, sourcePlayer){
     } else {
         target = sourcePlayer;
     }
-    target.removeLife(amount);
+    target.removeLife(amount());
 };
 
 
@@ -306,7 +306,7 @@ Multiplayer.prototype.handleLifeGain = function(target, amount, sourcePlayer){
         target = sourcePlayer;
     }
     
-  target.addLife(amount);  
+  target.addLife(amount());
 
 };
 

@@ -183,6 +183,7 @@ Game.prototype.displayStats = function(playerStatsDiv){
     $(playerStatsDiv).find(".attempts .value").html(this.attempts);
     $(playerStatsDiv).find(".misses .value").html(this.misses);
     $(playerStatsDiv).find(".accuracy .value").html(this.formatAccuracy() + "%");
+    $(playerStatsDiv).find(".life-total").text(this.parent.getLifeTotal());
 
 };
 
