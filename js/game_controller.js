@@ -60,8 +60,9 @@ Game.prototype.checkMatch = function(card){
                         background: 'url('+card.infoObject.fullImage+') no-repeat center center',
                         backgroundSize: 'cover'
                     });
-                    $(this.playerAbilityContainer).find("#set-name").html(card.infoObject.set);
-                    $(this.playerAbilityContainer).find("#artist-name").html(card.infoObject.artist);
+                    $(this.playerAbilityContainer).find(".set-name").html(card.infoObject.set);
+                    $(this.playerAbilityContainer).find(".artist-name").html(card.infoObject.artist);
+                    
                     $(this.playerAbilityContainer).find(".ability-text").html("<p>"+card.infoObject.ability+"</p>");
 
                     $(this.playerAbilityContainer).show();
@@ -155,7 +156,7 @@ Game.prototype.handleCardEffects = function(obj){
                 this.parent.handleLifeGain(obj.abilityType[effect].target, obj.abilityType[effect].amount);
                 break;
             case "statusEffect":
-                //lasting status effects TBD
+                //send to handler with details object
                 break;
             default:
                 //not sure what the default case is here, do nothing?

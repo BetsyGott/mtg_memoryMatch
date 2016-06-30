@@ -81,3 +81,7 @@ Player.prototype.getLifeTotal = function(){
     return this.lifeTotal;
 };
 
+Player.prototype.handleStatusEffect = function(statusDetails){
+    this.parent.handleStatusEffect(this, statusDetails);  
+};
+

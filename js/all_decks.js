@@ -21,8 +21,12 @@ function BlackDeck(parent){
             abilityType: [
                 {
                     type: "statusEffect",
-                    target: "self",
-                    amount: null //activate existing ability
+                    details: {
+                        duration: 0,
+                        method: "activateAbility",
+                        target: ["self"] //targeting your own matches
+                    }
+
                 }
             ]
         },
@@ -36,8 +40,12 @@ function BlackDeck(parent){
             abilityType: [
                 {
                     type: "statusEffect",
-                    target: "self",
-                    amount: null //double next damage
+                    details: {
+                        duration: 1,
+                        method: "addDamage",
+                        amount: "double",
+                        target: ["self"]
+                    }
                 }
             ]
         },
@@ -202,8 +210,11 @@ function BlueDeck(parent){
             abilityType: [
                 {
                     type: "statusEffect",
-                    target: "opponent",
-                    amount: null //remove opponent ability
+                    details: {
+                            duration: 0,
+                            method: "removeAbility",
+                            target: ["opponent"]
+                    }
                 }
             ]
         },
@@ -217,8 +228,12 @@ function BlueDeck(parent){
             abilityType: [
                 {
                     type: "statusEffect",
-                    target: "opponent",
-                    amount: null //prevent damage
+                    details: {
+                        duration: 1,
+                        method: "preventDamage",
+                        target: ["opponent"],
+                        amount: "all"
+                    }
                 },
                 {
                     type: "damage",
@@ -257,8 +272,12 @@ function BlueDeck(parent){
                 },
                 {
                     type: "statusEffect",
-                    target: "self",
-                    amount: null //add 2 to all further damage
+                    details: {
+                        duration: 10000,
+                        method: "addDamage",
+                        target: ["self"],
+                        amount: 2
+                    }
                 }
             ]
         },
@@ -272,13 +291,13 @@ function BlueDeck(parent){
             abilityType: [
                 {
                     type: "statusEffect",
-                    target: "opponent", //AND SELF
-                    amount: null //prevent damage
-                },
-                {
-                    type: "statusEffect",
-                    target: "opponent",
-                    amount: null //deal damage from first effect to opponent
+                    details: {
+                        duration: 1,
+                        method: "preventDamage",
+                        target: ["opponent", "self"],
+                        amount: "all",
+                        response: "dealDamage"//then deal that damage to your opponent PLACEHOLDER
+                    }
                 }
             ]
         },
@@ -322,8 +341,12 @@ function BlueDeck(parent){
                 },
                 {
                     type: "statusEffect",
-                    target: "self",
-                    amount: null //add damage
+                    details: {
+                        duration: 10000,
+                        method: "addDamage",
+                        target: ["self"],
+                        amount: 1
+                    }
                 }
             ]
         },
@@ -337,8 +360,11 @@ function BlueDeck(parent){
             abilityType: [
                 {
                     type: "statusEffect",
-                    target: "self",
-                    amount: null //take extra turn
+                    details: {
+                        duration: 1,
+                        method: "extraTurn",
+                        target: ["self"]
+                    }
                 }
             ]
         }
@@ -372,8 +398,12 @@ function GreenDeck(parent){
                 },
                 {
                     type: "statusEffect",
-                    target: "self",
-                    amount: null //add damage
+                    details: {
+                        duration: 1,
+                        method: "addDamage",
+                        target: ["self"],
+                        amount: 1
+                    }
                 }
             ]
         },
@@ -422,8 +452,12 @@ function GreenDeck(parent){
             abilityType: [
                 {
                     type: "statusEffect",
-                    target: "opponent",
-                    amount: null //prevent next damage
+                    details: {
+                        duration: 1,
+                        method: "preventDamage",
+                        target: ["opponent"],
+                        amount: "all"
+                    }
                 }
             ]
         },
@@ -437,8 +471,12 @@ function GreenDeck(parent){
             abilityType: [
                 {
                     type: "statusEffect",
-                    target: "self",
-                    amount: null //double next damage
+                    details: {
+                        duration: 1,
+                        method: "addDamage",
+                        target: ["self"],
+                        amount: "double"
+                    }
                 }
             ]
         },
@@ -467,8 +505,12 @@ function GreenDeck(parent){
             abilityType: [
                 {
                     type: "statusEffect",
-                    target: "self",
-                    amount: null //add damage
+                    details: {
+                        duration: 10000,
+                        method: "addDamage",
+                        target: ["self"],
+                        amount: 3
+                    }
                 }
             ]
         },
@@ -482,8 +524,13 @@ function GreenDeck(parent){
             abilityType: [
                 {
                     type: "statusEffect",
-                    target: "self",
-                    amount: null //idk
+                    details: {
+                        duration: 10000,
+                        method: "lifeCostAbility",
+                        target: ["self"],
+                        amount: 2,
+                        response: "" //add 4 damage to your next match
+                    }
                 }
             ]
         },
@@ -542,8 +589,12 @@ function RedDeck(parent){
             abilityType: [
                 {
                     type: "statusEffect",
-                    target: "self",
-                    amount: null //double damage
+                    details: {
+                        duration: 1,
+                        method: "addDamage",
+                        target: ["self"],
+                        amount: "double"
+                    }
                 }
             ]
         },
@@ -660,8 +711,11 @@ function RedDeck(parent){
             abilityType: [
                 {
                     type: "statusEffect",
-                    target: "opponent",
-                    amount: null //play a random ability
+                    details: {
+                        duration: 0,
+                        method: "activateAbility",
+                        target: ["self"]
+                    }
                 }
             ]
         }
@@ -690,8 +744,10 @@ function WhiteDeck(parent){
             abilityType: [
                 {
                     type: "statusEffect",
-                    target: "self",
-                    amount: null //special ability
+                    details: {
+                        duration: 0,
+                        method: "balanceLife"
+                    }
                 }
             ]
         },
@@ -755,8 +811,13 @@ function WhiteDeck(parent){
                 },
                 {
                     type: "statusEffect",
-                    target: "self",
-                    amount: null //prevent damage
+                    details: {
+                        method: "preventDamage",
+                        duration: 10000, //lasts for entire game
+                        target: ["self"],
+                        amount: 1
+
+                    }
                 }
             ]
         },
@@ -785,8 +846,12 @@ function WhiteDeck(parent){
             abilityType: [
                 {
                     type: "statusEffect",
-                    target: "opponent",
-                    amount: null //prevent all damage
+                    details: {
+                        duration: 1,
+                        method: "preventDamage",
+                        target: ["opponent"],
+                        amount: "all"
+                    }
                 }
             ]
         },
@@ -800,13 +865,21 @@ function WhiteDeck(parent){
             abilityType: [
                 {
                     type: "statusEffect",
-                    target: "opponent",
-                    amount: null //prevent all damage
+                    details: {
+                        duration: 1,
+                        method: "preventDamage",
+                        target: ["opponent"],
+                        amount: "all"
+                    }
                 },
                 {
                     type: "statusEffect",
-                    target: "self", //and opponent
-                    amount: null //remove all active abilities
+                    details: {
+                        duration: 1,
+                        method: "removeActivities",
+                        target: ["opponent", "self"],
+                        amount: "all"
+                    }
                 }
             ]
         },

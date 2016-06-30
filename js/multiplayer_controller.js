@@ -8,10 +8,10 @@ function Multiplayer(){
     this.currentPlayer = null;
     this.statusEffectList = [
         {
-            type: "preventDamage",
+            type: "preventDamage", //the deal damage prevented in this way ability will be in the handler here
             handler: this.handlePreventDamage
         },{
-            type: "balance",
+            type: "balanceLife",
             handler: this.balanceLifeTotals
         },{
             type: "addDamage",
@@ -311,11 +311,21 @@ Multiplayer.prototype.handleLifeGain = function(target, amount, sourcePlayer){
 
 };
 
-Multiplayer.prototype.handleStatusEffect = function(effectType){
+Multiplayer.prototype.handleStatusEffect = function(caster, spellObject){
     //will have an object of pointers to the various handlers, checks for effectType in the object and      sends all the pertinent info to the correct status effect method
+    
+    //search through stats effects array then call the handler in the object found
+    for(var i = 0; i > this.statusEffectList.length; i++){
+        if(this.statusEffectList[i].type === spellObject.details.method){
+            //find the matching type from the master list
+
+            this.statusEffectList[i].handler(caster, spellObject);
+        }
+    }
+    
 };
 
-Multiplayer.prototype.balanceLifeTotals= function(player){
+Multiplayer.prototype.balanceLifeTotals = function(player){
     var caster = player;
     var receiver = null;
     if(caster === this.player1){
