@@ -14,7 +14,6 @@ function Game(gameArea, playerStatsDiv, playerAbilityContainer, parent) {
     this.gamesPlayed = 0;
     this.cardArray = [];
     this.cardBack = "images/mtg-card-back.jpg";
-    // vvv this will end up 1. being a parameter passed in 2. going into a player object instead
     this.selectedDeck = parent.deck;
 
 }
@@ -47,41 +46,41 @@ Game.prototype.checkMatch = function(card){
 
                 //if a match
 
-                this.matches++;
-                this.attempts++;
+                this.incrementCounter(this.matches);
+                this.incrementCounter(this.attempts);
 
 //move match counter to somewhere inside this function vvv to avoid win screen happening before last ability is played
-                console.log("secondCard before setTimeout: ", this.secondCard);
+                
                 //this function shows the ability card of the activated match
                 setTimeout( (function() {
-
-                    $(this.playerAbilityContainer).find(".ability-card-title").html(card.infoObject.name);
+                    
+                    this.changeChildElemHtml(this.playerAbilityContainer, ".ability-card-title", card.infoObject.name);
+                    
                     $(this.playerAbilityContainer).find(".ability-card-img").css({
                         background: 'url('+card.infoObject.fullImage+') no-repeat center center',
                         backgroundSize: 'cover'
                     });
-                    $(this.playerAbilityContainer).find(".set-name").html(card.infoObject.set);
-                    $(this.playerAbilityContainer).find(".artist-name").html(card.infoObject.artist);
-                    
-                    $(this.playerAbilityContainer).find(".ability-text").html("<p>"+card.infoObject.ability+"</p>");
+
+                    this.changeChildElemHtml(this.playerAbilityContainer, ".set-name", card.infoObject.set);
+                    this.changeChildElemHtml(this.playerAbilityContainer, ".artist-name", card.infoObject.artist);
+                    this.changeChildElemHtml(this.playerAbilityContainer, ".ability-text", "<p>"+card.infoObject.ability+"</p>");
 
                     $(this.playerAbilityContainer).show();
                     $(".overlay").fadeIn("fast");
 
 
                     setTimeout( (function(){
-                        $(this.playerAbilityContainer).css("opacity", 1);
+                        this.changeElementOpacity(this.playerAbilityContainer, 1);
                     }).bind(this), 900);
 
                     //placeholder for hiding ability div again
                     $(this.playerAbilityContainer).on("click", (function(){
                         
-                        $(this.playerAbilityContainer).css("opacity", 0);
-                        $(".overlay").hide(400);
-                        $(this.playerAbilityContainer).hide(400);
+                        this.changeElementOpacity(this.playerAbilityContainer, 0);
+                        this.hideElement($(".overlay"), 400);
+                        this.hideElement(this.playerAbilityContainer, 400);
 
-//                      handle card effects here, after the ability div has been shown and hidden again
-                        console.log("secondCard inside set timeout: ", this.secondCard);
+//                      handle card effects after the ability div has been shown and hidden again
                         this.handleCardEffects(this.secondCard.infoObject);
 
 //                      reset firstCard and secondCard & wait for next card click
@@ -122,8 +121,8 @@ Game.prototype.checkMatch = function(card){
 //                  note: bind needed here to tell func inside set timeout what 'this' is
                 }.bind(this)), 1700);
 
-                this.misses++;
-                this.attempts++;
+                this.incrementCounter(this.misses);
+                this.incrementCounter(this.attempts);
 
             }
 
@@ -132,31 +131,17 @@ Game.prototype.checkMatch = function(card){
         }
     }
 
-    // this.displayStats();
-
 };
 
 Game.prototype.handleCardEffects = function(obj){
 
     //loop through effects in abilityType array on the card
     for(var effect in obj.abilityType){
-        console.log("effect in abilityType: ", obj.abilityType[effect]);
-        //if type is damage
-        switch (obj.abilityType[effect].type) {
-            
-            case "damage":
-                
-                this.handleDamage(obj.abilityType[effect].target, obj.abilityType[effect].amount);
-                break;
-            
-            case "lifeGain":
-                
-                this.handleLifeGain(obj.abilityType[effect].target, obj.abilityType[effect].amount);
-                break;
-            
-            default:
-                // do nothing
-                break;
+        
+        if(obj.abilityType[effect].type === "damage"){
+            this.handleDamage(obj.abilityType[effect].target, obj.abilityType[effect].amount);
+        } else {
+            this.handleLifeGain(obj.abilityType[effect].target, obj.abilityType[effect].amount);
         }
     }
 };
@@ -184,11 +169,11 @@ Game.prototype.handleLifeGain = function(target, amount){
 Game.prototype.displayStats = function(playerStatsDiv){
 
     $(".games-played .value").html(this.gamesPlayed);
-    $(playerStatsDiv).find(".matches .value").html(this.matches);
-    $(playerStatsDiv).find(".attempts .value").html(this.attempts);
-    $(playerStatsDiv).find(".misses .value").html(this.misses);
-    $(playerStatsDiv).find(".accuracy .value").html(this.formatAccuracy() + "%");
-    $(playerStatsDiv).find(".life-total").text(this.parent.getLifeTotal());
+    this.changeChildElemHtml(playerStatsDiv, ".matches .value", this.matches);
+    this.changeChildElemHtml(playerStatsDiv, ".attempts .value", this.attempts);
+    this.changeChildElemHtml(playerStatsDiv, ".misses .value", this.misses);
+    this.changeChildElemHtml(playerStatsDiv, ".accuracy .value", this.formatAccuracy() + "%");
+    this.changeChildElemText(playerStatsDiv, ".life-total", this.parent.getLifeTotal());
 
 };
 
@@ -220,22 +205,21 @@ Game.prototype.createRandomCards = function(array){
 };
 
 Game.prototype.resetAll = function(){
+    
     this.canClick = false;
-    this.gamesPlayed++;
+    this.incrementCounter(this.gamesPlayed);
     this.resetStats();
     this.displayStats();
 
     this.gameArea.html("");
     this.createRandomCards(this.cardArray);
     this.canClick = true;
-
+    
 };
 
 Game.prototype.resetStats = function(){
-    this.accuracy = 0;
-    this.matches = 0;
-    this.attempts = 0;
-    this.misses = 0;
+    this.accuracy = this.matches = this.attempts = this.misses = 0;
+    this.lifeTotal = 20;
 
     this.displayStats();
 };
@@ -249,4 +233,35 @@ Game.prototype.formatAccuracy = function(){
     }
 
     return this.accuracy;
+};
+
+Game.prototype.changeElementOpacity = function(element, opacityNum){
+    $(element).css("opacity", opacityNum);
+    
+    return element;
+};
+
+Game.prototype.hideElement = function(element, duration){
+    
+    $(element).hide(duration);
+   
+    return element;
+};
+
+Game.prototype.changeChildElemHtml = function(parentEl, childEl, newInfo){
+    $(parentEl).find(childEl).html(newInfo);
+    
+    return newInfo;
+};
+
+Game.prototype.changeChildElemText = function(parentEl, childEl, newInfo){
+    $(parentEl).find(childEl).text(newInfo);
+    
+    return newInfo;
+};
+
+Game.prototype.incrementCounter = function(counter){
+    counter++;
+    
+    return counter;
 };

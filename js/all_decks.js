@@ -320,6 +320,7 @@ function BlueDeck(parent){
                 }
             ]
         },
+        //todo fix soulblade djinn's fullsize image
         {
             name: "Soulblade Djinn",
             smallImage: "images/card_faces/blue/soulblade_djinn_sm.jpg",
