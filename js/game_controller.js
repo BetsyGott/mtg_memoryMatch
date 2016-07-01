@@ -34,7 +34,6 @@ Game.prototype.checkMatch = function(card){
 
         card.addFlippedClass();
 
-//          check if firstCard is null
         if(!this.firstCard){
 
             this.firstCard = card;
@@ -291,4 +290,8 @@ Game.prototype.incrementMisses = function(){
 
 Game.prototype.getStatsDiv = function(){
     return this.playerStatsDiv;
+};
+
+Game.prototype.turnOffClick = function(){
+  this.canClick = false;
 };

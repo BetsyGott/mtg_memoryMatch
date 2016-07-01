@@ -69,14 +69,11 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
 };
 
 Multiplayer.prototype.initPlayerArea = function(player, gameArea, playerStatsDiv, playerAbilityContainer, abilityContainerName, name, deckChoice){
-
-    //assign deckChoice to player 1
+    
     player.assignDeck(deckChoice);
-
-    //placeholder? customize the ability div to the deck chosen
+    
     this.createAbilityContainer(abilityContainerName, gameArea, player.deck.color, player.deck.glowColor);
-
-    //Assign game to player 1
+    
     player.createNewGame(gameArea, playerStatsDiv, playerAbilityContainer);
 
     playerStatsDiv.find(".player-name").text(player.name);
@@ -213,7 +210,8 @@ Multiplayer.prototype.endTurn = function(){
 
 Multiplayer.prototype.informWin = function(){
     alert(this.currentPlayer.name+ " wins!");
-    this.currentPlayer.game.canClick = false;
+    this.player1.turnOffClicking();
+    this.player2.turnOffClicking();
     this.showResetButton();
 };
 
