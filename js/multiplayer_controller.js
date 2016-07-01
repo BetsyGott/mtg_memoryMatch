@@ -19,37 +19,36 @@ Multiplayer.prototype.quickStart = function(player1Name, player1Deck, player2Nam
 
 Multiplayer.prototype.choosePlayers = function(name, deckChoice){
     
+        var playerName = "";
+    
         if(this.player1 === null){
-            //TODO clean up the player 1 and player 2 identical code is it happens once with diff targets
+            //TODO clean up the player 1 and player 2 identical code so it happens once with diff targets
 
-            //if no player 1 the first player is player1
-            
-            //set player1 game DOM element
-            var gameArea = $("#p1-game-area");
-            var playerStatsDiv = $(".player1-stats");
-            var playerAbilityContainer = $("#p1AbilityContainer");
-            
-            //create new Player object
+            //give a default name if none provided
             if(name === ""){
-                this.player1 = new Player("Player 1", this);
+                playerName = "Player 1";
             } else {
-                this.player1 = new Player(name, this);
+                playerName = name;
             }
-
-            //assign deckChoice to player 1
-            this.player1.assignDeck(deckChoice);
-
-            //placeholder? customize the ability div to the deck chosen
-            this.createAbilityContainer("p1", gameArea, this.player1.deck.color, this.player1.deck.glowColor);
             
-            //Assign game to player 1
-            this.player1.createNewGame(gameArea, playerStatsDiv, playerAbilityContainer);
-
-            $(".player1-stats").find(".player-name").text(this.player1.name);
-
-            $(".player1-stats").find(".deck-text").css({
-                color: this.player1.deck.textColor
-            });
+            this.initPlayerArea(this.player1, $("#p1-game-area"), $(".player1-stats"), $("#p1AbilityContainer"), "p1", playerName, deckChoice);
+            
+            //
+            // var gameArea = $("#p1-game-area");
+            // var playerStatsDiv = $(".player1-stats");
+            // var playerAbilityContainer = $("#p1AbilityContainer");
+            //
+            // this.player1.assignDeck(deckChoice);
+            //
+            // this.createAbilityContainer("p1", gameArea, this.player1.deck.color, this.player1.deck.glowColor);
+            //
+            // this.player1.createNewGame(gameArea, playerStatsDiv, playerAbilityContainer);
+            //
+            // $(".player1-stats").find(".player-name").text(this.player1.name);
+            //
+            // $(".player1-stats").find(".deck-text").css({
+            //     color: this.player1.deck.textColor
+            // });
 
             this.clearFields();
 
@@ -57,30 +56,29 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
 
         } else {
 
-            gameArea = $("#p2-game-area");
-            playerStatsDiv = $(".player2-stats");
-            playerAbilityContainer = $("#p2AbilityContainer");
-
             if(name === ""){
-                this.player2 = new Player("Player 2", this);
+                playerName = "Player 2";
             } else {
-                this.player2 = new Player(name, this);
+                playerName = name;
             }
 
-            //assign deckChoice to player 2 
-            this.player2.assignDeck(deckChoice);
+            this.initPlayerArea(this.player1, $("#p2-game-area"), $(".player2-stats"), $("#p2AbilityContainer"), "p2", playerName, deckChoice);
 
-            //placeholder? customize the ability div to the deck chosen
-            this.createAbilityContainer("p2", gameArea, this.player2.deck.color, this.player2.deck.glowColor);
-            
-            //Assign game to player 2
-            this.player2.createNewGame(gameArea, playerStatsDiv, playerAbilityContainer);
-
-            $(".player2-stats").find(".player-name").text(this.player2.name);
-
-            $(".player2-stats").find(".deck-text").css({
-                color: this.player2.deck.textColor
-            });
+            // gameArea = $("#p2-game-area");
+            // playerStatsDiv = $(".player2-stats");
+            // playerAbilityContainer = $("#p2AbilityContainer");
+            //
+            // this.player2.assignDeck(deckChoice);
+            //
+            // this.createAbilityContainer("p2", gameArea, this.player2.deck.color, this.player2.deck.glowColor);
+            //
+            // this.player2.createNewGame(gameArea, playerStatsDiv, playerAbilityContainer);
+            //
+            // $(".player2-stats").find(".player-name").text(this.player2.name);
+            //
+            // $(".player2-stats").find(".deck-text").css({
+            //     color: this.player2.deck.textColor
+            // });
 
             this.clearFields();
         }
@@ -106,6 +104,26 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
             
             this.showCurrentPlayerArea();
         }
+};
+
+Multiplayer.prototype.initPlayerArea = function(player, gameArea, playerStatsDiv, playerAbilityContainer, abilityContainerName, name, deckChoice){
+    
+    player = new Player(name, this);
+
+    //assign deckChoice to player 1
+    player.assignDeck(deckChoice);
+
+    //placeholder? customize the ability div to the deck chosen
+    this.createAbilityContainer(abilityContainerName, gameArea, player.deck.color, player.deck.glowColor);
+
+    //Assign game to player 1
+    this.player1.createNewGame(gameArea, playerStatsDiv, playerAbilityContainer);
+
+    playerStatsDiv.find(".player-name").text(player.name);
+
+    playerStatsDiv.find(".deck-text").css({
+        color: player.deck.textColor
+    });
 };
 
 Multiplayer.prototype.determineFirstPlayer = function(){
