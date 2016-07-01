@@ -1,3 +1,5 @@
+//TODO: life gain animation, life loss animation, player turn change animation, putting normal settings back
+
 /**
  * Handles the global aspects of the game
  * @constructor
@@ -264,7 +266,7 @@ Multiplayer.prototype.handleLifeGain = function(target, amount, sourcePlayer){
         target = sourcePlayer;
     }
     
-    //todo show an animation here that tells how much life was gained and deletes it from the life total
+    //todo show an animation here that tells how much life was gained and adds it to the life total
     
   target.addLife(amount());
     

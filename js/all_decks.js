@@ -1,4 +1,4 @@
-//TODO all the status effects currently don't do anything, fix this
+//TODO fix soulblade djinn full size img
 
 /**
  * Black deck object

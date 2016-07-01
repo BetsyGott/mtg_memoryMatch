@@ -1,4 +1,4 @@
-
+//TODO take more stuff out of here and move it into multiplayer function, re-enable original intro screen
 $(document).ready(function(){
 
     var newMultiplayerGame = new Multiplayer();
