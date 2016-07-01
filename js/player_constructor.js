@@ -4,7 +4,8 @@ function Player(name, parent){
     this.deck = null;
     this.game = null;
     this.lifeTotal = 20;
-    this.activeEffects = {};
+    this.wins = 0;
+    this.losses = 0;
 }
 
 Player.prototype.assignDeck = function(deckChoice){
@@ -46,6 +47,7 @@ Player.prototype.addLife = function(amount){
 Player.prototype.removeLife = function(amount){
     if(this.lifeTotal - amount <= 0){
         this.lifeTotal = 0;
+        this.canClick = false;
         this.handleLoss();
     } else {
         this.lifeTotal = this.lifeTotal - amount;
@@ -91,7 +93,23 @@ Player.prototype.handleReset = function(){
   this.game.resetAll();  
 };
 
-Player.prototype.addWinToCount = function(){
-    //this.game.incrementWin();
+Player.prototype.incrementWin = function(){
+    this.wins++;
+    
+    this.game.displayStats();
+};
+
+Player.prototype.incrementLoss = function(){
+  this.losses++;
+
+    this.game.displayStats();
+};
+
+Player.prototype.getWins = function(){
+  return this.wins;  
+};
+
+Player.prototype.getLosses = function(){
+    return this.losses;
 };
 

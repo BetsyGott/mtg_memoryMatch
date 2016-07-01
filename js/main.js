@@ -6,9 +6,13 @@ $(document).ready(function(){
     //TODO re-enable after testing
     newMultiplayerGame.hideFields();
     newMultiplayerGame.hideOverlay();
+    
      //newMultiplayerGame.showIntroScreen();
 
     newMultiplayerGame.quickStart("Player 1", BlackDeck, "Player 2", BlueDeck);
+
+    //todo move to some init function in mp
+    newMultiplayerGame.hideResetButton();
 
     $(".mana-symbol").on("click", function(){
        

@@ -92,6 +92,7 @@ Game.prototype.checkMatch = function(card){
                         //win condition for hitting all matches
                         if(this.matches === this.totalMatches){
 
+                            this.canClick = false;
                             this.handleWin();
 
                         }
@@ -176,7 +177,8 @@ Game.prototype.displayStats = function(playerStatsDiv){
     this.changeChildElemHtml(playerStatsDiv, ".misses .value", this.misses);
     this.changeChildElemHtml(playerStatsDiv, ".accuracy .value", this.formatAccuracy() + "%");
     this.changeChildElemText(playerStatsDiv, ".life-total", this.parent.getLifeTotal());
-
+    this.changeChildElemHtml(playerStatsDiv, ".wins .value", this.parent.getWins());
+    this.changeChildElemHtml(playerStatsDiv, ".losses .value", this.parent.getLosses());
 };
 
 Game.prototype.init = function(){

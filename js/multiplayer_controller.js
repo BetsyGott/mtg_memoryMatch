@@ -299,7 +299,10 @@ Multiplayer.prototype.handleZeroLoss = function(losingPlayer){
         winningPlayer = this.player1;
     }
     alert(losingPlayer.name + " has been eliminated. " + winningPlayer.name + " wins the game!");
-    //winningPlayer.addWinToCount();
+    winningPlayer.incrementWin();
+    losingPlayer.incrementLoss();
+    
+    this.showResetButton();
 };
 
 Multiplayer.prototype.createResetClickEvent = function(){
@@ -317,4 +320,12 @@ Multiplayer.prototype.resetAll = function(){
 
 Multiplayer.prototype.displayStats = function(){
     
+};
+
+Multiplayer.prototype.showResetButton = function(){
+  this.resetBtn.show();  
+};
+
+Multiplayer.prototype.hideResetButton = function(){
+    this.resetBtn.hide();
 };
