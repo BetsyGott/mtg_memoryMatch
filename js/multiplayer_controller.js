@@ -19,83 +19,45 @@ Multiplayer.prototype.quickStart = function(player1Name, player1Deck, player2Nam
 
 Multiplayer.prototype.choosePlayers = function(name, deckChoice){
     
-        var playerName = "";
+    var playerName = "";
     
-        if(this.player1 === null){
-            //TODO clean up the player 1 and player 2 identical code so it happens once with diff targets
+    if(this.player1 === null){
 
-            //give a default name if none provided
-            if(name === ""){
-                playerName = "Player 1";
-            } else {
-                playerName = name;
-            }
+        //give a default name if none provided
+        playerName = name === "" ? "Player 1" : name;
+
+        this.player1 = new Player(playerName, this);
             
-            this.initPlayerArea(this.player1, $("#p1-game-area"), $(".player1-stats"), $("#p1AbilityContainer"), "p1", playerName, deckChoice);
+        this.initPlayerArea(this.player1, $("#p1-game-area"), $(".player1-stats"), $("#p1AbilityContainer"), "p1", playerName, deckChoice);
+
+        this.clearFields();
+
+        $(".intro-player-title").text("Player 2");
+
+    } else {
+
+        playerName = name === "" ? "Player 2" : name;
+
+        this.player2 = new Player(playerName, this);
+        
+        this.initPlayerArea(this.player2, $("#p2-game-area"), $(".player2-stats"), $("#p2AbilityContainer"), "p2", playerName, deckChoice);
+
+        this.clearFields();
+    }
+
+    if(this.player1 && this.player2) {
+
+        this.hidePlayerChoices();
+        this.createResetClickEvent();
+
+        $(".coin-container").show();
+        $(".coinflip-title").show();
             
-            //
-            // var gameArea = $("#p1-game-area");
-            // var playerStatsDiv = $(".player1-stats");
-            // var playerAbilityContainer = $("#p1AbilityContainer");
-            //
-            // this.player1.assignDeck(deckChoice);
-            //
-            // this.createAbilityContainer("p1", gameArea, this.player1.deck.color, this.player1.deck.glowColor);
-            //
-            // this.player1.createNewGame(gameArea, playerStatsDiv, playerAbilityContainer);
-            //
-            // $(".player1-stats").find(".player-name").text(this.player1.name);
-            //
-            // $(".player1-stats").find(".deck-text").css({
-            //     color: this.player1.deck.textColor
-            // });
+        //do a random 50/50 calc to determine who goes first
+        this.currentPlayer = this.determineFirstPlayer() === 0 ? this.player1 : this.player2;
 
-            this.clearFields();
-
-            $(".intro-player-title").text("Player 2");
-
-        } else {
-
-            if(name === ""){
-                playerName = "Player 2";
-            } else {
-                playerName = name;
-            }
-
-            this.initPlayerArea(this.player1, $("#p2-game-area"), $(".player2-stats"), $("#p2AbilityContainer"), "p2", playerName, deckChoice);
-
-            // gameArea = $("#p2-game-area");
-            // playerStatsDiv = $(".player2-stats");
-            // playerAbilityContainer = $("#p2AbilityContainer");
-            //
-            // this.player2.assignDeck(deckChoice);
-            //
-            // this.createAbilityContainer("p2", gameArea, this.player2.deck.color, this.player2.deck.glowColor);
-            //
-            // this.player2.createNewGame(gameArea, playerStatsDiv, playerAbilityContainer);
-            //
-            // $(".player2-stats").find(".player-name").text(this.player2.name);
-            //
-            // $(".player2-stats").find(".deck-text").css({
-            //     color: this.player2.deck.textColor
-            // });
-
-            this.clearFields();
-        }
-
-        if(this.player1 && this.player2) {
-
-            this.hidePlayerChoices();
-            this.createResetClickEvent();
-
-            $(".coin-container").show();
-            $(".coinflip-title").show();
-            
-            //do a random 50/50 calc to determine who goes first
-            this.currentPlayer = this.determineFirstPlayer() === 0 ? this.player1 : this.player2;
-
-            //TODO re-enable after testing
-            //show a coin flipping over overlay bg
+        //TODO re-enable after testing
+        //show a coin flipping over overlay bg
             setTimeout( (function() {
 
                 this.showCoinFlip(this.currentPlayer);
@@ -107,8 +69,6 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
 };
 
 Multiplayer.prototype.initPlayerArea = function(player, gameArea, playerStatsDiv, playerAbilityContainer, abilityContainerName, name, deckChoice){
-    
-    player = new Player(name, this);
 
     //assign deckChoice to player 1
     player.assignDeck(deckChoice);
@@ -117,7 +77,7 @@ Multiplayer.prototype.initPlayerArea = function(player, gameArea, playerStatsDiv
     this.createAbilityContainer(abilityContainerName, gameArea, player.deck.color, player.deck.glowColor);
 
     //Assign game to player 1
-    this.player1.createNewGame(gameArea, playerStatsDiv, playerAbilityContainer);
+    player.createNewGame(gameArea, playerStatsDiv, playerAbilityContainer);
 
     playerStatsDiv.find(".player-name").text(player.name);
 
