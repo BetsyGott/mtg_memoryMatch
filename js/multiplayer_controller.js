@@ -313,13 +313,19 @@ Multiplayer.prototype.createResetClickEvent = function(){
     }).bind(this));
 };
 
-//resets game on click, randomizes cards, increments game counter
+//resets game on click, randomizes cards, increments game counter, losing player goes first in new game
 Multiplayer.prototype.resetAll = function(){
-  this.player1.resetAll();  
-};
 
-Multiplayer.prototype.displayStats = function(){
-    
+  this.player1.handleReset();
+    this.player2.handleReset();
+
+    //todo figure out why this function isn't working and winning player is still going first again
+    if(this.currentPlayer === this.player1){
+        this.currentPlayer = this.player2;
+    } else {
+        this.currentPlayer = this.player1;
+    }
+
 };
 
 Multiplayer.prototype.showResetButton = function(){

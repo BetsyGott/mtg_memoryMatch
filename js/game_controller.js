@@ -48,8 +48,8 @@ Game.prototype.checkMatch = function(card){
 
                 //if a match
 
-                this.incrementCounter(this.matches);
-                this.incrementCounter(this.attempts);
+                this.incrementMatches();
+                this.incrementAttempts();
 
 //move match counter to somewhere inside this function vvv to avoid win screen happening before last ability is played
                 
@@ -124,8 +124,8 @@ Game.prototype.checkMatch = function(card){
 //                  note: bind needed here to tell func inside set timeout what 'this' is
                 }.bind(this)), 1700);
 
-                this.incrementCounter(this.misses);
-                this.incrementCounter(this.attempts);
+                this.incrementMisses();
+                this.incrementAttempts();
 
             }
 
@@ -172,13 +172,13 @@ Game.prototype.handleLifeGain = function(target, amount){
 Game.prototype.displayStats = function(playerStatsDiv){
 
     $(".games-played .value").html(this.gamesPlayed);
-    this.changeChildElemHtml(playerStatsDiv, ".matches .value", this.matches);
-    this.changeChildElemHtml(playerStatsDiv, ".attempts .value", this.attempts);
-    this.changeChildElemHtml(playerStatsDiv, ".misses .value", this.misses);
-    this.changeChildElemHtml(playerStatsDiv, ".accuracy .value", this.formatAccuracy() + "%");
-    this.changeChildElemText(playerStatsDiv, ".life-total", this.parent.getLifeTotal());
-    this.changeChildElemHtml(playerStatsDiv, ".wins .value", this.parent.getWins());
-    this.changeChildElemHtml(playerStatsDiv, ".losses .value", this.parent.getLosses());
+    this.changeChildElemHtml($(playerStatsDiv), $(".matches .value"), this.matches);
+    this.changeChildElemHtml($(playerStatsDiv), $(".attempts .value"), this.attempts);
+    this.changeChildElemHtml($(playerStatsDiv), $(".misses .value"), this.misses);
+    this.changeChildElemHtml($(playerStatsDiv), $(".accuracy .value"), this.formatAccuracy() + "%");
+    this.changeChildElemText($(playerStatsDiv), $(".life-total"), this.parent.getLifeTotal());
+    this.changeChildElemHtml($(playerStatsDiv), $(".wins .value"), this.parent.getWins());
+    this.changeChildElemHtml($(playerStatsDiv), $(".losses .value"), this.parent.getLosses());
 };
 
 Game.prototype.init = function(){
@@ -211,9 +211,9 @@ Game.prototype.createRandomCards = function(array){
 Game.prototype.resetAll = function(){
     
     this.canClick = false;
-    this.incrementCounter(this.gamesPlayed);
+    this.gamesPlayed++;
     this.resetStats();
-    this.displayStats();
+    this.displayStats(this.playerStatsDiv);
 
     this.gameArea.html("");
     this.createRandomCards(this.cardArray);
@@ -222,11 +222,11 @@ Game.prototype.resetAll = function(){
 };
 
 Game.prototype.resetStats = function(){
-    
+    console.log("resetting stats");
     this.accuracy = this.matches = this.attempts = this.misses = 0;
     this.parent.setLifeTotal(20);
 
-    this.displayStats();
+    this.displayStats(this.playerStatsDiv);
 };
 
 Game.prototype.formatAccuracy = function(){
@@ -273,8 +273,22 @@ Game.prototype.changeChildElemText = function(parentEl, childEl, newInfo){
     return newInfo;
 };
 
-Game.prototype.incrementCounter = function(counter){
-    counter++;
-    
-    return counter;
+Game.prototype.incrementMatches = function(){
+  this.matches++;
+
+    return this.matches;
+};
+
+Game.prototype.incrementAttempts = function(){
+  this.attempts++;
+
+    return this.attempts;
+};
+
+Game.prototype.incrementMisses = function(){
+  this.misses++;
+};
+
+Game.prototype.getStatsDiv = function(){
+    return this.playerStatsDiv;
 };

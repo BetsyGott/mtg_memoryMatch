@@ -39,7 +39,7 @@ Player.prototype.handleLoss = function(){
 Player.prototype.addLife = function(amount){
     this.lifeTotal = this.lifeTotal + amount;
 
-    this.game.displayStats(this.game.playerStatsDiv);
+    this.game.displayStats(this.game.getStatsDiv());
 
     return this.lifeTotal;
 };
@@ -53,7 +53,7 @@ Player.prototype.removeLife = function(amount){
         this.lifeTotal = this.lifeTotal - amount;
     }
 
-    this.game.displayStats(this.game.playerStatsDiv);
+    this.game.displayStats(this.game.getStatsDiv());
     
     return this.lifeTotal;
 };
@@ -94,18 +94,21 @@ Player.prototype.handleReset = function(){
 };
 
 Player.prototype.incrementWin = function(){
+
     this.wins++;
     
-    this.game.displayStats();
+    this.game.displayStats(this.game.getStatsDiv());
 };
 
 Player.prototype.incrementLoss = function(){
   this.losses++;
 
-    this.game.displayStats();
+    this.game.displayStats(this.game.getStatsDiv());
 };
 
+//todo figure out why wins are being displayed incorrectly
 Player.prototype.getWins = function(){
+
   return this.wins;  
 };
 
