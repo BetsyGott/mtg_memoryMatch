@@ -29,7 +29,7 @@ Game.prototype.pushCards = function(){
 
 //performs logic of game
 Game.prototype.checkMatch = function(card){
-
+    
     if(this.canClick){
 
         card.addFlippedClass();

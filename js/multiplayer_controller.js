@@ -279,6 +279,9 @@ Multiplayer.prototype.handleZeroLoss = function(losingPlayer){
     alert(losingPlayer.name + " has been eliminated. " + this.winningPlayer.name + " wins the game!");
     this.winningPlayer.incrementWin();
     losingPlayer.incrementLoss();
+
+    this.turnOffClicks(this.player1);
+    this.turnOffClicks(this.player2);
     
     this.showResetButton();
 };
@@ -315,4 +318,8 @@ Multiplayer.prototype.showResetButton = function(){
 
 Multiplayer.prototype.hideResetButton = function(){
     this.resetBtn.hide();
+};
+
+Multiplayer.prototype.turnOffClicks = function(player){
+    player.turnOffClicking();
 };
