@@ -264,6 +264,8 @@ Multiplayer.prototype.handleDamage = function(target, amount, sourcePlayer){
         target = sourcePlayer;
     }
     
+    //todo show an animation here that tells how much damage was dealt and deletes it from the total
+    
     target.removeLife(Math.round(amount()));
 };
 
@@ -280,6 +282,8 @@ Multiplayer.prototype.handleLifeGain = function(target, amount, sourcePlayer){
     } else {
         target = sourcePlayer;
     }
+    
+    //todo show an animation here that tells how much life was gained and deletes it from the life total
     
   target.addLife(amount());
 
