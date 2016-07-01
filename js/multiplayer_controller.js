@@ -8,6 +8,7 @@ function Multiplayer(){
     this.currentPlayer = null;
     this.gamesPlayed = 0;
     this.resetBtn = $("#reset-button");
+    this.winningPlayer = null;
 }
 
 Multiplayer.prototype.quickStart = function(player1Name, player1Deck, player2Name, player2Deck){
@@ -103,17 +104,19 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
 
             }.bind(this)), 300);
             
-            //change bg color to the person who goes first
-            this.changeBackgroundColor(this.currentPlayer);
-            
-            //show first player's game area to start
-            this.currentPlayer.game.gameArea.show();
+            this.showCurrentPlayerArea();
         }
 };
 
 Multiplayer.prototype.determineFirstPlayer = function(){
     return Math.floor(Math.random() * 2);
     
+};
+
+Multiplayer.prototype.showCurrentPlayerArea = function(){
+    this.changeBackgroundColor(this.currentPlayer);
+
+    this.switchDeck();
 };
 
 //currently in multiplayer but maybe this should be in a view controller??
@@ -221,9 +224,7 @@ Multiplayer.prototype.endTurn = function(){
     
     this.currentPlayer = this.currentPlayer === this.player1 ? this.player2 : this.player1;
 
-    this.changeBackgroundColor(this.currentPlayer);
-
-    this.switchDeck();
+    this.showCurrentPlayerArea();
     
     //TODO add animation to switch so it's less jarring and it gives some cue of whose turn it is
     //this.animateTurnSwitch();
@@ -235,6 +236,7 @@ Multiplayer.prototype.endTurn = function(){
 Multiplayer.prototype.informWin = function(){
     alert(this.currentPlayer.name+ " wins!");
     this.currentPlayer.game.canClick = false;
+    this.showResetButton();
 };
 
 Multiplayer.prototype.switchDeck = function(){
@@ -294,12 +296,12 @@ Multiplayer.prototype.handleLifeGain = function(target, amount, sourcePlayer){
 
 Multiplayer.prototype.handleZeroLoss = function(losingPlayer){
     if(losingPlayer === this.player1){
-        var winningPlayer = this.player2;
+        this.winningPlayer = this.player2;
     } else {
-        winningPlayer = this.player1;
+        this.winningPlayer = this.player1;
     }
-    alert(losingPlayer.name + " has been eliminated. " + winningPlayer.name + " wins the game!");
-    winningPlayer.incrementWin();
+    alert(losingPlayer.name + " has been eliminated. " + this.winningPlayer.name + " wins the game!");
+    this.winningPlayer.incrementWin();
     losingPlayer.incrementLoss();
     
     this.showResetButton();
@@ -316,15 +318,18 @@ Multiplayer.prototype.createResetClickEvent = function(){
 //resets game on click, randomizes cards, increments game counter, losing player goes first in new game
 Multiplayer.prototype.resetAll = function(){
 
-  this.player1.handleReset();
+    this.player1.handleReset();
     this.player2.handleReset();
-
-    //todo figure out why this function isn't working and winning player is still going first again
-    if(this.currentPlayer === this.player1){
+    
+    if(this.winningPlayer === this.player1){
         this.currentPlayer = this.player2;
+
     } else {
         this.currentPlayer = this.player1;
     }
+
+    this.winningPlayer = null;
+    this.showCurrentPlayerArea();
 
 };
 
