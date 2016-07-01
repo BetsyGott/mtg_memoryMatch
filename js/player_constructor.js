@@ -32,6 +32,7 @@ Player.prototype.handleWin = function(){
 Player.prototype.handleLoss = function(){
   console.log("loss due to zero life");
     //tbd what to actually do here
+    this.parent.handleZeroLoss(this);
 };
 
 Player.prototype.addLife = function(amount){
@@ -45,6 +46,7 @@ Player.prototype.addLife = function(amount){
 Player.prototype.removeLife = function(amount){
     if(this.lifeTotal - amount <= 0){
         this.lifeTotal = 0;
+        this.handleLoss();
     } else {
         this.lifeTotal = this.lifeTotal - amount;
     }
@@ -83,5 +85,13 @@ Player.prototype.getLifeTotal = function(){
 
 Player.prototype.handleStatusEffect = function(statusDetails){
     this.parent.handleStatusEffect(this, statusDetails);  
+};
+
+Player.prototype.handleReset = function(){
+  this.game.resetAll();  
+};
+
+Player.prototype.addWinToCount = function(){
+    //this.game.incrementWin();
 };
 

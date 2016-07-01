@@ -11,11 +11,13 @@ function Game(gameArea, playerStatsDiv, playerAbilityContainer, parent) {
     this.matches = 0;
     this.attempts = 0;
     this.accuracy = 0;
+    this.wins = 0;
+    this.losses = 0;
     this.gamesPlayed = 0;
     this.cardArray = [];
     this.cardBack = "images/mtg-card-back.jpg";
     this.selectedDeck = parent.deck;
-
+    
 }
 
 Game.prototype.pushCards = function(){
@@ -218,8 +220,9 @@ Game.prototype.resetAll = function(){
 };
 
 Game.prototype.resetStats = function(){
+    
     this.accuracy = this.matches = this.attempts = this.misses = 0;
-    this.lifeTotal = 20;
+    this.parent.setLifeTotal(20);
 
     this.displayStats();
 };
@@ -233,6 +236,14 @@ Game.prototype.formatAccuracy = function(){
     }
 
     return this.accuracy;
+};
+
+Game.prototype.incrementWin = function(){
+  this.wins++;  
+};
+
+Game.prototype.incrementLoss = function(){
+  this.losses++;  
 };
 
 Game.prototype.changeElementOpacity = function(element, opacityNum){

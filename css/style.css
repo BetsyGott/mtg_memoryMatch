@@ -144,6 +144,20 @@ body {
     font-weight: 600;
 }
 
+.stats ul.win-display {
+    text-align: center;
+    padding-left: 0;
+    font-size: 1.3em;
+}
+
+.stats ul.win-display li {
+    display: inline-block;
+}
+
+.stats ul.win-display li:first-child {
+    margin-right: 10px;
+}
+
 .player-stats{
     #background: rgba(55,55,55,0.5);
     width: 49%;

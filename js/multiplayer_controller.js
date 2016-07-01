@@ -6,6 +6,8 @@ function Multiplayer(){
     this.player1 = null;
     this.player2 = null;
     this.currentPlayer = null;
+    this.gamesPlayed = 0;
+    this.resetBtn = $("#reset-button");
 }
 
 Multiplayer.prototype.quickStart = function(player1Name, player1Deck, player2Name, player2Deck){
@@ -85,6 +87,7 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
         if(this.player1 && this.player2) {
 
             this.hidePlayerChoices();
+            this.createResetClickEvent();
 
             $(".coin-container").show();
             $(".coinflip-title").show();
@@ -286,5 +289,32 @@ Multiplayer.prototype.handleLifeGain = function(target, amount, sourcePlayer){
     //todo show an animation here that tells how much life was gained and deletes it from the life total
     
   target.addLife(amount());
+    
+};
 
+Multiplayer.prototype.handleZeroLoss = function(losingPlayer){
+    if(losingPlayer === this.player1){
+        var winningPlayer = this.player2;
+    } else {
+        winningPlayer = this.player1;
+    }
+    alert(losingPlayer.name + " has been eliminated. " + winningPlayer.name + " wins the game!");
+    //winningPlayer.addWinToCount();
+};
+
+Multiplayer.prototype.createResetClickEvent = function(){
+    this.resetBtn.on("click", (function(){
+
+        this.resetAll();
+
+    }).bind(this));
+};
+
+//resets game on click, randomizes cards, increments game counter
+Multiplayer.prototype.resetAll = function(){
+  this.player1.resetAll();  
+};
+
+Multiplayer.prototype.displayStats = function(){
+    
 };

@@ -21,12 +21,5 @@ $(document).ready(function(){
         newMultiplayerGame.choosePlayers(playerName, window[capName]);
        
     });
-    
-    //resets game on click, randomizes cards, increments game counter
-    $("#reset-button").on("click", function(){
-
-        game.resetAll();
-
-    });
 
 });
