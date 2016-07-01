@@ -153,10 +153,7 @@ Game.prototype.handleCardEffects = function(obj){
                 
                 this.handleLifeGain(obj.abilityType[effect].target, obj.abilityType[effect].amount);
                 break;
-            case "statusEffect":
-                
-                this.handleStatusEffect(obj.abilityType[effect].details);
-                break;
+            
             default:
                 // do nothing
                 break;
@@ -182,10 +179,6 @@ Game.prototype.handleDamage = function(target, amount){
 
 Game.prototype.handleLifeGain = function(target, amount){
     this.parent.handleLifeGain(target, amount);
-};
-
-Game.prototype.handleStatusEffect = function(statusDetails){
-    this.parent.handleStatusEffect(statusDetails);
 };
 
 Game.prototype.displayStats = function(playerStatsDiv){

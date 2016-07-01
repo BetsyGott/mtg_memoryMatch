@@ -15,18 +15,14 @@ function BlackDeck(parent){
             name: "Animate Dead",
             smallImage: "images/card_faces/black/animate_dead_sm.jpg",
             fullImage: "images/card_faces/black/animate_dead_lg.jpg",
-            ability: "Activate the ability of a random match you've already made.",
+            ability: "Deal 2 damage.",
             set: "Alpha",
             artist: "Anson Maddocks",
             abilityType: [
                 {
-                    type: "statusEffect",
-                    details: {
-                        duration: 0,
-                        method: "activateAbility",
-                        target: ["self"] //targeting your own matches
-                    }
-
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return 2;}).bind(this)
                 }
             ]
         },
@@ -34,18 +30,14 @@ function BlackDeck(parent){
             name: "Dark Ritual",
             smallImage: "images/card_faces/black/dark_ritual_sm.jpg",
             fullImage: "images/card_faces/black/dark_ritual_lg.jpg",
-            ability: "The damage from your next match is doubled.",
+            ability: "Deal 3 damage.",
             set: "Alpha",
             artist: "Sandra Everingham",
             abilityType: [
                 {
-                    type: "statusEffect",
-                    details: {
-                        duration: 1,
-                        method: "addDamage",
-                        amount: "double",
-                        target: ["self"]
-                    }
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return 3;}).bind(this)
                 }
             ]
         },
@@ -88,7 +80,7 @@ function BlackDeck(parent){
             name: "Juzam Djinn",
             smallImage: "images/card_faces/black/juzam_djinn_sm.jpg",
             fullImage: "images/card_faces/black/juzam_djinn_lg.jpg",
-            ability: "Deal 4 damage + your match count to your opponent. Take 1 damage.",
+            ability: "Deal 4 damage + your match count to your opponent. Take 3 damage.",
             set: "Arabian Nights",
             artist: "Mark Tedin",
             abilityType: [
@@ -100,7 +92,7 @@ function BlackDeck(parent){
                 {
                     type: "damage",
                     target: "self",
-                    amount: function(){return 1;}
+                    amount: function(){return 3;}
                 }
             ]
 
@@ -109,14 +101,14 @@ function BlackDeck(parent){
             name: "Lord of the Pit",
             smallImage: "images/card_faces/black/lord_of_the_pit_sm.jpg",
             fullImage: "images/card_faces/black/lord_of_the_pit_lg.jpg",
-            ability: "Deal 6 damage + your match count to your opponent. Take 3 damage.",
+            ability: "Deal 5 damage + your match count to your opponent. Take 3 damage.",
             set: "Alpha",
             artist: "Mark Tedin",
             abilityType: [
                 {
                     type: "damage",
                     target: "opponent",
-                    amount: (function(){return this.parent.getMatchCount()+6;}).bind(this)
+                    amount: (function(){return this.parent.getMatchCount()+5;}).bind(this)
                 },
                 {
                     type: "damage",
@@ -204,17 +196,19 @@ function BlueDeck(parent){
             name: "Braingeyser",
             smallImage: "images/card_faces/blue/braingeyser_sm.jpeg",
             fullImage: "images/card_faces/blue/braingeyser_lg.jpg",
-            ability: "Remove 1 opponent ability at random from any still in play.",
+            ability: "Deal 2 damage. Gain 2 life.",
             set: "Alpha",
             artist: "Mark Tedin",
             abilityType: [
                 {
-                    type: "statusEffect",
-                    details: {
-                            duration: 0,
-                            method: "removeAbility",
-                            target: ["opponent"]
-                    }
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return 2;}).bind(this)
+                },
+                {
+                    type: "lifeGain",
+                    target: "self",
+                    amount: (function(){return 2;}).bind(this)
                 }
             ]
         },
@@ -222,23 +216,14 @@ function BlueDeck(parent){
             name: "Force of Will",
             smallImage: "images/card_faces/blue/force_of_will_sm.jpeg",
             fullImage: "images/card_faces/blue/force_of_will_lg.jpg",
-            ability: "Prevent the next damage from an opponent match. Take 1 damage.",
+            ability: "Gain 3 life.",
             set: "Alliances",
             artist: "Terese Nielsen",
             abilityType: [
                 {
-                    type: "statusEffect",
-                    details: {
-                        duration: 1,
-                        method: "preventDamage",
-                        target: ["opponent"],
-                        amount: "all"
-                    }
-                },
-                {
-                    type: "damage",
+                    type: "lifeGain",
                     target: "self",
-                    amount: function(){return 1;}
+                    amount: function(){return 3;}
                 }
             ]
         },
