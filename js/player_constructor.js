@@ -29,23 +29,59 @@ Player.prototype.handleWin = function(){
     this.parent.informWin();
 };
 
+Player.prototype.handleLoss = function(){
+  console.log("loss due to zero life");
+    //tbd what to actually do here
+};
+
 Player.prototype.addLife = function(amount){
     this.lifeTotal = this.lifeTotal + amount;
-    
+
+    this.game.displayStats(this.game.playerStatsDiv);
+
     return this.lifeTotal;
 };
 
 Player.prototype.removeLife = function(amount){
     if(this.lifeTotal - amount <= 0){
         this.lifeTotal = 0;
-    }else {
+    } else {
         this.lifeTotal = this.lifeTotal - amount;
     }
+
+    this.game.displayStats(this.game.playerStatsDiv);
     
     return this.lifeTotal;
 };
 
+Player.prototype.setLifeTotal = function(amount){
+  this.lifeTotal = amount;
+
+  return this.lifeTotal;
+};
+
+Player.prototype.handleDamage = function(target, amount){
+    this.parent.handleDamage(target, amount, this);
+};
+
+Player.prototype.handleLifeGain = function(target, amount){
+    this.parent.handleLifeGain(target, amount, this);
+};
+
+Player.prototype.getMatchCount = function(){
+    
+    return this.game.getMatchCount();
+};
+
 Player.prototype.getPlayerName = function(){
     return this.name;
+};
+
+Player.prototype.getLifeTotal = function(){
+    return this.lifeTotal;
+};
+
+Player.prototype.handleStatusEffect = function(statusDetails){
+    this.parent.handleStatusEffect(this, statusDetails);  
 };
 

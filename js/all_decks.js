@@ -1,3 +1,5 @@
+//TODO all the status effects currently don't do anything, fix this
+
 /**
  * Black deck object
  * @constructor
@@ -15,7 +17,18 @@ function BlackDeck(parent){
             fullImage: "images/card_faces/black/animate_dead_lg.jpg",
             ability: "Activate the ability of a random match you've already made.",
             set: "Alpha",
-            artist: "Anson Maddocks"
+            artist: "Anson Maddocks",
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    details: {
+                        duration: 0,
+                        method: "activateAbility",
+                        target: ["self"] //targeting your own matches
+                    }
+
+                }
+            ]
         },
         {
             name: "Dark Ritual",
@@ -23,7 +36,18 @@ function BlackDeck(parent){
             fullImage: "images/card_faces/black/dark_ritual_lg.jpg",
             ability: "The damage from your next match is doubled.",
             set: "Alpha",
-            artist: "Sandra Everingham"
+            artist: "Sandra Everingham",
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    details: {
+                        duration: 1,
+                        method: "addDamage",
+                        amount: "double",
+                        target: ["self"]
+                    }
+                }
+            ]
         },
         {
             name: "Drain Life",
@@ -31,7 +55,19 @@ function BlackDeck(parent){
             fullImage: "images/card_faces/black/drain_life_lg.jpg",
             ability: "Deal 3 damage + your match count to your opponent. Gain that much life.",
             set: "Alpha",
-            artist: "Douglas Schuler"
+            artist: "Douglas Schuler",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+3;}).bind(this)
+                },
+                {
+                    type: "lifeGain",
+                    target: "self",
+                    amount: (function(){return this.parent.getMatchCount()+3;}).bind(this)
+                }
+            ]
         },
         {
             name: "Hypnotic Specter",
@@ -39,7 +75,14 @@ function BlackDeck(parent){
             fullImage: "images/card_faces/black/hypnotic_specter_lg.jpg",
             ability: "Deal 2 damage + your match count to your opponent.",
             set: "Alpha",
-            artist: "Douglas Schuler"
+            artist: "Douglas Schuler",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+2;}).bind(this)
+                }
+            ]
         },
         {
             name: "Juzam Djinn",
@@ -47,15 +90,40 @@ function BlackDeck(parent){
             fullImage: "images/card_faces/black/juzam_djinn_lg.jpg",
             ability: "Deal 4 damage + your match count to your opponent. Take 1 damage.",
             set: "Arabian Nights",
-            artist: "Mark Tedin"
+            artist: "Mark Tedin",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+4;}).bind(this)
+                },
+                {
+                    type: "damage",
+                    target: "self",
+                    amount: function(){return 1;}
+                }
+            ]
+
         },
         {
             name: "Lord of the Pit",
             smallImage: "images/card_faces/black/lord_of_the_pit_sm.jpg",
             fullImage: "images/card_faces/black/lord_of_the_pit_lg.jpg",
-            ability: "Deal 8 damage + your match count to your opponent. Take 3 damage.",
+            ability: "Deal 6 damage + your match count to your opponent. Take 3 damage.",
             set: "Alpha",
-            artist: "Mark Tedin"
+            artist: "Mark Tedin",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+6;}).bind(this)
+                },
+                {
+                    type: "damage",
+                    target: "self",
+                    amount: function(){ return 3;}
+                }
+            ]
         },
         {
             name: "Nantuko Husk",
@@ -63,7 +131,14 @@ function BlackDeck(parent){
             fullImage: "images/card_faces/black/nantuko_husk_lg.jpg",
             ability: "Deal 2 damage + your match count.",
             set: "Onslaught",
-            artist: "Carl Critchlow"
+            artist: "Carl Critchlow",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+2;}).bind(this)
+                }
+            ]
         },
         {
             name: "Nightmare",
@@ -71,7 +146,14 @@ function BlackDeck(parent){
             fullImage: "images/card_faces/black/nightmare_lg.jpg",
             ability: "Deal 3 damage + your match count.",
             set: "Alpha",
-            artist: "Melissa Benson"
+            artist: "Melissa Benson",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+3;}).bind(this)
+                }
+            ]
         },
         {
             name: "Sengir Vampire",
@@ -79,7 +161,14 @@ function BlackDeck(parent){
             fullImage: "images/card_faces/black/sengir_vampire_lg.jpg",
             ability: "Deal 4 damage + your match count.",
             set: "Alpha",
-            artist: "Anson Maddocks"
+            artist: "Anson Maddocks",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+4;}).bind(this)
+                }
+            ]
         }
     ];
 }
@@ -102,7 +191,14 @@ function BlueDeck(parent){
             fullImage: "images/card_faces/blue/air_elemental_lg.jpg",
             ability: "Deal 4 damage.",
             set: "Alpha",
-            artist: "Richard Thomas"
+            artist: "Richard Thomas",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: function(){ return 4;}
+                }
+            ]
         },
         {
             name: "Braingeyser",
@@ -110,7 +206,17 @@ function BlueDeck(parent){
             fullImage: "images/card_faces/blue/braingeyser_lg.jpg",
             ability: "Remove 1 opponent ability at random from any still in play.",
             set: "Alpha",
-            artist: "Mark Tedin"
+            artist: "Mark Tedin",
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    details: {
+                            duration: 0,
+                            method: "removeAbility",
+                            target: ["opponent"]
+                    }
+                }
+            ]
         },
         {
             name: "Force of Will",
@@ -118,15 +224,38 @@ function BlueDeck(parent){
             fullImage: "images/card_faces/blue/force_of_will_lg.jpg",
             ability: "Prevent the next damage from an opponent match. Take 1 damage.",
             set: "Alliances",
-            artist: "Terese Nielsen"
+            artist: "Terese Nielsen",
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    details: {
+                        duration: 1,
+                        method: "preventDamage",
+                        target: ["opponent"],
+                        amount: "all"
+                    }
+                },
+                {
+                    type: "damage",
+                    target: "self",
+                    amount: function(){return 1;}
+                }
+            ]
         },
         {
             name: "Keiga, the Tide Star",
             smallImage: "images/card_faces/blue/keiga_sm.jpeg",
             fullImage: "images/card_faces/blue/keiga_lg.jpg",
-            ability: "Deal 5 damage + your opponent's match count.",
+            ability: "Deal 5 damage + your match count.",
             set: "Champions of Kamigawa",
-            artist: "Ittoku"
+            artist: "Ittoku",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+5;}).bind(this)
+                }
+            ]
         },
         {
             name: "Lord of Atlantis",
@@ -134,7 +263,23 @@ function BlueDeck(parent){
             fullImage: "images/card_faces/blue/lord_of_atlantis_lg.jpg",
             ability: "Deal 2 damage. Add +2 to all further damage you deal.",
             set: "Alpha",
-            artist: "Melissa Benson"
+            artist: "Melissa Benson",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: function(){return 2;}
+                },
+                {
+                    type: "statusEffect",
+                    details: {
+                        duration: 10000,
+                        method: "addDamage",
+                        target: ["self"],
+                        amount: 2
+                    }
+                }
+            ]
         },
         {
             name: "Mana Drain",
@@ -142,7 +287,19 @@ function BlueDeck(parent){
             fullImage: "images/card_faces/blue/mana_drain_lg.jpg",
             ability: "Prevent the next damage to be dealt to you from any source. Deal that damage to your opponent instead.",
             set: "Legends",
-            artist: "Mark Tedin"
+            artist: "Mark Tedin",
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    details: {
+                        duration: 1,
+                        method: "preventDamage",
+                        target: ["opponent", "self"],
+                        amount: "all",
+                        response: "dealDamage"//then deal that damage to your opponent PLACEHOLDER
+                    }
+                }
+            ]
         },
         {
             name: "Polar Kraken",
@@ -150,7 +307,24 @@ function BlueDeck(parent){
             fullImage: "images/card_faces/blue/polar_kraken_lg.jpg",
             ability: "Deal 10 damage + &frac12; your match count to opponent. You take &frac12; that damage.",
             set: "Ice Age",
-            artist: "Mark Tedin"
+            artist: "Mark Tedin",
+            //TODO add math.floor to the equations here
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){
+                        return (this.parent.getMatchCount()/2)+10;
+                    }).bind(this)
+                },
+                {
+                    type: "damage",
+                    target: "self",
+                    amount: (function(){
+                        return ((this.parent.getMatchCount()/2)+10)/2;
+                    }).bind(this)
+                }
+            ]
         },
         {
             name: "Soulblade Djinn",
@@ -158,7 +332,23 @@ function BlueDeck(parent){
             fullImage: "images/card_faces/blue/soulblade_djinn_lg.jpg",
             ability: "Deal 2 damage to opponent. Add +1 to all further damage you deal.",
             set: "Magic Origins",
-            artist: "Viktor Titov"
+            artist: "Viktor Titov",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: function(){return 2;}
+                },
+                {
+                    type: "statusEffect",
+                    details: {
+                        duration: 10000,
+                        method: "addDamage",
+                        target: ["self"],
+                        amount: 1
+                    }
+                }
+            ]
         },
         {
             name: "Time Walk",
@@ -166,7 +356,17 @@ function BlueDeck(parent){
             fullImage: "images/card_faces/blue/time_walk_lg.jpg",
             ability: "You take 1 extra turn after missing your next match.",
             set: "Alpha",
-            artist: "Amy Weber"
+            artist: "Amy Weber",
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    details: {
+                        duration: 1,
+                        method: "extraTurn",
+                        target: ["self"]
+                    }
+                }
+            ]
         }
     ];
 }
@@ -189,7 +389,23 @@ function GreenDeck(parent){
             fullImage: "images/card_faces/green/birds_of_paradise_lg.jpg",
             ability: "Deal 1 damage. Add +1 to all further damage you deal.",
             set: "Alpha",
-            artist: "Mark Poole"
+            artist: "Mark Poole",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: function(){return 1;}
+                },
+                {
+                    type: "statusEffect",
+                    details: {
+                        duration: 1,
+                        method: "addDamage",
+                        target: ["self"],
+                        amount: 1
+                    }
+                }
+            ]
         },
         {
             name: "Craw Wurm",
@@ -197,7 +413,14 @@ function GreenDeck(parent){
             fullImage: "images/card_faces/green/craw_wurm_lg.jpg",
             ability: "Deal 6 damage.",
             set: "8th Edition",
-            artist:"Heather Hudson"
+            artist:"Heather Hudson",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: function(){return 6;}
+                }
+            ]
         },
         {
             name: "Erhnam Djinn",
@@ -205,7 +428,19 @@ function GreenDeck(parent){
             fullImage: "images/card_faces/green/erhnam_djinn_lg.jpg",
             ability: "Deal 4 damage. You take 2 damage.",
             set: "Arabian Nights",
-            artist: "Ken Meyer Jr."
+            artist: "Ken Meyer Jr.",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount:function(){return 4;}
+                },
+                {
+                    type: "damage",
+                    target: "self",
+                    amount: function(){return 2;}
+                }
+            ]
         },
         {
             name: "Fog",
@@ -213,7 +448,18 @@ function GreenDeck(parent){
             fullImage: "images/card_faces/green/fog_lg.jpg",
             ability: "Prevent all damage dealt by the next match your opponent makes.",
             set: "Core Set 2012",
-            artist: "Jaime Jones"
+            artist: "Jaime Jones",
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    details: {
+                        duration: 1,
+                        method: "preventDamage",
+                        target: ["opponent"],
+                        amount: "all"
+                    }
+                }
+            ]
         },
         {
             name: "Giant Growth",
@@ -221,7 +467,18 @@ function GreenDeck(parent){
             fullImage: "images/card_faces/green/giant_growth_lg.jpg",
             ability: "Double the damage dealt by your next match.",
             set: "Core Set 10th Edition",
-            artist: "Matt Cavotta"
+            artist: "Matt Cavotta",
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    details: {
+                        duration: 1,
+                        method: "addDamage",
+                        target: ["self"],
+                        amount: "double"
+                    }
+                }
+            ]
         },
         {
             name: "Llanowar Elves",
@@ -229,7 +486,14 @@ function GreenDeck(parent){
             fullImage: "images/card_faces/green/llanowar_elves_lg.jpg",
             ability: "Deal 2 damage + your match count.",
             set: "Alpha",
-            artist: "Anson Maddocks"
+            artist: "Anson Maddocks",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+2;}).bind(this)
+                }
+            ]
         },
         {
             name: "Rancor",
@@ -237,7 +501,18 @@ function GreenDeck(parent){
             fullImage: "images/card_faces/green/rancor_lg.jpg",
             ability: "Add +3 to all further damage you deal.",
             set: "Urza's Legacy",
-            artist: "Kev Walker"
+            artist: "Kev Walker",
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    details: {
+                        duration: 10000,
+                        method: "addDamage",
+                        target: ["self"],
+                        amount: 3
+                    }
+                }
+            ]
         },
         {
             name: "Sylvan Library",
@@ -245,7 +520,19 @@ function GreenDeck(parent){
             fullImage: "images/card_faces/green/sylvan_library_lg.jpg",
             ability: "Pay 2 life: add +4 to the next damage you deal. This ability stays in effect for the remainder of the game.",
             set: "Legends",
-            artist: "Harold McNeill"
+            artist: "Harold McNeill",
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    details: {
+                        duration: 10000,
+                        method: "lifeCostAbility",
+                        target: ["self"],
+                        amount: 2,
+                        response: "" //add 4 damage to your next match
+                    }
+                }
+            ]
         },
         {
             name: "Tarmogoyf",
@@ -253,7 +540,14 @@ function GreenDeck(parent){
             fullImage: "images/card_faces/green/tarmogoyf_lg.jpg",
             ability: "Deal 2 damage * your match count.",
             set: "Modern Masters",
-            artist: "Ryan Barger"
+            artist: "Ryan Barger",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()*2;}).bind(this)
+                }
+            ]
         }
     ];
 }
@@ -274,9 +568,16 @@ function RedDeck(parent){
             name: "Akroma, Angel of Fury",
             smallImage: "images/card_faces/red/akroma_angel_of_fury_sm.jpg",
             fullImage: "images/card_faces/red/akroma_angel_of_fury_lg.jpg",
-            ability: "Deal 6 damage + your match count. This damage cannot be prevented.",
+            ability: "Deal 6 damage + your match count.",
             set: "From the Vault",
-            artist:"Terese Nielsen"
+            artist:"Terese Nielsen",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+6;}).bind(this)
+                }
+            ]
         },
         {
             name: "Blood Moon",
@@ -284,7 +585,18 @@ function RedDeck(parent){
             fullImage: "images/card_faces/red/blood_moon_lg.jpg",
             ability: "Double the next damage you deal.",
             set: "8th Edition",
-            artist: "Franz Vohwinkel"
+            artist: "Franz Vohwinkel",
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    details: {
+                        duration: 1,
+                        method: "addDamage",
+                        target: ["self"],
+                        amount: "double"
+                    }
+                }
+            ]
         },
         {
             name: "Goblin King",
@@ -292,7 +604,14 @@ function RedDeck(parent){
             fullImage: "images/card_faces/red/goblin_king_lg.jpg",
             ability: "Deal 2 damage + your match count.",
             set: "7th Edition",
-            artist: "Ron Spears"
+            artist: "Ron Spears",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+2;}).bind(this)
+                }
+            ]
         },
         {
             name: "Incinerate",
@@ -300,7 +619,14 @@ function RedDeck(parent){
             fullImage: "images/card_faces/red/incinerate_lg.jpg",
             ability: "Deal 2 damage * your match count.",
             set: "Mirage",
-            artist: "Brian Snoddy"
+            artist: "Brian Snoddy",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+2;}).bind(this)
+                }
+            ]
         },
         {
             name: "Lightning Bolt",
@@ -308,7 +634,22 @@ function RedDeck(parent){
             fullImage: "images/card_faces/red/lightning_bolt_lg.jpg",
             ability: "If this is your first match, deal 6 damage. Otherwise, deal 3 damage.",
             set: "Alpha",
-            artist: "Christopher Rush"
+            artist: "Christopher Rush",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){
+
+                        if ( this.parent.getMatchCount() === 1 ){
+                            return 6;
+                        } else {
+                            return 3;
+                        }
+
+                    }).bind(this)
+                }
+            ]
         },
         {
             name: "Shivan Dragon",
@@ -316,7 +657,14 @@ function RedDeck(parent){
             fullImage: "images/card_faces/red/shivan_dragon_lg.jpg",
             ability: "Deal 6 damage.",
             set: "Alpha",
-            artist: "Melissa Benson"
+            artist: "Melissa Benson",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: function(){return 6;}
+                }
+            ]
         },
         {
             name: "Simian Spirit Guide",
@@ -324,7 +672,14 @@ function RedDeck(parent){
             fullImage: "images/card_faces/red/simian_spirit_guide_lg.jpg",
             ability: "Deal 2 damage + your match count.",
             set: "Planar Chaos",
-            artist: "Dave DeVries"
+            artist: "Dave DeVries",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+2;}).bind(this)
+                }
+            ]
         },
         {
             name: "Starstorm",
@@ -332,7 +687,19 @@ function RedDeck(parent){
             fullImage: "images/card_faces/red/starstorm_lg.jpg",
             ability: "Deal 1 damage + your match count to opponent and to you.",
             set: "Onslaught",
-            artist: "David Martin"
+            artist: "David Martin",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+1;}).bind(this)
+                },
+                {
+                    type: "damage",
+                    target: "self",
+                    amount: (function(){return this.parent.getMatchCount()+1;}).bind(this)
+                }
+            ]
         },
         {
             name: "Wheel of Fortune",
@@ -340,7 +707,17 @@ function RedDeck(parent){
             fullImage: "images/card_faces/red/wheel_of_fortune_lg.jpg",
             ability: "Play a random ability from a match you have already made.",
             set: "Alpha",
-            artist: "Daniel Gelon"
+            artist: "Daniel Gelon",
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    details: {
+                        duration: 0,
+                        method: "activateAbility",
+                        target: ["self"]
+                    }
+                }
+            ]
         }
     ];
 }
@@ -361,9 +738,18 @@ function WhiteDeck(parent){
             name: "Balance",
             smallImage: "images/card_faces/white/balance_sm.jpg",
             fullImage: "images/card_faces/white/balance_lg.jpg",
-            ability: "If your opponent has more life than you, his life total is now equal to your life total. Otherwise, your life total is equal to his life total.",
+            ability: "If your opponent has more life than you, his life total is now equal to your life total.",
             set: "Alpha",
-            artist: "Mark Poole"
+            artist: "Mark Poole",
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    details: {
+                        duration: 0,
+                        method: "balanceLife"
+                    }
+                }
+            ]
         },
         {
             name: "Congregate",
@@ -371,7 +757,14 @@ function WhiteDeck(parent){
             fullImage: "images/card_faces/white/congregate_lg.jpg",
             ability: "Gain 2 life + your match count.",
             set: "Urza's Saga",
-            artist: "Mark Zug"
+            artist: "Mark Zug",
+            abilityType: [
+                {
+                    type: "lifeGain",
+                    target: "self",
+                    amount: (function(){return this.parent.getMatchCount()+2;}).bind(this)
+                }
+            ]
         },
         {
             name: "Knight of the White Orchid",
@@ -379,7 +772,14 @@ function WhiteDeck(parent){
             fullImage: "images/card_faces/white/knight_of_the_white_orchid_lg.jpg",
             ability: "Deal 2 damage + your match count.",
             set: "Shards of Alara",
-            artist: "Mark Zug"
+            artist: "Mark Zug",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+2;}).bind(this)
+                }
+            ]
         },
         {
             name: "Mesa Pegasus",
@@ -387,7 +787,14 @@ function WhiteDeck(parent){
             fullImage: "images/card_faces/white/mesa_pegasus_lg.jpg",
             ability: "Deal 1 damage + your match count.",
             set: "Alpha",
-            artist: "Melissa Benson"
+            artist: "Melissa Benson",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+1;}).bind(this)
+                }
+            ]
         },
         {
             name: "Samite Healer",
@@ -395,7 +802,24 @@ function WhiteDeck(parent){
             fullImage: "images/card_faces/white/samite_healer_lg.jpg",
             ability: "Gain 2 life. Further damage dealt to you is reduced by 1.",
             set: "7th Edition",
-            artist: "Anson Maddocks"
+            artist: "Anson Maddocks",
+            abilityType: [
+                {
+                    type: "lifeGain",
+                    target: "self",
+                    amount: function(){return 2;}
+                },
+                {
+                    type: "statusEffect",
+                    details: {
+                        method: "preventDamage",
+                        duration: 10000, //lasts for entire game
+                        target: ["self"],
+                        amount: 1
+
+                    }
+                }
+            ]
         },
         {
             name: "Serra Angel",
@@ -403,7 +827,14 @@ function WhiteDeck(parent){
             fullImage: "images/card_faces/white/serra_angel_lg.png",
             ability: "Deal 4 damage + your match count.",
             set: "Alpha",
-            artist: "Douglas Schuler"
+            artist: "Douglas Schuler",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+4;}).bind(this)
+                }
+            ]
         },
         {
             name: "Swords to Plowshares",
@@ -411,7 +842,18 @@ function WhiteDeck(parent){
             fullImage: "images/card_faces/white/swords_to_plowshares_lg.jpg",
             ability: "Prevent all damage from your opponent's next match.",
             set: "Alpha",
-            artist: "Jeff A. Menges"
+            artist: "Jeff A. Menges",
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    details: {
+                        duration: 1,
+                        method: "preventDamage",
+                        target: ["opponent"],
+                        amount: "all"
+                    }
+                }
+            ]
         },
         {
             name: "Wrath of God",
@@ -419,7 +861,27 @@ function WhiteDeck(parent){
             fullImage: "images/card_faces/white/wrath_of_god_lg.jpg",
             ability: "Prevent all damage from your opponent's next match. All active abilities are removed from the game.",
             set: "Alpha",
-            artist: "Quinton Hoover"
+            artist: "Quinton Hoover",
+            abilityType: [
+                {
+                    type: "statusEffect",
+                    details: {
+                        duration: 1,
+                        method: "preventDamage",
+                        target: ["opponent"],
+                        amount: "all"
+                    }
+                },
+                {
+                    type: "statusEffect",
+                    details: {
+                        duration: 1,
+                        method: "removeActivities",
+                        target: ["opponent", "self"],
+                        amount: "all"
+                    }
+                }
+            ]
         },
         {
             name: "Yosei, the Morning Star",
@@ -427,7 +889,14 @@ function WhiteDeck(parent){
             fullImage: "images/card_faces/white/yosei_the_morning_star_lg.jpeg",
             ability: "Deal 8 damage + your match count.",
             set: "Champions of Kamigawa",
-            artist: "Hiro Izawa"
+            artist: "Hiro Izawa",
+            abilityType: [
+                {
+                    type: "damage",
+                    target: "opponent",
+                    amount: (function(){return this.parent.getMatchCount()+8;}).bind(this)
+                }
+            ]
         }
     ];
 }

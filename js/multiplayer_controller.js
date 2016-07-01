@@ -6,13 +6,43 @@ function Multiplayer(){
     this.player1 = null;
     this.player2 = null;
     this.currentPlayer = null;
-
+    this.statusEffectList = [
+        {
+            type: "preventDamage", //the deal damage prevented in this way ability will be in the handler here
+            handler: this.handlePreventDamage
+        },{
+            type: "balanceLife",
+            handler: this.balanceLifeTotals
+        },{
+            type: "addDamage",
+            handler: this.handleAddDamage
+        },{
+            type: "activateAbility",
+            handler: this.handleActivateExistingAbility
+        },{
+            type: "removeAbility",
+            handler: this.removeActiveAbility
+        },{
+            type: "lifeCostAbility", //Sylvan Library pay damage to deal damage ability
+            handler: this.handleLifeCostAbility
+        },{
+            type: "extraTurn",
+            handler: this.handleExtraTurn
+        }
+    ];
 
 }
+
+Multiplayer.prototype.quickStart = function(player1Name, player1Deck, player2Name, player2Deck){
+    
+    this.choosePlayers(player1Name, player1Deck);
+    this.choosePlayers(player2Name, player2Deck);
+};
 
 Multiplayer.prototype.choosePlayers = function(name, deckChoice){
     
         if(this.player1 === null){
+            //TODO clean up the player 1 and player 2 identical code is it happens once with diff targets
 
             //if no player 1 the first player is player1
             
@@ -23,7 +53,7 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
             
             //create new Player object
             if(name === ""){
-                this.player1 = new Player("Player 1");
+                this.player1 = new Player("Player 1", this);
             } else {
                 this.player1 = new Player(name, this);
             }
@@ -54,7 +84,7 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
             playerAbilityContainer = $("#p2AbilityContainer");
 
             if(name === ""){
-                this.player2 = new Player("Player 2");
+                this.player2 = new Player("Player 2", this);
             } else {
                 this.player2 = new Player(name, this);
             }
@@ -87,12 +117,13 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
             //do a random 50/50 calc to determine who goes first
             this.currentPlayer = this.determineFirstPlayer() === 0 ? this.player1 : this.player2;
 
+            //TODO re-enable after testing
             //show a coin flipping over overlay bg
             setTimeout( (function() {
 
                 this.showCoinFlip(this.currentPlayer);
 
-            }.bind(this)), 400);
+            }.bind(this)), 300);
             
             //change bg color to the person who goes first
             this.changeBackgroundColor(this.currentPlayer);
@@ -103,10 +134,8 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
 };
 
 Multiplayer.prototype.determineFirstPlayer = function(){
-    var num = Math.floor(Math.random() * 2);
-
-    console.log("num chosen " + num);
-    return num;
+    return Math.floor(Math.random() * 2);
+    
 };
 
 //currently in multiplayer but maybe this should be in a view controller??
@@ -149,13 +178,16 @@ Multiplayer.prototype.hideOverlay = function(){
     $(".overlay").hide();
 };
 
-Multiplayer.prototype.showIntroScreen = function(){
+Multiplayer.prototype.hideFields = function(){
     $("#p1-game-area").hide();
     $("#p2-game-area").hide();
     $("#p1AbilityContainer").hide();
     $("#p2AbilityContainer").hide();
     $(".coin-container").hide();
     $(".coinflip-title").hide();
+};
+
+Multiplayer.prototype.showIntroScreen = function(){
 
     $(".overlay").css("opacity",1);
     $(".overlay").show();
@@ -170,7 +202,10 @@ Multiplayer.prototype.showCoinFlip = function(currentPlayer){
         $(".coin").transition({
 
             rotateY: '+=3960deg'
-        },10000);
+
+        },1000);
+            //TODO return to the below spin after testing
+        // },10000);
         
     } else {
         
@@ -179,7 +214,9 @@ Multiplayer.prototype.showCoinFlip = function(currentPlayer){
 
             rotateY: '+=4140deg'
 
-        },10000);
+        },1000);
+        //TODO return to the below spin after testing
+        // },10000);
 
     }
 
@@ -196,7 +233,8 @@ Multiplayer.prototype.showCoinFlip = function(currentPlayer){
             $(".overlay").css("opacity",0.8);
             $(".overlay").hide();
 
-         }.bind(this)), 5000);
+            //TODO change below to 5000 after testing
+         }.bind(this)), 500);
         
     });
 };
@@ -236,4 +274,68 @@ Multiplayer.prototype.animateTurnSwitch = function(){
     //add some kind of text that says this.currentPlayer.name + "'s Turn!"
     
     //then hide animation, hide text
+};
+
+//TODO why is damage amount incorrect after first play?
+//sourcePlayer is the player that sends the handleDamage request
+Multiplayer.prototype.handleDamage = function(target, amount, sourcePlayer){
+    
+    if(target === "opponent"){
+        if(sourcePlayer === this.player1){
+            target = this.player2;
+        } else {
+            target = this.player1;
+        }
+    } else {
+        target = sourcePlayer;
+    }
+    console.log("amount in MP method is: ", Math.round(amount()));
+    target.removeLife(Math.round(amount()));
+};
+
+
+Multiplayer.prototype.handleLifeGain = function(target, amount, sourcePlayer){
+    
+    if(target === "opponent"){
+    
+        if(sourcePlayer === this.player1){
+            target = this.player2
+        }else {
+            target = this.player1;
+        }
+    } else {
+        target = sourcePlayer;
+    }
+    
+  target.addLife(amount());
+
+};
+
+Multiplayer.prototype.handleStatusEffect = function(caster, spellObject){
+    //will have an object of pointers to the various handlers, checks for effectType in the object and sends all the pertinent info to the correct status effect method
+    
+    //search through stats effects array then call the handler in the object found
+    for(var i = 0; i > this.statusEffectList.length; i++){
+        if(this.statusEffectList[i].type === spellObject.details.method){
+            //find the matching type from the master list
+
+            this.statusEffectList[i].handler(caster, spellObject);
+        }
+    }
+    
+};
+
+Multiplayer.prototype.balanceLifeTotals = function(player){
+    var caster = player;
+    var receiver = null;
+    if(caster === this.player1){
+        receiver = this.player2;
+    } else {
+        receiver = this.player1;
+    }
+
+    if(receiver.getLifeTotal() > caster.getLifeTotal()){
+        //if opponent has more life, you get opponent's life
+        caster.setLifeTotal(receiver.getLifeTotal());
+    }
 };

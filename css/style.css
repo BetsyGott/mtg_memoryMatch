@@ -232,7 +232,8 @@ body {
     transform: rotate3D(0,1,0,180deg);
     border: 7px solid black;
     border-radius: 5px;
-    backface-visibility: hidden;
+    /*TODO enable this property after testing*/
+    #backface-visibility: hidden;
     height: 100%;
     width: 100%;
 }
@@ -242,6 +243,8 @@ body {
     backface-visibility: hidden;
     height: 100%;
     width: 100%;
+    /*TODO remove opacity setting after testing*/
+    opacity: 0.5;
 }
 
 .back img {

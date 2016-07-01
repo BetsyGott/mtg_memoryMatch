@@ -7,7 +7,6 @@ function Game(gameArea, playerStatsDiv, playerAbilityContainer, parent) {
     this.firstCard = null;
     this.secondCard = null;
     this.totalMatches = 9;
-    this.matchCounter = 0;
     this.canClick = true;
     this.matches = 0;
     this.attempts = 0;
@@ -48,12 +47,12 @@ Game.prototype.checkMatch = function(card){
 
                 //if a match
 
-                this.matchCounter++;
                 this.matches++;
                 this.attempts++;
 
-        //move match counter to somewhere inside this function vvv to avoid win screen happening before last ability is played
-                
+//move match counter to somewhere inside this function vvv to avoid win screen happening before last ability is played
+                console.log("secondCard before setTimeout: ", this.secondCard);
+                //this function shows the ability card of the activated match
                 setTimeout( (function() {
 
                     $(this.playerAbilityContainer).find(".ability-card-title").html(card.infoObject.name);
@@ -61,8 +60,9 @@ Game.prototype.checkMatch = function(card){
                         background: 'url('+card.infoObject.fullImage+') no-repeat center center',
                         backgroundSize: 'cover'
                     });
-                    $(this.playerAbilityContainer).find("#set-name").html(card.infoObject.set);
-                    $(this.playerAbilityContainer).find("#artist-name").html(card.infoObject.artist);
+                    $(this.playerAbilityContainer).find(".set-name").html(card.infoObject.set);
+                    $(this.playerAbilityContainer).find(".artist-name").html(card.infoObject.artist);
+                    
                     $(this.playerAbilityContainer).find(".ability-text").html("<p>"+card.infoObject.ability+"</p>");
 
                     $(this.playerAbilityContainer).show();
@@ -75,24 +75,29 @@ Game.prototype.checkMatch = function(card){
 
                     //placeholder for hiding ability div again
                     $(this.playerAbilityContainer).on("click", (function(){
-
-                        console.log("ability container clicked: ", this.playerAbilityContainer);
+                        
                         $(this.playerAbilityContainer).css("opacity", 0);
                         $(".overlay").hide(400);
                         $(this.playerAbilityContainer).hide(400);
+
+//                      handle card effects here, after the ability div has been shown and hidden again
+                        console.log("secondCard inside set timeout: ", this.secondCard);
+                        this.handleCardEffects(this.secondCard.infoObject);
+
+//                      reset firstCard and secondCard & wait for next card click
+                        this.firstCard = this.secondCard = null;
+                        $(this.playerAbilityContainer).off("click");
+
+                        //win condition for hitting all matches
+                        if(this.matches === this.totalMatches){
+
+                            this.handleWin();
+
+                        }
                         
                     }).bind(this));
 
                 }.bind(this)), 1500);
-
-//            reset firstCard and secondCard & wait for next card click
-                this.firstCard = this.secondCard = null;
-
-                if(this.matchCounter === this.totalMatches){
-                
-                    this.handleWin();
-                
-                }
                 
             } else{
                 // not a match
@@ -114,7 +119,6 @@ Game.prototype.checkMatch = function(card){
 //                  
                     }.bind(this)), 1500);
 
-
 //                  note: bind needed here to tell func inside set timeout what 'this' is
                 }.bind(this)), 1700);
 
@@ -132,12 +136,56 @@ Game.prototype.checkMatch = function(card){
 
 };
 
+Game.prototype.handleCardEffects = function(obj){
+
+    //loop through effects in abilityType array on the card
+    for(var effect in obj.abilityType){
+        console.log("effect in abilityType: ", obj.abilityType[effect]);
+        //if type is damage
+        switch (obj.abilityType[effect].type) {
+            
+            case "damage":
+                
+                this.handleDamage(obj.abilityType[effect].target, obj.abilityType[effect].amount);
+                break;
+            
+            case "lifeGain":
+                
+                this.handleLifeGain(obj.abilityType[effect].target, obj.abilityType[effect].amount);
+                break;
+            case "statusEffect":
+                
+                this.handleStatusEffect(obj.abilityType[effect].details);
+                break;
+            default:
+                // do nothing
+                break;
+        }
+    }
+};
+
+Game.prototype.getMatchCount = function(){
+  return this.matches;
+};
+
 Game.prototype.handleTurnEnd = function(){
     this.parent.handleTurnEnd();
 };
 
 Game.prototype.handleWin = function(){
   this.parent.handleWin();  
+};
+
+Game.prototype.handleDamage = function(target, amount){
+    this.parent.handleDamage(target, amount);
+};
+
+Game.prototype.handleLifeGain = function(target, amount){
+    this.parent.handleLifeGain(target, amount);
+};
+
+Game.prototype.handleStatusEffect = function(statusDetails){
+    this.parent.handleStatusEffect(statusDetails);
 };
 
 Game.prototype.displayStats = function(playerStatsDiv){
@@ -147,6 +195,7 @@ Game.prototype.displayStats = function(playerStatsDiv){
     $(playerStatsDiv).find(".attempts .value").html(this.attempts);
     $(playerStatsDiv).find(".misses .value").html(this.misses);
     $(playerStatsDiv).find(".accuracy .value").html(this.formatAccuracy() + "%");
+    $(playerStatsDiv).find(".life-total").text(this.parent.getLifeTotal());
 
 };
 
@@ -194,7 +243,6 @@ Game.prototype.resetStats = function(){
     this.matches = 0;
     this.attempts = 0;
     this.misses = 0;
-    this.matchCounter = 0;
 
     this.displayStats();
 };
