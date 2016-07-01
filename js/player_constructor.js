@@ -56,8 +56,8 @@ Player.prototype.removeLife = function(amount){
 
 Player.prototype.setLifeTotal = function(amount){
   this.lifeTotal = amount;
-    
-    return this.lifeTotal;
+
+  return this.lifeTotal;
 };
 
 Player.prototype.handleDamage = function(target, amount){

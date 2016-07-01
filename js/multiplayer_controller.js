@@ -312,7 +312,7 @@ Multiplayer.prototype.handleLifeGain = function(target, amount, sourcePlayer){
 };
 
 Multiplayer.prototype.handleStatusEffect = function(caster, spellObject){
-    //will have an object of pointers to the various handlers, checks for effectType in the object and      sends all the pertinent info to the correct status effect method
+    //will have an object of pointers to the various handlers, checks for effectType in the object and sends all the pertinent info to the correct status effect method
     
     //search through stats effects array then call the handler in the object found
     for(var i = 0; i > this.statusEffectList.length; i++){

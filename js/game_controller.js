@@ -50,7 +50,7 @@ Game.prototype.checkMatch = function(card){
                 this.matches++;
                 this.attempts++;
 
-        //move match counter to somewhere inside this function vvv to avoid win screen happening before last ability is played
+//move match counter to somewhere inside this function vvv to avoid win screen happening before last ability is played
                 console.log("secondCard before setTimeout: ", this.secondCard);
                 //this function shows the ability card of the activated match
                 setTimeout( (function() {
@@ -86,6 +86,7 @@ Game.prototype.checkMatch = function(card){
 
 //                      reset firstCard and secondCard & wait for next card click
                         this.firstCard = this.secondCard = null;
+                        $(this.playerAbilityContainer).off("click");
 
                         //win condition for hitting all matches
                         if(this.matches === this.totalMatches){
@@ -118,7 +119,6 @@ Game.prototype.checkMatch = function(card){
 //                  
                     }.bind(this)), 1500);
 
-
 //                  note: bind needed here to tell func inside set timeout what 'this' is
                 }.bind(this)), 1700);
 
@@ -146,20 +146,20 @@ Game.prototype.handleCardEffects = function(obj){
             
             case "damage":
                 
-                //deal damage to target = obj.abilityType[effect].amount
-                this.parent.handleDamage(obj.abilityType[effect].target, obj.abilityType[effect].amount);
+                this.handleDamage(obj.abilityType[effect].target, obj.abilityType[effect].amount);
                 break;
             
             case "lifeGain":
-
-                //add life to target = obj.abilityType[effect].amount
-                this.parent.handleLifeGain(obj.abilityType[effect].target, obj.abilityType[effect].amount);
+                
+                this.handleLifeGain(obj.abilityType[effect].target, obj.abilityType[effect].amount);
                 break;
             case "statusEffect":
-                //send to handler with details object
+                
+                this.handleStatusEffect(obj.abilityType[effect].details);
                 break;
             default:
-                //not sure what the default case is here, do nothing?
+                // do nothing
+                break;
         }
     }
 };
@@ -174,6 +174,18 @@ Game.prototype.handleTurnEnd = function(){
 
 Game.prototype.handleWin = function(){
   this.parent.handleWin();  
+};
+
+Game.prototype.handleDamage = function(target, amount){
+    this.parent.handleDamage(target, amount);
+};
+
+Game.prototype.handleLifeGain = function(target, amount){
+    this.parent.handleLifeGain(target, amount);
+};
+
+Game.prototype.handleStatusEffect = function(statusDetails){
+    this.parent.handleStatusEffect(statusDetails);
 };
 
 Game.prototype.displayStats = function(playerStatsDiv){
