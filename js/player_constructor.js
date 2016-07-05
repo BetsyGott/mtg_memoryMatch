@@ -68,11 +68,53 @@ Player.prototype.setLifeTotal = function(amount){
 };
 
 Player.prototype.handleDamage = function(target, amount){
+    // console.log("player constructor damage. target is: ", target, "amount is", amount);
     this.parent.handleLifeTotalChange("damage", target, amount, this);
 };
 
 Player.prototype.handleLifeGain = function(target, amount){
+    // console.log("player constructor lifegain. target is: ", target, "amount is", amount);
     this.parent.handleLifeTotalChange("lifeGain", target, amount, this);
+};
+
+Player.prototype.animateLifeTotalChange = function(changeType, amount){
+    if(changeType === "damage"){
+
+        $(this.game.getStatsDiv()).find(".life-x img").attr("src", "images/cross_transp.gif");
+
+    } else {
+
+        $(this.game.getStatsDiv()).find(".life-x img").attr("src", "images/cross_transp_green.png");
+    }
+
+    //change .damage-amt text to green and + if life, red and - if damage
+    this.changeDamageAnimationText(changeType, amount);
+
+    $(this.game.getStatsDiv()).find(".life-x").show();
+
+    $(this.game.getStatsDiv()).find(".damage-amt").addClass("damage-amt-animate");
+
+    $(this.game.getStatsDiv()).find(".damage-amt").on('animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd', (function(){
+        $(this.game.getStatsDiv()).find(".life-x").hide();
+        $(this.game.getStatsDiv()).find(".damage-amt").removeClass("damage-amt-animate");
+
+        if(changeType === "damage"){
+            this.removeLife(amount);
+        } else {
+            this.addLife(amount);
+        }
+    }).bind(this));
+};
+
+Player.prototype.changeDamageAnimationText = function(changeType, amount){
+    if(changeType === "damage"){
+        $(this.game.getStatsDiv()).find(".damage-amt").css("color", "red");
+        $(this.game.getStatsDiv()).find(".damage-amt").text("-"+amount);
+    } else {
+        $(this.game.getStatsDiv()).find(".damage-amt").css("color", "green");
+        $(this.game.getStatsDiv()).find(".damage-amt").text("+"+amount);
+    }
+
 };
 
 Player.prototype.getMatchCount = function(){

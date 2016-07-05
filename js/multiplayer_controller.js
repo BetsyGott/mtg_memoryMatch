@@ -263,10 +263,8 @@ Multiplayer.prototype.handleLifeTotalChange = function(changeType, target, amoun
     if(target === "opponent"){
         if(sourcePlayer === this.player1){
             target = this.player2;
-            $(".life-x").css("left", "261px");
         } else {
             target = this.player1;
-            $(".life-x").css("left", "89px");
         }
     } else {
         target = sourcePlayer;
@@ -276,46 +274,7 @@ Multiplayer.prototype.handleLifeTotalChange = function(changeType, target, amoun
 };
 
 Multiplayer.prototype.animateLifeTotalChange = function(changeType, target, amount){
-    console.log("damage type is ", changeType);
-    //change cross image to red if damage, green if life
-    if(changeType === "damage"){
-
-        $(".life-x img").attr("src", "images/cross_transp.gif");
-    } else {
-
-        $(".life-x img").attr("src", "images/cross_transp_green.png");
-    }
-
-    //change .damage-amt text to green and + if life, red and - if damage
-    this.changeDamageAnimationText(changeType, amount);
-
-    $(".life-x").show();
-
-    $(".damage-amt").addClass("damage-amt-animate");
-
-    $(".damage-amt").on('animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd', function(){
-        $(".life-x").hide();
-        $(".damage-amt").removeClass("damage-amt-animate");
-
-        if(changeType === "damage"){
-            target.removeLife(amount);
-        } else {
-            target.addLife(amount);
-        }
-    });
-
-};
-
-
-Multiplayer.prototype.changeDamageAnimationText = function(changeType, amount){
-    if(changeType === "damage"){
-        $(".damage-amt").css("color", "red");
-        $(".damage-amt").text("-"+amount);
-    } else {
-        $(".damage-amt").css("color", "green");
-        $(".damage-amt").text("+"+amount);
-    }
-
+    target.animateLifeTotalChange(changeType, amount);
 };
 
 Multiplayer.prototype.handleZeroLoss = function(losingPlayer){

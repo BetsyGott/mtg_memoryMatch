@@ -642,20 +642,25 @@ body {
 /*******************************************/
 
 .life-x {
-    display:none;
+    #display:none;
     height: 65px;
     width: 55px;
     position: absolute;
     top: 193px;
-    /*Player 1 position vvv*/
-    left: 89px;
-    /*Player 2 position vvv*/
-    #left: 261px;
+    z-index: 9999;
 }
 
 .life-x img {
     height: 100%;
     width: 100%;
+}
+
+.player1-stats .life-x {
+    left: 75px;
+}
+
+.player2-stats .life-x {
+    left: 247px;
 }
 
 /*on damage, color is red, on life gain, color is green*/
