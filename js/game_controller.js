@@ -117,10 +117,9 @@ Game.prototype.checkMatch = function(card){
                         
                         //turn is passed to next player after a pause
                         this.handleTurnEnd();
-//                  
+              
                     }.bind(this)), 1500);
-
-//                  note: bind needed here to tell func inside set timeout what 'this' is
+                    
                 }.bind(this)), 1700);
 
                 this.incrementMisses();
