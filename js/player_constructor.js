@@ -68,11 +68,11 @@ Player.prototype.setLifeTotal = function(amount){
 };
 
 Player.prototype.handleDamage = function(target, amount){
-    this.parent.handleDamage(target, amount, this);
+    this.parent.handleLifeTotalChange("damage", target, amount, this);
 };
 
 Player.prototype.handleLifeGain = function(target, amount){
-    this.parent.handleLifeGain(target, amount, this);
+    this.parent.handleLifeTotalChange("lifeGain", target, amount, this);
 };
 
 Player.prototype.getMatchCount = function(){

@@ -391,6 +391,7 @@ body {
     opacity: 0;
     transition-duration: 2s;
     text-transform: none;
+    cursor: pointer;
 }
 
 .ability-card-title {
@@ -636,7 +637,39 @@ body {
     }
 }
 
+/******************************************
+/* DAMAGE / LIFE GAIN ANIMATION STYLES
+/*******************************************/
 
+.life-x {
+    height: 65px;
+    width: 55px;
+    position: absolute;
+    top: 193px;
+    /*Player 1 position vvv*/
+    left: 89px;
+    /*Player 2 position vvv*/
+    #left: 261px;
+}
+
+.life-x img {
+    height: 100%;
+    width: 100%;
+}
+
+/*on damage, color is red, on life gain, color is green*/
+.damage-amt {
+    margin: 0;
+    color: red;
+    font-size: 3em;
+    position: relative;
+    top: -15px;
+    transition: all 1s ease-in;
+}
+
+.damage-amt-animate {
+    top: 0;
+}
 
 /******************************************
 /* WIN MSG STYLES
@@ -648,7 +681,7 @@ body {
     left: 50%;
     z-index: 999;
     transform: translate(-50%, -50%);
-    background: url("http://66.media.tumblr.com/tumblr_me4uhdtsZf1qc29lyo1_1280.jpg")no-repeat center center;
+    background: url("../images/black_lotus_bg.jpg")no-repeat center center;
     background-size: cover;
     height: 75%;
     width: 75%;

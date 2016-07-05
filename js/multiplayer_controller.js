@@ -256,7 +256,9 @@ Multiplayer.prototype.animateTurnSwitch = function(){
 };
 
 //sourcePlayer is the player that sends the handleDamage request
-Multiplayer.prototype.handleDamage = function(target, amount, sourcePlayer){
+Multiplayer.prototype.handleLifeTotalChange = function(changeType, target, amount, sourcePlayer){
+
+    var roundedAmt = Math.round(amount());
     
     if(target === "opponent"){
         if(sourcePlayer === this.player1){
@@ -269,28 +271,53 @@ Multiplayer.prototype.handleDamage = function(target, amount, sourcePlayer){
     }
     
     //todo show an animation here that tells how much damage was dealt and deletes it from the total
-    
-    target.removeLife(Math.round(amount()));
+    if(changeType === "damage"){
+        target.removeLife(roundedAmt);
+    } else {
+        target.addLife(roundedAmt);
+    }
+
+    //may move above to after this resolves
+    this.animateLifeTotalChange(changeType, target, roundedAmt);
 };
 
+Multiplayer.prototype.animateLifeTotalChange = function(changeType, target, amount){
 
-Multiplayer.prototype.handleLifeGain = function(target, amount, sourcePlayer){
-    
-    if(target === "opponent"){
-    
-        if(sourcePlayer === this.player1){
-            target = this.player2
-        }else {
-            target = this.player1;
-        }
+    //change cross image to red if damage, green if life
+    if(changeType === "damage"){
+        $(".life-x img").attr("src", "../images/cross_transp.gif");
     } else {
-        target = sourcePlayer;
+        $(".life-x img").attr("src", "../images/cross_transp_green.gif");
     }
-    
-    //todo show an animation here that tells how much life was gained and adds it to the life total
-    
-  target.addLife(amount());
-    
+
+    //change .damage-amt text to green and + if life, red and - if damage
+    this.changeDamageAnimationText(changeType, amount);
+    // show life-x div/cross img
+    $(".life-x").show();
+    // show damage-amt a split second later?
+
+    //add class to .damage-amt to animate it from top: -15px to 0px
+    $(".damage-amt").addClass("damage-amt-animate");
+
+    //hide life-x div
+    $(".damage-amt").on("transitionend webkitTransitionEnd oTransitionEnd", function(){
+        $(".life-x").hide();
+        $(".damage-amt").removeClass("damage-amt-animate");
+    });
+
+//perform add or remove life function
+
+};
+
+Multiplayer.prototype.changeDamageAnimationText = function(changeType, amount){
+    if(changeType === "damage"){
+        $(".damage-amt").css("color", "green");
+        $(".damage-amt").text("+"+amount);
+    } else {
+        $(".damage-amt").css("color", "red");
+        $(".damage-amt").text("-"+amount);
+    }
+
 };
 
 Multiplayer.prototype.handleZeroLoss = function(losingPlayer){
