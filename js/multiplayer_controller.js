@@ -269,8 +269,7 @@ Multiplayer.prototype.handleLifeTotalChange = function(changeType, target, amoun
     } else {
         target = sourcePlayer;
     }
-    
-    //todo show an animation here that tells how much damage was dealt and deletes it from the total
+
     if(changeType === "damage"){
         target.removeLife(roundedAmt);
     } else {
@@ -282,12 +281,14 @@ Multiplayer.prototype.handleLifeTotalChange = function(changeType, target, amoun
 };
 
 Multiplayer.prototype.animateLifeTotalChange = function(changeType, target, amount){
-
+    console.log("damage type is ", changeType);
     //change cross image to red if damage, green if life
     if(changeType === "damage"){
-        $(".life-x img").attr("src", "../images/cross_transp.gif");
+
+        $(".life-x img").attr("src", "images/cross_transp.gif");
     } else {
-        $(".life-x img").attr("src", "../images/cross_transp_green.gif");
+
+        $(".life-x img").attr("src", "images/cross_transp_green.png");
     }
 
     //change .damage-amt text to green and + if life, red and - if damage
@@ -303,19 +304,26 @@ Multiplayer.prototype.animateLifeTotalChange = function(changeType, target, amou
     $(".damage-amt").on("transitionend webkitTransitionEnd oTransitionEnd", function(){
         $(".life-x").hide();
         $(".damage-amt").removeClass("damage-amt-animate");
-    });
 
-//perform add or remove life function
+        
+        //perform damage and life gain
+        if(changeType === "damage"){
+            target.removeLife(amount);
+        } else {
+            target.addLife(amount);
+        }
+    });
 
 };
 
+
 Multiplayer.prototype.changeDamageAnimationText = function(changeType, amount){
     if(changeType === "damage"){
-        $(".damage-amt").css("color", "green");
-        $(".damage-amt").text("+"+amount);
-    } else {
         $(".damage-amt").css("color", "red");
         $(".damage-amt").text("-"+amount);
+    } else {
+        $(".damage-amt").css("color", "green");
+        $(".damage-amt").text("+"+amount);
     }
 
 };

@@ -642,6 +642,7 @@ body {
 /*******************************************/
 
 .life-x {
+    display:none;
     height: 65px;
     width: 55px;
     position: absolute;
@@ -664,11 +665,20 @@ body {
     font-size: 3em;
     position: relative;
     top: -15px;
-    transition: all 1s ease-in;
 }
 
 .damage-amt-animate {
-    top: 0;
+    animation: damageAmt 1s linear forwards;
+}
+
+@keyframes damageAmt {
+    from {
+        position: relative;
+        top: -15px;
+    } to {
+        position: relative;
+        top: 0;
+          }
 }
 
 /******************************************
