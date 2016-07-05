@@ -181,25 +181,6 @@ body {
             1px 1px 0 #000;
 }
 
-
-.reset {
-    text-transform: uppercase;
-    position: absolute;
-    border: 2px solid #000;
-    background-color: rgba(255,255,255,0.7);
-    padding: 10px 20px;
-    border-radius: 20px;
-    cursor: pointer;
-    width: 60%;
-    margin: 0 auto 5px auto;
-    bottom: 5px;
-    left: 18%;
-}
-
-.reset:hover {
-    background-color: rgba(255,255,255,1);
-}
-
 /******************************************
 /* MAIN GAME AREA
 /*******************************************/
@@ -241,12 +222,14 @@ body {
     height: 100%;
 }
 
+/*TODO change backface visibility again and remove opacity from .back*/
+
 .front{
     position: absolute;
     transform: rotate3D(0,1,0,180deg);
     border: 7px solid black;
     border-radius: 5px;
-    backface-visibility: hidden;
+    #backface-visibility: hidden;
     height: 100%;
     width: 100%;
 }
@@ -256,6 +239,7 @@ body {
     backface-visibility: hidden;
     height: 100%;
     width: 100%;
+    opacity: 0.5;
 }
 
 .back img {
@@ -593,6 +577,7 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
+    z-index: 999;
     transform: translate(-50%, -50%);
     background: url("http://66.media.tumblr.com/tumblr_me4uhdtsZf1qc29lyo1_1280.jpg")no-repeat center center;
     background-size: cover;
@@ -604,5 +589,31 @@ body {
 .winning-msg {
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     color: #fff;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3em;
+    width: 80%;
 }
 
+.reset {
+    text-transform: uppercase;
+    position: absolute;
+    border: 2px solid #000;
+    background-color: rgba(255,255,255,0.7);
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 20%;
+    margin: 0 auto 5px auto;
+    bottom: 10px;
+    left: 50%;
+    text-align: center;
+    transform: translateX(-50%);
+}
+
+.reset:hover {
+    background-color: rgba(255,255,255,1);
+}

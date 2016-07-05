@@ -146,10 +146,27 @@ Multiplayer.prototype.hideFields = function(){
 };
 
 Multiplayer.prototype.showIntroScreen = function(){
-
+    this.hideWinScreen();
+    
     $(".overlay").css("opacity",1);
     $(".overlay").show();
     $(".deck-choice").show();
+    
+    this.createManaSymbolClickEvent();
+};
+
+Multiplayer.prototype.createManaSymbolClickEvent = function(){
+    $(".mana-symbol").on("click", (function(){
+
+        var playerName = $("#playerName").val();
+
+        var deckChoice = $(this).attr("data-deck");
+
+        var capName = deckChoice[0].toUpperCase() + deckChoice.substring(1) + 'Deck';
+
+        this.choosePlayers(playerName, window[capName]);
+
+    }).bind(this));  
 };
 
 Multiplayer.prototype.showCoinFlip = function(currentPlayer){
@@ -214,7 +231,7 @@ Multiplayer.prototype.informWin = function(){
     alert(this.currentPlayer.name+ " wins!");
     this.player1.turnOffClicking();
     this.player2.turnOffClicking();
-    this.showResetButton();
+    // this.showResetButton();
 };
 
 Multiplayer.prototype.switchDeck = function(){
@@ -286,8 +303,7 @@ Multiplayer.prototype.handleZeroLoss = function(losingPlayer){
 
     this.turnOffClicks(this.player1);
     this.turnOffClicks(this.player2);
-    
-    this.showResetButton();
+
 };
 
 Multiplayer.prototype.createResetClickEvent = function(){
@@ -312,16 +328,10 @@ Multiplayer.prototype.resetAll = function(){
     }
 
     this.winningPlayer = null;
+    this.hideWinScreen();
+    this.hideOverlay();
     this.showCurrentPlayerArea();
 
-};
-
-Multiplayer.prototype.showResetButton = function(){
-  this.resetBtn.show();  
-};
-
-Multiplayer.prototype.hideResetButton = function(){
-    this.resetBtn.hide();
 };
 
 Multiplayer.prototype.turnOffClicks = function(player){
@@ -330,6 +340,13 @@ Multiplayer.prototype.turnOffClicks = function(player){
 
 Multiplayer.prototype.showWinScreen = function(winningPlayer, losingPlayer){
     //show overlay
+    $(".overlay").show();
     //show win box
+    $(".win-box").show();
     //show winning message based on type of win
+    $(".winning-msg").html(losingPlayer + " has been eliminated. " + winningPlayer + " wins!");
+};
+
+Multiplayer.prototype.hideWinScreen = function(){
+    $(".win-box").hide();
 };

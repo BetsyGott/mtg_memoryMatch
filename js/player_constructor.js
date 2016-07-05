@@ -1,4 +1,3 @@
-//TODO are wins still being displayed incorrectly?
 
 function Player(name, parent){
     this.parent = parent;
@@ -48,7 +47,11 @@ Player.prototype.addLife = function(amount){
 Player.prototype.removeLife = function(amount){
     if(this.lifeTotal - amount <= 0){
         this.lifeTotal = 0;
-        this.handleLoss();
+
+        setTimeout( (function(){
+            this.handleLoss();
+        }).bind(this), 1700);
+
     } else {
         this.lifeTotal = this.lifeTotal - amount;
     }
@@ -106,7 +109,6 @@ Player.prototype.incrementLoss = function(){
     this.game.displayStats(this.game.getStatsDiv());
 };
 
-//todo figure out why wins are being displayed incorrectly - fixed?
 Player.prototype.getWins = function(){
 
   return this.wins;  
