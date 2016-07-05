@@ -11,7 +11,8 @@ $(document).ready(function(){
 
     newMultiplayerGame.quickStart("Player 1", BlackDeck, "Player 2", BlueDeck);
 
-    //TODO get rid of this after testing
+    //TODO get rid of these after testing
     newMultiplayerGame.hideWinScreen();
+    $(".turn-msg").hide();
 
 });

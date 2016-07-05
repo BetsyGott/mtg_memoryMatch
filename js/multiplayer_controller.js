@@ -147,6 +147,7 @@ Multiplayer.prototype.hideFields = function(){
 
 Multiplayer.prototype.showIntroScreen = function(){
     this.hideWinScreen();
+    $(".turn-msg").hide();
     
     $(".overlay").css("opacity",1);
     $(".overlay").show();
@@ -219,9 +220,8 @@ Multiplayer.prototype.endTurn = function(){
     this.currentPlayer = this.currentPlayer === this.player1 ? this.player2 : this.player1;
 
     this.showCurrentPlayerArea();
-    
-    //TODO add animation to switch so it's less jarring and it gives some cue of whose turn it is
-    //this.animateTurnSwitch();
+
+    this.animateTurnSwitch();
 
     return this.currentPlayer;
     
@@ -231,7 +231,7 @@ Multiplayer.prototype.informWin = function(){
     alert(this.currentPlayer.name+ " wins!");
     this.player1.turnOffClicking();
     this.player2.turnOffClicking();
-    // this.showResetButton();
+
 };
 
 Multiplayer.prototype.switchDeck = function(){
@@ -244,11 +244,15 @@ Multiplayer.prototype.switchDeck = function(){
 };
 
 Multiplayer.prototype.animateTurnSwitch = function(){
-    //add some sort of fog or swishing air animation 
-    
-    //add some kind of text that says this.currentPlayer.name + "'s Turn!"
-    
-    //then hide animation, hide text
+
+    $(".turn-msg").show();
+    $(".turn-txt").text(this.currentPlayer.name + "'s Turn!");
+    $(".turn-msg").addClass("turn-msg-animate");
+
+    setTimeout(function(){
+        $(".turn-msg").removeClass("turn-msg-animate");
+        $(".turn-msg").hide();
+    }, 2600);
 };
 
 //sourcePlayer is the player that sends the handleDamage request
@@ -339,11 +343,11 @@ Multiplayer.prototype.turnOffClicks = function(player){
 };
 
 Multiplayer.prototype.showWinScreen = function(winningPlayer, losingPlayer){
-    //show overlay
+
     $(".overlay").show();
-    //show win box
+
     $(".win-box").show();
-    //show winning message based on type of win
+
     $(".winning-msg").html(losingPlayer + " has been eliminated. " + winningPlayer + " wins!");
 };
 

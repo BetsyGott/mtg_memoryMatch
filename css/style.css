@@ -570,6 +570,75 @@ body {
 }
 
 /******************************************
+/* TURN ANIMATION STYLES
+/*******************************************/
+
+.turn-msg {
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.4);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.turn-msg h2 {
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    color: #fff;
+    #background: black;
+    font-family: inherit;
+    font-size: 5em;
+    width: 70%;
+    overflow: hidden;
+    text-transform: uppercase;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    letter-spacing: 0.4em;
+    text-align: center;
+}
+.turn-msg h2 span {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0.5em;
+    color: transparent;
+}
+.turn-msg-animate h2 span {
+    animation: sideFade 2s linear forwards;
+}
+
+@keyframes sideFade {
+    0% {
+        text-shadow: 0 0 50px #fff;
+        #letter-spacing: 3.2em;
+        opacity: 0.2;
+    }
+    50% {
+        text-shadow: 0 0 1px #fff;
+        #letter-spacing: 0.72em;
+        opacity: 0.8;
+    }
+    85% {
+        text-shadow: 0 0 1px #fff;
+        opacity: 1;
+    }
+    100% {
+        text-shadow: 0 0 10px #fff;
+        #letter-spacing: 0.4em;
+        opacity: 0;
+        #pointer-events: none;
+    }
+}
+
+
+
+/******************************************
 /* WIN MSG STYLES
 /*******************************************/
 
