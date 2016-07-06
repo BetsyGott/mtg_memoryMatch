@@ -222,14 +222,12 @@ body {
     height: 100%;
 }
 
-/*TODO change backface visibility again and remove opacity from .back*/
-
 .front{
     position: absolute;
     transform: rotate3D(0,1,0,180deg);
     border: 7px solid black;
     border-radius: 5px;
-    #backface-visibility: hidden;
+    backface-visibility: hidden;
     height: 100%;
     width: 100%;
 }
@@ -239,7 +237,6 @@ body {
     backface-visibility: hidden;
     height: 100%;
     width: 100%;
-    opacity: 0.5;
 }
 
 .back img {

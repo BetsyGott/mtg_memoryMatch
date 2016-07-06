@@ -49,8 +49,6 @@ Game.prototype.checkMatch = function(card){
 
                 this.incrementMatches();
                 this.incrementAttempts();
-
-//move match counter to somewhere inside this function vvv to avoid win screen happening before last ability is played
                 
                 //this function shows the ability card of the activated match
                 setTimeout( (function() {
@@ -160,12 +158,10 @@ Game.prototype.handleWin = function(){
 };
 
 Game.prototype.handleDamage = function(target, amount){
-    console.log("damage, target is: ", target, "amount is: ", amount());
     this.parent.handleDamage(target, amount);
 };
 
 Game.prototype.handleLifeGain = function(target, amount){
-    console.log("life gain, target is: ", target, "amount is: ", amount());
     this.parent.handleLifeGain(target, amount);
 };
 

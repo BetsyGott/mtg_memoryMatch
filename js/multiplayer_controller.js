@@ -146,18 +146,10 @@ Multiplayer.prototype.hideFields = function(){
 };
 
 Multiplayer.prototype.showIntroScreen = function(){
-    this.hideWinScreen();
-    $(".turn-msg").hide();
-    
-    $(".overlay").css("opacity",1);
-    $(".overlay").show();
-    $(".deck-choice").show();
-    
-    this.createManaSymbolClickEvent();
-};
 
-Multiplayer.prototype.createManaSymbolClickEvent = function(){
-    $(".mana-symbol").on("click", (function(){
+    $(".mana-symbol").click(function(){
+
+        var paramsArray = [];
 
         var playerName = $("#playerName").val();
 
@@ -165,9 +157,55 @@ Multiplayer.prototype.createManaSymbolClickEvent = function(){
 
         var capName = deckChoice[0].toUpperCase() + deckChoice.substring(1) + 'Deck';
 
-        this.choosePlayers(playerName, window[capName]);
+        paramsArray.push(playerName);
+        paramsArray.push(window[capName]);
 
-    }).bind(this));  
+        return paramsArray;
+
+    });
+
+    $(".mana-symbol").click((function(event){
+        console.log("name: ", event.result[0]);
+        console.log("deck choice:", event.result[1]);
+        this.choosePlayers(event.result[0], event.result[1]);
+    }).bind(this));
+
+    this.hideWinScreen();
+    $(".turn-msg").hide();
+    $(".ability-container").hide();
+    this.hideCoinFlip();
+    
+    $(".overlay").css("opacity",1);
+    $(".overlay").show();
+    $(".deck-choice").show();
+    
+
+};
+
+Multiplayer.prototype.createManaSymbolClickEvent = function(){
+    $(".mana-symbol").click(function(){
+
+        var paramsArray = [];
+
+        console.log("clicked on", clickedEl);
+
+        var playerName = $("#playerName").val();
+
+        var deckChoice = $(this).attr("data-deck");
+
+        console.log("deck choice: ", deckChoice);
+
+        var capName = deckChoice[0].toUpperCase() + deckChoice.substring(1) + 'Deck';
+
+        paramsArray.push(playerName);
+        paramsArray.push(capName);
+
+        //gotta put this somewhere else
+        //this.choosePlayers(playerName, window[capName]);
+
+        return paramsArray;
+
+    });
 };
 
 Multiplayer.prototype.showCoinFlip = function(currentPlayer){
