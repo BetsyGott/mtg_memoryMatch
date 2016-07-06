@@ -1,4 +1,3 @@
-//TODO: putting normal settings back
 
 /**
  * Handles the global aspects of the game
@@ -54,12 +53,9 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
 
         $(".coin-container").show();
         $(".coinflip-title").show();
-            
-        //do a random 50/50 calc to determine who goes first
+
         this.currentPlayer = this.determineFirstPlayer() === 0 ? this.player1 : this.player2;
 
-        //TODO re-enable after testing
-        //show a coin flipping over overlay bg
             setTimeout( (function() {
 
                 this.showCoinFlip(this.currentPlayer);
@@ -186,23 +182,15 @@ Multiplayer.prototype.showCoinFlip = function(currentPlayer){
 
         //heads animation
         $(".coin").transition({
-
             rotateY: '+=3960deg'
-
-        },1000);
-            //TODO return to the below spin after testing
-        // },10000);
+         },10000);
         
     } else {
         
         // tails animation
         $(".coin").transition({
-
             rotateY: '+=4140deg'
-
-        },1000);
-        //TODO return to the below spin after testing
-        // },10000);
+         },10000);
 
     }
 
@@ -216,8 +204,7 @@ Multiplayer.prototype.showCoinFlip = function(currentPlayer){
             $(".overlay").css("opacity",0.8);
             $(".overlay").hide();
 
-            //TODO change below to 5000 after testing
-         }.bind(this)), 500);
+         }.bind(this)), 5000);
         
     });
 };

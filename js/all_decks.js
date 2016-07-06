@@ -589,7 +589,7 @@ function RedDeck(parent){
                 {
                     type: "damage",
                     target: "opponent",
-                    amount: (function(){return this.parent.getMatchCount()+2;}).bind(this)
+                    amount: (function(){return this.parent.getMatchCount()*2;}).bind(this)
                 },
                 {
                     type: "damage",
