@@ -642,7 +642,7 @@ body {
 /*******************************************/
 
 .life-x {
-    #display:none;
+    display:none;
     height: 65px;
     width: 55px;
     position: absolute;

@@ -201,11 +201,8 @@ Multiplayer.prototype.showCoinFlip = function(currentPlayer){
 
         setTimeout( (function() {
 
-            //hide text/coin flip, hide overlay
-            // this.hideCoinFlip();
             $(".coin-container").hide();
             $(".coinflip-title").hide();
-            // this.hideOverlay();
             $(".overlay").css("opacity",0.8);
             $(".overlay").hide();
 
@@ -235,11 +232,10 @@ Multiplayer.prototype.informWin = function(){
 };
 
 Multiplayer.prototype.switchDeck = function(){
-    //hide both decks
+
     this.player1.game.gameArea.hide();
     this.player2.game.gameArea.hide();
-
-    //show current player's deck
+    
   this.currentPlayer.game.gameArea.show();
 };
 
@@ -329,7 +325,6 @@ Multiplayer.prototype.turnOffClicks = function(player){
 Multiplayer.prototype.showWinScreen = function(winningPlayer, losingPlayer){
 
     $(".overlay").show();
-
     $(".win-box").show();
 
     $(".winning-msg").html(losingPlayer + " has been eliminated. " + winningPlayer + " wins!");
