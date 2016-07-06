@@ -222,14 +222,12 @@ body {
     height: 100%;
 }
 
-/*TODO change backface visibility again and remove opacity from .back*/
-
 .front{
     position: absolute;
     transform: rotate3D(0,1,0,180deg);
     border: 7px solid black;
     border-radius: 5px;
-    #backface-visibility: hidden;
+    backface-visibility: hidden;
     height: 100%;
     width: 100%;
 }
@@ -239,7 +237,6 @@ body {
     backface-visibility: hidden;
     height: 100%;
     width: 100%;
-    opacity: 0.5;
 }
 
 .back img {
@@ -325,7 +322,7 @@ body {
     margin-top:-130px;
     top:50%;
     left:50%;
-    perspective:1000;
+    perspective: 1000;
     -webkit-perspective: 1000;
     -webkit-box-reflect: below 0 linear-gradient( hsla(0,0%,100%,0), hsla(0,0%,100%,0) 45%, hsla(0,0%,100%,0.2));
     -webkit-filter: ~"saturate(1.45) hue-rotate(2deg)";
@@ -354,13 +351,13 @@ body {
 .coin-front {
     transform: rotateY(0deg);
     -webkit-transform: rotateY(0deg);
-    background-image:url(http://www.csgostattrack.com/assets/img/teams/default_team_t_logo.png);
+    background-image:url('../images/player_one_coin.png');
 }
 
 .coin-back {
     transform: rotateY(180deg);
     -webkit-transform: rotateY(180deg);
-    background-image:url(http://www.csgostattrack.com/assets/img/teams/default_team_ct_logo.png);
+    background-image:url('../images/player_two_coin.png');
 }
 
 .coinflip-title {
@@ -391,6 +388,7 @@ body {
     opacity: 0;
     transition-duration: 2s;
     text-transform: none;
+    cursor: pointer;
 }
 
 .ability-card-title {
@@ -636,7 +634,54 @@ body {
     }
 }
 
+/******************************************
+/* DAMAGE / LIFE GAIN ANIMATION STYLES
+/*******************************************/
 
+.life-x {
+    display:none;
+    height: 65px;
+    width: 55px;
+    position: absolute;
+    top: 193px;
+    z-index: 9999;
+}
+
+.life-x img {
+    height: 100%;
+    width: 100%;
+}
+
+.player1-stats .life-x {
+    left: 75px;
+}
+
+.player2-stats .life-x {
+    left: 247px;
+}
+
+/*on damage, color is red, on life gain, color is green*/
+.damage-amt {
+    margin: 0;
+    color: red;
+    font-size: 3em;
+    position: relative;
+    top: -15px;
+}
+
+.damage-amt-animate {
+    animation: damageAmt 1s linear forwards;
+}
+
+@keyframes damageAmt {
+    from {
+        position: relative;
+        top: -15px;
+    } to {
+        position: relative;
+        top: 0;
+          }
+}
 
 /******************************************
 /* WIN MSG STYLES
@@ -648,7 +693,7 @@ body {
     left: 50%;
     z-index: 999;
     transform: translate(-50%, -50%);
-    background: url("http://66.media.tumblr.com/tumblr_me4uhdtsZf1qc29lyo1_1280.jpg")no-repeat center center;
+    background: url("../images/black_lotus_bg.jpg")no-repeat center center;
     background-size: cover;
     height: 75%;
     width: 75%;

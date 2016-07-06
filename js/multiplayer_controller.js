@@ -1,4 +1,3 @@
-//TODO: life gain animation, life loss animation, player turn change animation, putting normal settings back
 
 /**
  * Handles the global aspects of the game
@@ -54,12 +53,9 @@ Multiplayer.prototype.choosePlayers = function(name, deckChoice){
 
         $(".coin-container").show();
         $(".coinflip-title").show();
-            
-        //do a random 50/50 calc to determine who goes first
+
         this.currentPlayer = this.determineFirstPlayer() === 0 ? this.player1 : this.player2;
 
-        //TODO re-enable after testing
-        //show a coin flipping over overlay bg
             setTimeout( (function() {
 
                 this.showCoinFlip(this.currentPlayer);
@@ -146,18 +142,10 @@ Multiplayer.prototype.hideFields = function(){
 };
 
 Multiplayer.prototype.showIntroScreen = function(){
-    this.hideWinScreen();
-    $(".turn-msg").hide();
-    
-    $(".overlay").css("opacity",1);
-    $(".overlay").show();
-    $(".deck-choice").show();
-    
-    this.createManaSymbolClickEvent();
-};
 
-Multiplayer.prototype.createManaSymbolClickEvent = function(){
-    $(".mana-symbol").on("click", (function(){
+    $(".mana-symbol").click(function(){
+
+        var paramsArray = [];
 
         var playerName = $("#playerName").val();
 
@@ -165,9 +153,27 @@ Multiplayer.prototype.createManaSymbolClickEvent = function(){
 
         var capName = deckChoice[0].toUpperCase() + deckChoice.substring(1) + 'Deck';
 
-        this.choosePlayers(playerName, window[capName]);
+        paramsArray.push(playerName);
+        paramsArray.push(window[capName]);
 
-    }).bind(this));  
+        return paramsArray;
+
+    });
+
+    $(".mana-symbol").click((function(event){
+        this.choosePlayers(event.result[0], event.result[1]);
+    }).bind(this));
+
+    this.hideWinScreen();
+    $(".turn-msg").hide();
+    $(".ability-container").hide();
+    this.hideCoinFlip();
+    
+    $(".overlay").css("opacity",1);
+    $(".overlay").show();
+    $(".deck-choice").show();
+    
+
 };
 
 Multiplayer.prototype.showCoinFlip = function(currentPlayer){
@@ -176,23 +182,15 @@ Multiplayer.prototype.showCoinFlip = function(currentPlayer){
 
         //heads animation
         $(".coin").transition({
-
             rotateY: '+=3960deg'
-
-        },1000);
-            //TODO return to the below spin after testing
-        // },10000);
+         },10000);
         
     } else {
         
         // tails animation
         $(".coin").transition({
-
             rotateY: '+=4140deg'
-
-        },1000);
-        //TODO return to the below spin after testing
-        // },10000);
+         },10000);
 
     }
 
@@ -201,16 +199,12 @@ Multiplayer.prototype.showCoinFlip = function(currentPlayer){
 
         setTimeout( (function() {
 
-            //hide text/coin flip, hide overlay
-            // this.hideCoinFlip();
             $(".coin-container").hide();
             $(".coinflip-title").hide();
-            // this.hideOverlay();
             $(".overlay").css("opacity",0.8);
             $(".overlay").hide();
 
-            //TODO change below to 5000 after testing
-         }.bind(this)), 500);
+         }.bind(this)), 5000);
         
     });
 };
@@ -227,19 +221,11 @@ Multiplayer.prototype.endTurn = function(){
     
 };
 
-Multiplayer.prototype.informWin = function(){
-    alert(this.currentPlayer.name+ " wins!");
-    this.player1.turnOffClicking();
-    this.player2.turnOffClicking();
-
-};
-
 Multiplayer.prototype.switchDeck = function(){
-    //hide both decks
+
     this.player1.game.gameArea.hide();
     this.player2.game.gameArea.hide();
-
-    //show current player's deck
+    
   this.currentPlayer.game.gameArea.show();
 };
 
@@ -256,7 +242,9 @@ Multiplayer.prototype.animateTurnSwitch = function(){
 };
 
 //sourcePlayer is the player that sends the handleDamage request
-Multiplayer.prototype.handleDamage = function(target, amount, sourcePlayer){
+Multiplayer.prototype.handleLifeTotalChange = function(changeType, target, amount, sourcePlayer){
+
+    var roundedAmt = Math.round(amount());
     
     if(target === "opponent"){
         if(sourcePlayer === this.player1){
@@ -267,43 +255,36 @@ Multiplayer.prototype.handleDamage = function(target, amount, sourcePlayer){
     } else {
         target = sourcePlayer;
     }
-    
-    //todo show an animation here that tells how much damage was dealt and deletes it from the total
-    
-    target.removeLife(Math.round(amount()));
+
+    this.animateLifeTotalChange(changeType, target, roundedAmt);
 };
 
+Multiplayer.prototype.animateLifeTotalChange = function(changeType, target, amount){
+    target.animateLifeTotalChange(changeType, amount);
+};
 
-Multiplayer.prototype.handleLifeGain = function(target, amount, sourcePlayer){
-    
-    if(target === "opponent"){
-    
-        if(sourcePlayer === this.player1){
-            target = this.player2
-        }else {
-            target = this.player1;
+Multiplayer.prototype.handleWinLoss = function(winningPlayer, losingPlayer){
+    var loser = losingPlayer;
+    if(loser) {
+        if (loser === this.player1) {
+            this.winningPlayer = this.player2;
+        } else {
+            this.winningPlayer = this.player1;
         }
     } else {
-        target = sourcePlayer;
-    }
-    
-    //todo show an animation here that tells how much life was gained and adds it to the life total
-    
-  target.addLife(amount());
-    
-};
-
-Multiplayer.prototype.handleZeroLoss = function(losingPlayer){
-    if(losingPlayer === this.player1){
-        this.winningPlayer = this.player2;
-    } else {
-        this.winningPlayer = this.player1;
+        if (winningPlayer === this.player1) {
+            this.winningPlayer = this.player1;
+            loser = this.player2;
+        } else {
+            this.winningPlayer = this.player2;
+            loser = this.player1;
+        }
     }
 
     this.winningPlayer.incrementWin();
-    losingPlayer.incrementLoss();
+    loser.incrementLoss();
 
-    this.showWinScreen(this.winningPlayer.name, losingPlayer.name);
+    this.showWinScreen(this.winningPlayer.name, loser.name);
 
     this.turnOffClicks(this.player1);
     this.turnOffClicks(this.player2);
@@ -342,13 +323,17 @@ Multiplayer.prototype.turnOffClicks = function(player){
     player.turnOffClicking();
 };
 
-Multiplayer.prototype.showWinScreen = function(winningPlayer, losingPlayer){
+Multiplayer.prototype.showWinScreen = function(winningPlayer, losingPlayer) {
 
     $(".overlay").show();
-
     $(".win-box").show();
 
-    $(".winning-msg").html(losingPlayer + " has been eliminated. " + winningPlayer + " wins!");
+    if (losingPlayer) {
+
+        $(".winning-msg").html(losingPlayer + " has been eliminated. " + winningPlayer + " wins!");
+    } else {
+        $(".winning-msg").html(winningPlayer + " matched all their cards first. " + winningPlayer + "wins!");
+    }
 };
 
 Multiplayer.prototype.hideWinScreen = function(){

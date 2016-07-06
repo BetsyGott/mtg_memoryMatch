@@ -49,8 +49,6 @@ Game.prototype.checkMatch = function(card){
 
                 this.incrementMatches();
                 this.incrementAttempts();
-
-//move match counter to somewhere inside this function vvv to avoid win screen happening before last ability is played
                 
                 //this function shows the ability card of the activated match
                 setTimeout( (function() {
@@ -117,10 +115,9 @@ Game.prototype.checkMatch = function(card){
                         
                         //turn is passed to next player after a pause
                         this.handleTurnEnd();
-//                  
+              
                     }.bind(this)), 1500);
-
-//                  note: bind needed here to tell func inside set timeout what 'this' is
+                    
                 }.bind(this)), 1700);
 
                 this.incrementMisses();

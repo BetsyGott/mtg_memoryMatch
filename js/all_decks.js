@@ -1,4 +1,3 @@
-//TODO fix soulblade djinn full size img
 
 /**
  * Black deck object
@@ -320,7 +319,7 @@ function BlueDeck(parent){
                 }
             ]
         },
-        //todo fix soulblade djinn's fullsize image
+        
         {
             name: "Soulblade Djinn",
             smallImage: "images/card_faces/blue/soulblade_djinn_sm.jpg",
@@ -590,7 +589,7 @@ function RedDeck(parent){
                 {
                     type: "damage",
                     target: "opponent",
-                    amount: (function(){return this.parent.getMatchCount()+2;}).bind(this)
+                    amount: (function(){return this.parent.getMatchCount()*2;}).bind(this)
                 },
                 {
                     type: "damage",
