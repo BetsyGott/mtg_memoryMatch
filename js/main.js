@@ -3,16 +3,6 @@ $(document).ready(function(){
 
     var newMultiplayerGame = new Multiplayer();
 
-    //TODO re-enable after testing
-    // newMultiplayerGame.hideFields();
-    // newMultiplayerGame.hideOverlay();
-    //
       newMultiplayerGame.showIntroScreen();
-
-    // newMultiplayerGame.quickStart("Player 1", BlackDeck, "Player 2", BlueDeck);
-
-    // //TODO get rid of these after testing
-    // newMultiplayerGame.hideWinScreen();
-    // $(".turn-msg").hide();
-
+    
 });

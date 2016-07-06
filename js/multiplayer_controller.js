@@ -165,8 +165,6 @@ Multiplayer.prototype.showIntroScreen = function(){
     });
 
     $(".mana-symbol").click((function(event){
-        console.log("name: ", event.result[0]);
-        console.log("deck choice:", event.result[1]);
         this.choosePlayers(event.result[0], event.result[1]);
     }).bind(this));
 
@@ -180,32 +178,6 @@ Multiplayer.prototype.showIntroScreen = function(){
     $(".deck-choice").show();
     
 
-};
-
-Multiplayer.prototype.createManaSymbolClickEvent = function(){
-    $(".mana-symbol").click(function(){
-
-        var paramsArray = [];
-
-        console.log("clicked on", clickedEl);
-
-        var playerName = $("#playerName").val();
-
-        var deckChoice = $(this).attr("data-deck");
-
-        console.log("deck choice: ", deckChoice);
-
-        var capName = deckChoice[0].toUpperCase() + deckChoice.substring(1) + 'Deck';
-
-        paramsArray.push(playerName);
-        paramsArray.push(capName);
-
-        //gotta put this somewhere else
-        //this.choosePlayers(playerName, window[capName]);
-
-        return paramsArray;
-
-    });
 };
 
 Multiplayer.prototype.showCoinFlip = function(currentPlayer){
