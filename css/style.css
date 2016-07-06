@@ -351,13 +351,13 @@ body {
 .coin-front {
     transform: rotateY(0deg);
     -webkit-transform: rotateY(0deg);
-    background-image:url(http://www.csgostattrack.com/assets/img/teams/default_team_t_logo.png);
+    background-image:url('../images/player_one_coin.png');
 }
 
 .coin-back {
     transform: rotateY(180deg);
     -webkit-transform: rotateY(180deg);
-    background-image:url(http://www.csgostattrack.com/assets/img/teams/default_team_ct_logo.png);
+    background-image:url('../images/player_two_coin.png');
 }
 
 .coinflip-title {
