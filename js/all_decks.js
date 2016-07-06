@@ -807,7 +807,7 @@ function WhiteDeck(parent){
             abilityType: [
                 {
                     type: "lifeGain",
-                    target: "opponent",
+                    target: "self",
                     amount: (function(){return 5;}).bind(this)
                 }
             ]
