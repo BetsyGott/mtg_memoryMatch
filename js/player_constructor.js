@@ -28,12 +28,12 @@ Player.prototype.handleTurnEnd = function(){
 };
 
 Player.prototype.handleWin = function(){
-    this.parent.informWin();
+    this.parent.handleWinLoss(this, null);
 };
 
 Player.prototype.handleLoss = function(){
     this.game.turnOffClick();
-    this.parent.handleZeroLoss(this);
+    this.parent.handleWinLoss(null, this);
 };
 
 Player.prototype.addLife = function(amount){

@@ -1,4 +1,4 @@
-//TODO: life gain animation, life loss animation, player turn change animation, putting normal settings back
+//TODO: putting normal settings back
 
 /**
  * Handles the global aspects of the game
@@ -224,13 +224,6 @@ Multiplayer.prototype.endTurn = function(){
     
 };
 
-Multiplayer.prototype.informWin = function(){
-    alert(this.currentPlayer.name+ " wins!");
-    this.player1.turnOffClicking();
-    this.player2.turnOffClicking();
-
-};
-
 Multiplayer.prototype.switchDeck = function(){
 
     this.player1.game.gameArea.hide();
@@ -273,17 +266,28 @@ Multiplayer.prototype.animateLifeTotalChange = function(changeType, target, amou
     target.animateLifeTotalChange(changeType, amount);
 };
 
-Multiplayer.prototype.handleZeroLoss = function(losingPlayer){
-    if(losingPlayer === this.player1){
-        this.winningPlayer = this.player2;
+Multiplayer.prototype.handleWinLoss = function(winningPlayer, losingPlayer){
+    var loser = losingPlayer;
+    if(loser) {
+        if (loser === this.player1) {
+            this.winningPlayer = this.player2;
+        } else {
+            this.winningPlayer = this.player1;
+        }
     } else {
-        this.winningPlayer = this.player1;
+        if (winningPlayer === this.player1) {
+            this.winningPlayer = this.player1;
+            loser = this.player2;
+        } else {
+            this.winningPlayer = this.player2;
+            loser = this.player1;
+        }
     }
 
     this.winningPlayer.incrementWin();
-    losingPlayer.incrementLoss();
+    loser.incrementLoss();
 
-    this.showWinScreen(this.winningPlayer.name, losingPlayer.name);
+    this.showWinScreen(this.winningPlayer.name, loser.name);
 
     this.turnOffClicks(this.player1);
     this.turnOffClicks(this.player2);
@@ -322,12 +326,17 @@ Multiplayer.prototype.turnOffClicks = function(player){
     player.turnOffClicking();
 };
 
-Multiplayer.prototype.showWinScreen = function(winningPlayer, losingPlayer){
+Multiplayer.prototype.showWinScreen = function(winningPlayer, losingPlayer) {
 
     $(".overlay").show();
     $(".win-box").show();
 
-    $(".winning-msg").html(losingPlayer + " has been eliminated. " + winningPlayer + " wins!");
+    if (losingPlayer) {
+
+        $(".winning-msg").html(losingPlayer + " has been eliminated. " + winningPlayer + " wins!");
+    } else {
+        $(".winning-msg").html(winningPlayer + " matched all their cards first. " + winningPlayer + "wins!");
+    }
 };
 
 Multiplayer.prototype.hideWinScreen = function(){
