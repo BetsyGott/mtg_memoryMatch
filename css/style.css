@@ -738,3 +738,36 @@ body {
 .reset:hover {
     background-color: rgba(255,255,255,1);
 }
+
+@media (min-width: 1300px){
+    div.overlay{
+        position: absolute;
+        left: -31%;
+        width: 160%;
+        height: 157%;
+    }
+
+    #fog, #fog2 {
+        width: 4000px;
+        height: 4000px;
+        margin-top: -2000px;
+        margin-left: -2000px;
+
+    }
+
+    div.deck-choice {
+        top: -600px;
+    }
+
+    div.mana-group {
+        top: 62%;
+    }
+
+    .turn-msg {
+        height: 157%;
+    }
+
+    .game_area_style {
+        top: 13.3%;
+    }
+}
