@@ -739,6 +739,7 @@ body {
     background-color: rgba(255,255,255,1);
 }
 
+/*large monitors*/
 @media (min-width: 1300px){
     div.overlay{
         position: absolute;
@@ -769,5 +770,36 @@ body {
 
     .game_area_style {
         top: 13.3%;
+    }
+}
+
+/*smaller laptops*/
+@media (min-width: 1000px) and (max-width: 1050px){
+    .card {
+        height: 160px;
+        width: 110px;
+    }
+
+    .player1-stats .life-x {
+        left: 56px;
+    }
+
+    .player2-stats .life-x {
+        left: 196px;
+    }
+}
+
+/*mobile devices and tablets*/
+@media (max-width: 800px) {
+    .page-container {
+        display:none;
+    }
+
+    .mobile-msg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
     }
 }
