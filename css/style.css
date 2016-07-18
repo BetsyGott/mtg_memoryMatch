@@ -62,14 +62,16 @@ body {
 /*******************************************/
 
 .page-container {
-    max-height: 614px;
+    /*max-height: 614px;*/
+    max-height: 100vh;
     max-width: 1278px;
     margin: 0 auto;
 }
 
 .main {
-    background: url('../images/black_lotus_bg.jpg') no-repeat center fixed;
-    background-size: cover;
+    /*background: url('../images/black_lotus_bg.jpg') no-repeat center fixed;*/
+    /*background-size: cover;*/
+    background: black;
     position: relative;
     height: 100vh;
 }
@@ -167,6 +169,7 @@ body {
 
 .player-stats{
     #background: rgba(55,55,55,0.5);
+    position: relative;
     width: 49%;
     text-align: left;
     height: 90%;
@@ -235,6 +238,7 @@ body {
     border: 7px solid black;
     border-radius: 5px;
     backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
     height: 100%;
     width: 100%;
 }
@@ -242,6 +246,7 @@ body {
 .back{
     position: absolute;
     backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
     height: 100%;
     width: 100%;
 }
@@ -650,7 +655,9 @@ body {
     height: 65px;
     width: 55px;
     position: absolute;
-    top: 193px;
+    /*top: 193px;*/
+    top: 50px;
+    left: 56px;
     z-index: 9999;
 }
 
@@ -659,13 +666,13 @@ body {
     width: 100%;
 }
 
-.player1-stats .life-x {
-    left: 75px;
-}
+/*.player1-stats .life-x {*/
+    /*left: 75px;*/
+/*}*/
 
-.player2-stats .life-x {
-    left: 247px;
-}
+/*.player2-stats .life-x {*/
+    /*left: 56px;*/
+/*}*/
 
 /*on damage, color is red, on life gain, color is green*/
 .damage-amt {
@@ -739,6 +746,10 @@ body {
     background-color: rgba(255,255,255,1);
 }
 
+.mobile-msg {
+    display: none;
+}
+
 /*large monitors*/
 @media (min-width: 1300px){
     div.overlay{
@@ -796,6 +807,7 @@ body {
     }
 
     .mobile-msg {
+        display: block;
         position: absolute;
         top: 0;
         left: 0;
@@ -808,3 +820,4 @@ body {
         color: white;
     }
 }
+
