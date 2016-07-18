@@ -234,7 +234,7 @@ body {
 
 .front{
     position: absolute;
-    transform: rotate3D(0,1,0,180deg);
+    transform: rotate3D(0,1,0,180deg) rotateX(0deg);
     border: 7px solid black;
     border-radius: 5px;
     backface-visibility: hidden;
@@ -244,6 +244,7 @@ body {
 }
 
 .back{
+    transform: rotateX(0deg);
     position: absolute;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
