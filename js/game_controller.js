@@ -109,12 +109,13 @@ Game.prototype.checkMatch = function(card){
                     this.secondCard.removeFlippedClass();
 
                     this.firstCard = this.secondCard = null;
-                    this.canClick = true;
+
 
                     setTimeout( (function() {
                         
                         //turn is passed to next player after a pause
                         this.handleTurnEnd();
+                        this.canClick = true;
               
                     }.bind(this)), 1500);
                     
